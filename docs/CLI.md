@@ -81,16 +81,24 @@ before using such an image.
 
 ## Exit behavior
 
-- Exit status `0` means the requested render completed without reported sample errors.
+- Exit status `0` means the requested render completed with every called peak placed
+  in the image.
 - Exit status `2` covers invalid arguments, rejected input, rendering errors, or a
   batch containing failed samples.
+- Exit status `3` means an image was written but at least one called peak could not be
+  positioned and is therefore missing from it. This can only occur with
+  `--permissive-positioning`; every affected peak is named on standard error.
 - The successful single-render path prints the resolved output path.
 - The batch path prints the output directory, success/failure counts, and manifest
   path.
-- Diagnostics are written to standard error.
+- Parser warnings and positioning issues are written to standard error, prefixed with
+  `epg-render: warning:`. Parser warnings alone do not change the exit status.
+- The batch manifest additionally records `warnings` for the export and `issues` per
+  sample.
 
 Automation must check the process exit status and, for batches, the JSON manifest. Do
-not infer success merely from the existence of an output directory.
+not infer success merely from the existence of an output directory, and do not treat
+exit status `3` as success: the image is incomplete.
 
 ## Application integration
 

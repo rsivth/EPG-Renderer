@@ -84,13 +84,21 @@ if __name__ == "__main__":
 
 class CommandDispatchTests(unittest.TestCase):
     def test_main_dispatches_single_sample_without_subprocess(self):
+        from types import SimpleNamespace
         from unittest import mock
 
         from epg_renderer import cli
 
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory) / "out.svg"
-            with mock.patch.object(cli, "render_genemapper_epg") as render:
+            report = SimpleNamespace(
+                messages=lambda: (),
+                has_omitted_peaks=False,
+                output_path=output,
+            )
+            with mock.patch.object(
+                cli, "render_genemapper_epg_report", return_value=report
+            ) as render:
                 status = cli.main(["input.tsv", str(output), "--kit", "GlobalFiler"])
         self.assertEqual(status, 0)
         render.assert_called_once()
@@ -106,6 +114,9 @@ class CommandDispatchTests(unittest.TestCase):
             succeeded=2,
             failed=0,
             manifest_path=Path("out/epg_batch_manifest.json"),
+            warnings=(),
+            items=(),
+            has_omitted_peaks=False,
         )
         with mock.patch.object(cli, "render_genemapper_batch", return_value=result):
             status = cli.main(["input.tsv", "out", "--all-samples", "--format", "jpg"])
@@ -122,6 +133,9 @@ class CommandDispatchTests(unittest.TestCase):
             succeeded=1,
             failed=1,
             manifest_path=Path("out/epg_batch_manifest.json"),
+            warnings=(),
+            items=(),
+            has_omitted_peaks=False,
         )
         with mock.patch.object(cli, "render_genemapper_batch", return_value=result):
             status = cli.main(["input.tsv", "out", "--all-samples"])
@@ -142,7 +156,9 @@ class CommandDispatchTests(unittest.TestCase):
 
         error = io.StringIO()
         with (
-            mock.patch.object(cli, "render_genemapper_epg", side_effect=ValueError("bad input")),
+            mock.patch.object(
+                cli, "render_genemapper_epg_report", side_effect=ValueError("bad input")
+            ),
             contextlib.redirect_stderr(error),
         ):
             status = cli.main(["input.tsv", "out.svg"])

@@ -27,10 +27,15 @@ from .manual_gui import show_manual_profile_dialog
 from .manual_profile import ManualProfile
 from .render_options import RasterDependencyError, SvgRenderOptions, YellowChannelMode
 from .version import __version__
-from .workflow import render_genemapper_epg, render_manual_epg
+from .workflow import (
+    format_diagnostics,
+    render_genemapper_epg_report,
+    render_manual_epg_report,
+)
 
 logger = logging.getLogger(__name__)
 
+DIAGNOSTICS_COLOR = "#C62828"
 MAIN_WINDOW_WIDTH = 760
 MAIN_MIN_WIDTH = 700
 MAIN_SELECTOR_WIDTH = 31
@@ -52,6 +57,7 @@ class EpgRendererApp:
         self.yellow_var = tk.StringVar(value=YellowChannelMode.YELLOW.value)
         self.output_var = tk.StringVar()
         self.open_var = tk.BooleanVar(value=True)
+        self.diagnostics_var = tk.StringVar(value="")
         self.status_var = tk.StringVar(
             value="Choose a GeneMapper export or create a profile manually."
         )
@@ -208,6 +214,16 @@ class EpgRendererApp:
         )
         self.status_label.grid(row=0, column=0, sticky="ew")
         self.status_label.bind("<Configure>", self._resize_status_wrap)
+        self.diagnostics_label = tk.Label(
+            status_group,
+            textvariable=self.diagnostics_var,
+            justify="left",
+            anchor="w",
+            foreground=DIAGNOSTICS_COLOR,
+        )
+        self.diagnostics_label.grid(row=1, column=0, sticky="ew", pady=(6, 0))
+        self.diagnostics_label.bind("<Configure>", self._resize_diagnostics_wrap)
+        self.diagnostics_label.grid_remove()
 
         button_bar = ttk.Frame(outer)
         button_bar.grid(row=4, column=0, sticky="e", pady=(14, 0))
@@ -227,6 +243,21 @@ class EpgRendererApp:
         preferred_height = max(560, self.root.winfo_reqheight())
         self.root.minsize(MAIN_MIN_WIDTH, preferred_height)
         self.root.geometry(f"{MAIN_WINDOW_WIDTH}x{preferred_height}")
+
+    def _resize_diagnostics_wrap(self, event: tk.Event[tk.Misc]) -> None:
+        """Keep diagnostic text readable when the main window is resized."""
+
+        self.diagnostics_label.configure(wraplength=max(280, event.width - 4))
+
+    def _show_diagnostics(self, messages: Sequence[str]) -> None:
+        """Display every diagnostic prominently, or hide the area when there is none."""
+
+        block = format_diagnostics(messages)
+        self.diagnostics_var.set(block)
+        if block:
+            self.diagnostics_label.grid()
+        else:
+            self.diagnostics_label.grid_remove()
 
     def _resize_status_wrap(self, event: tk.Event[tk.Misc]) -> None:
         """Keep status text readable when the main window is resized."""
@@ -400,11 +431,12 @@ class EpgRendererApp:
             return
         self.output_var.set(str(output))
         options = SvgRenderOptions(yellow_channel_mode=self.yellow_var.get())
+        self._show_diagnostics(())
         try:
             if self.manual_profile is not None:
-                render_manual_epg(self.manual_profile, output, options=options)
+                report = render_manual_epg_report(self.manual_profile, output, options=options)
             else:
-                render_genemapper_epg(
+                report = render_genemapper_epg_report(
                     self.input_var.get(),
                     output,
                     sample_id=self.sample_var.get(),
@@ -426,7 +458,18 @@ class EpgRendererApp:
             )
             return
         self.status_var.set(f"Image created: {output}")
-        messagebox.showinfo("EPG created", f"The image was saved to:\n{output}", parent=self.root)
+        self._show_diagnostics(report.messages())
+        if report.has_omitted_peaks:
+            messagebox.showwarning(
+                "Image is incomplete",
+                "The image was saved, but at least one called peak could not be placed "
+                "and is missing from it. The status area lists every affected peak.",
+                parent=self.root,
+            )
+        else:
+            messagebox.showinfo(
+                "EPG created", f"The image was saved to:\n{output}", parent=self.root
+            )
         if self.open_var.get():
             _open_output(output)
 

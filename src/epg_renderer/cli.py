@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import sys
 from collections.abc import Sequence
 from pathlib import Path
 
@@ -16,7 +17,9 @@ from .render_options import (
     YellowChannelMode,
 )
 from .version import __version__
-from .workflow import render_genemapper_epg
+from .workflow import render_genemapper_epg_report
+
+_INCOMPLETE_OUTPUT_STATUS = 3
 
 
 class _ListKitsAction(argparse.Action):
@@ -115,7 +118,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     try:
         return _run_command(args)
     except (OSError, ValueError) as exc:
-        print(f"epg-render: error: {exc}", file=__import__("sys").stderr)
+        print(f"epg-render: error: {exc}", file=sys.stderr)
         return 2
 
 
@@ -149,8 +152,13 @@ def _run_command(args: argparse.Namespace) -> int:
         print(f"Output directory: {result.output_dir.resolve()}")
         print(f"Rendered: {result.succeeded}; failed: {result.failed}")
         print(f"Manifest: {result.manifest_path.resolve()}")
-        return 0 if result.failed == 0 else 2
-    render_genemapper_epg(
+        _report_diagnostics(result.warnings)
+        for item in result.items:
+            _report_diagnostics(item.issues, prefix=f"{item.sample_id}: ")
+        if result.failed:
+            return 2
+        return _INCOMPLETE_OUTPUT_STATUS if result.has_omitted_peaks else 0
+    report = render_genemapper_epg_report(
         args.input,
         args.output,
         sample_id=args.sample_id,
@@ -161,4 +169,12 @@ def _run_command(args: argparse.Namespace) -> int:
         sample_id_column=args.sample_id_column,
     )
     print(args.output.resolve())
-    return 0
+    _report_diagnostics(report.messages())
+    return _INCOMPLETE_OUTPUT_STATUS if report.has_omitted_peaks else 0
+
+
+def _report_diagnostics(messages: Sequence[str], *, prefix: str = "") -> None:
+    """Write every diagnostic to standard error so success never hides a loss."""
+
+    for message in messages:
+        print(f"epg-render: warning: {prefix}{message}", file=sys.stderr)

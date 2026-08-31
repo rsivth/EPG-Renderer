@@ -14,11 +14,11 @@ from pathlib import Path, PurePosixPath, PureWindowsPath
 
 from .domain import BatchStatus
 from .kit_registry import get_kit_profile
-from .kit_workflow import KitResolutionError, resolve_kit
+from .kit_workflow import KitResolutionError, position_sample, resolve_kit
 from .models import GeneMapperProject, SampleCall
 from .parser import GeneMapperParserError, read_genotypes_table
 from .positions import PositionModelError
-from .render_document import render_sample_svg
+from .render_document import render_positioned_sample_svg
 from .render_io import _atomic_write_text, write_epg_output
 from .render_options import (
     OutputFormat,
@@ -28,6 +28,7 @@ from .render_options import (
     SvgRenderOptions,
 )
 from .version import __version__
+from .workflow import OMITTED_PEAK_ISSUE_CODES, issue_message
 
 _EXPECTED_SAMPLE_ERRORS = (KitResolutionError, PositionModelError, SvgRenderError)
 _BATCH_OUTPUT_SUFFIXES = frozenset({".svg", ".png", ".jpg", ".jpeg"})
@@ -41,8 +42,10 @@ class BatchRenderItem:
     output_path: Path | None
     status: BatchStatus
     error: str | None = None
+    issues: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
+        object.__setattr__(self, "issues", tuple(str(issue) for issue in self.issues))
         sample_id = str(self.sample_id).strip()
         if not sample_id:
             raise ValueError("sample_id must not be empty.")
@@ -75,8 +78,14 @@ class BatchRenderResult:
     output_format: OutputFormat
     items: tuple[BatchRenderItem, ...]
     manifest_path: Path
+    warnings: tuple[str, ...] = ()
+    omitted_peak_samples: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
+        object.__setattr__(self, "warnings", tuple(str(text) for text in self.warnings))
+        object.__setattr__(
+            self, "omitted_peak_samples", tuple(str(name) for name in self.omitted_peak_samples)
+        )
         if not isinstance(self.output_format, OutputFormat):
             raise TypeError("output_format must be an OutputFormat value.")
         kit_name = None if self.kit_name is None else str(self.kit_name).strip()
@@ -105,6 +114,12 @@ class BatchRenderResult:
         """Return the number of failed samples."""
 
         return sum(item.status is BatchStatus.FAILED for item in self.items)
+
+    @property
+    def has_omitted_peaks(self) -> bool:
+        """Return whether any rendered image is missing a called peak."""
+
+        return bool(self.omitted_peak_samples)
 
 
 @dataclass(frozen=True, slots=True)
@@ -140,11 +155,14 @@ class _BatchRunner:
     items: list[BatchRenderItem] = field(default_factory=list)
     used_names: set[str] = field(default_factory=set)
     resolved_kit: str | None = None
+    warnings: tuple[str, ...] = ()
+    omitted_peak_samples: list[str] = field(default_factory=list)
 
     def run(self) -> BatchRenderResult:
         """Execute the batch request and return the immutable result summary."""
         self._retire_previous_outputs()
         project = self._load_project()
+        self.warnings = tuple(project.warnings)
         self._require_samples(project)
         self._resolve_requested_kit()
         for sample_id in project.sample_ids:
@@ -208,7 +226,7 @@ class _BatchRunner:
 
         path = self._next_output_path(sample.sample_id)
         try:
-            self._render_sample(sample, path)
+            issues = self._render_sample(sample, path)
         except _EXPECTED_SAMPLE_ERRORS as exc:
             self.items.append(_failed_item(sample.sample_id, exc))
             if not self.request.continue_on_error:
@@ -219,23 +237,40 @@ class _BatchRunner:
             self._write_manifest(batch_error=exc)
             raise
         else:
-            self.items.append(BatchRenderItem(sample.sample_id, path, BatchStatus.SUCCEEDED))
+            self.items.append(
+                BatchRenderItem(
+                    sample.sample_id,
+                    path,
+                    BatchStatus.SUCCEEDED,
+                    issues=tuple(message for _, message in issues),
+                )
+            )
+            if any(omitted for omitted, _ in issues):
+                self.omitted_peak_samples.append(sample.sample_id)
 
-    def _render_sample(self, sample: SampleCall, path: Path) -> None:
+    def _render_sample(
+        self,
+        sample: SampleCall,
+        path: Path,
+    ) -> tuple[tuple[bool, str], ...]:
         match = resolve_kit(
             sample,
             kit_name=self.resolved_kit if self.request.kit_name is not None else None,
             require_genemapper_compatible=True,
         )
         self._accept_common_kit(match.kit.name)
-        svg = render_sample_svg(
+        positioned = position_sample(
             sample,
             kit_name=self.resolved_kit,
-            options=self.request.options,
-            strict_positioning=self.request.strict_positioning,
+            strict=self.request.strict_positioning,
             require_genemapper_compatible=True,
         )
+        svg = render_positioned_sample_svg(positioned, options=self.request.options)
         write_epg_output(svg, path, raster_options=self.request.raster_options)
+        return tuple(
+            (issue.code in OMITTED_PEAK_ISSUE_CODES, issue_message(issue))
+            for issue in positioned.issues
+        )
 
     def _accept_common_kit(self, detected_kit: str) -> None:
         if self.resolved_kit is None:
@@ -270,6 +305,7 @@ class _BatchRunner:
             kit_name=self.resolved_kit if manifest_kit_name is None else manifest_kit_name,
             output_format=self.request.output_format,
             items=self.items,
+            warnings=self.warnings,
             batch_error=batch_error,
         )
 
@@ -281,6 +317,8 @@ class _BatchRunner:
             output_format=self.request.output_format,
             items=tuple(self.items),
             manifest_path=self.request.manifest_path,
+            warnings=self.warnings,
+            omitted_peak_samples=tuple(self.omitted_peak_samples),
         )
 
 
@@ -385,6 +423,7 @@ def _write_batch_manifest(
     kit_name: str | None,
     output_format: OutputFormat,
     items: Sequence[BatchRenderItem],
+    warnings: Sequence[str] = (),
     batch_error: Exception | None = None,
 ) -> None:
     manifest = {
@@ -394,12 +433,14 @@ def _write_batch_manifest(
         "output_format": output_format.value,
         "succeeded": sum(item.status is BatchStatus.SUCCEEDED for item in items),
         "failed": sum(item.status is BatchStatus.FAILED for item in items),
+        "warnings": list(warnings),
         "items": [
             {
                 "sample_id": item.sample_id,
                 "status": item.status.value,
                 "output_file": item.output_path.name if item.output_path else None,
                 "error": item.error,
+                "issues": list(item.issues),
             }
             for item in items
         ],

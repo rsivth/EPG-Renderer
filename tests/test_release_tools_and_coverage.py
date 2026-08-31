@@ -478,7 +478,7 @@ class BatchBoundaryTests(unittest.TestCase):
             output = Path(directory) / "out"
             with mock.patch.object(
                 batch,
-                "render_sample_svg",
+                "render_positioned_sample_svg",
                 return_value=(ROOT / "examples/globalfiler_example.svg").read_text(
                     encoding="utf-8"
                 ),
