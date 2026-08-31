@@ -6,8 +6,8 @@ bundled kit definitions so that the structural edge cases these tests exist to
 protect -- an unnamed trailing export column, a marker call that fills the
 highest displayed allele column, and duplicate display names that must stay
 separate source injections -- keep being exercised the same way a real,
-oddly-shaped export would exercise them. See tools/_gen_synthetic_fixtures.py
-for the generator.
+oddly-shaped export would exercise them. See docs/SOURCES.md for their
+provenance.
 """
 
 from __future__ import annotations

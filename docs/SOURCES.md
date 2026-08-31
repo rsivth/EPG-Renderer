@@ -47,3 +47,18 @@ The parser therefore preserves configurable source fields and does not assume th
 - Promega's [VersaPlex Matrix Standards protocol for the Spectrum Compact CE System](https://worldwide.promega.com/-/media/files/resources/protocols/technical-manuals/tmd/versaplex-matrix-standards-for-spectrum-compact-ce-system-protocol-tmd072.pdf) specifies a maximum raw spectral-calibration signal of 32,767 RFU and warns that saturated peaks can cause bleed-through or oversubtraction.
 
 EPG-Renderer therefore rejects peak heights above 32,767 RFU across its supported input domain. This is a structural plausibility ceiling, not an analytical threshold: data known to originate from a 3500/3500xL may already be off-scale above 32,000 RFU and require upstream review. The Promega figure is documented for spectral-calibration raw data rather than as a universal sample-analysis threshold; it supports the common digital ceiling without replacing method-specific quality control.
+
+## Test data provenance
+
+Every bundled test fixture is synthetic. The GeneMapper table exports under
+`tests/fixtures/genemapper_exports/` and the `.tsv` fixtures beside them contain no
+laboratory data: sample names, sample files, sample identifiers, run names and peak
+heights are invented, and allele values are drawn from the allelic-ladder lists of the
+bundled kit definitions.
+
+They are deliberately shaped like real configurable exports rather than like minimal
+examples, because the parser contracts they protect concern exactly that shape: an
+unnamed trailing export column, a marker call that fills the highest displayed allele
+column and therefore raises the truncation warning, repeated display names that must
+remain separate source injections, and complete marker coverage in kit-panel order for
+unambiguous kit resolution.
