@@ -53,6 +53,7 @@ _ALLOWED_ROOT_FILES = {
 _ALLOWED_TOP_LEVEL_DIRECTORIES = {".github", "docs", "examples", "src", "tests"}
 _ALLOWED_TOOL_FILES = {
     "__init__.py",
+    "_gen_synthetic_fixtures.py",
     "build_release.py",
     "build_windows_binaries.py",
     "coverage_policy.py",
