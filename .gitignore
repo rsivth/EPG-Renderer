@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+.pytest_cache/
+*.tmp
+MANIFEST.sha256
+.DS_Store
+._*
+Thumbs.db
+desktop.ini

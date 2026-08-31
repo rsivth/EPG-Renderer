@@ -1,0 +1,451 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/epg-renderer/kit-definition-v1.1.schema.json",
+  "title": "EPG-Renderer kit definition 1.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "kit",
+    "coordinate_model",
+    "sources",
+    "markers",
+    "metadata"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.1"
+    },
+    "kit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "display_name",
+        "manufacturer",
+        "definition_version",
+        "aliases",
+        "channels",
+        "kit_type",
+        "export_compatibility",
+        "notes",
+        "linkage_groups"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "display_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "manufacturer": {
+          "type": "string",
+          "minLength": 1
+        },
+        "definition_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "kit_type": {
+          "enum": [
+            "autosomal",
+            "y_str",
+            "x_str",
+            "combined"
+          ]
+        },
+        "export_compatibility": {
+          "enum": [
+            "genemapper",
+            "gene_marker",
+            "unknown"
+          ]
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "linkage_groups": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true
+          }
+        },
+        "channels": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "code",
+              "label",
+              "color_name",
+              "svg_color",
+              "order",
+              "aliases"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "minLength": 1
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1
+              },
+              "color_name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "svg_color": {
+                "type": "string",
+                "pattern": "^#[0-9A-Fa-f]{6}$"
+              },
+              "order": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "aliases": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "uniqueItems": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "coordinate_model": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "model_version",
+            "coordinate_kind",
+            "exact_bin_centres"
+          ],
+          "properties": {
+            "model_version": {
+              "type": "string",
+              "minLength": 1
+            },
+            "coordinate_kind": {
+              "const": "range_centered_nominal"
+            },
+            "exact_bin_centres": {
+              "const": false
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "model_version",
+            "coordinate_kind",
+            "exact_bin_centres"
+          ],
+          "properties": {
+            "model_version": {
+              "type": "string",
+              "minLength": 1
+            },
+            "coordinate_kind": {
+              "const": "exact_bin_centres"
+            },
+            "exact_bin_centres": {
+              "const": true
+            }
+          }
+        }
+      ]
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "title",
+          "use"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "use": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "markers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "aliases",
+          "dye",
+          "order_in_dye",
+          "ladder_alleles",
+          "coordinate",
+          "marker_type",
+          "copy_group",
+          "linkage_group",
+          "is_control"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "aliases": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true
+          },
+          "dye": {
+            "type": "string",
+            "minLength": 1
+          },
+          "order_in_dye": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "ladder_alleles": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true
+          },
+          "marker_type": {
+            "enum": [
+              "str",
+              "amelogenin",
+              "indel",
+              "control"
+            ]
+          },
+          "copy_group": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "linkage_group": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "is_control": {
+            "type": "boolean"
+          },
+          "coordinate": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "range_min_bp",
+                  "range_max_bp",
+                  "placement_method",
+                  "repeat_length_bp",
+                  "source_note"
+                ],
+                "properties": {
+                  "range_min_bp": {
+                    "type": "number"
+                  },
+                  "range_max_bp": {
+                    "type": "number"
+                  },
+                  "source_note": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "placement_method": {
+                    "const": "range_centered_repeat"
+                  },
+                  "repeat_length_bp": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "range_min_bp",
+                  "range_max_bp",
+                  "placement_method",
+                  "repeat_length_bp",
+                  "anchor_allele",
+                  "anchor_bp",
+                  "source_note"
+                ],
+                "properties": {
+                  "range_min_bp": {
+                    "type": "number"
+                  },
+                  "range_max_bp": {
+                    "type": "number"
+                  },
+                  "source_note": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "placement_method": {
+                    "const": "anchored_repeat"
+                  },
+                  "repeat_length_bp": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "anchor_allele": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "anchor_bp": {
+                    "type": "number"
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "range_min_bp",
+                  "range_max_bp",
+                  "placement_method",
+                  "explicit_positions",
+                  "source_note"
+                ],
+                "properties": {
+                  "range_min_bp": {
+                    "type": "number"
+                  },
+                  "range_max_bp": {
+                    "type": "number"
+                  },
+                  "source_note": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "placement_method": {
+                    "const": "explicit"
+                  },
+                  "explicit_positions": {
+                    "type": "object",
+                    "minProperties": 1,
+                    "additionalProperties": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "created_for",
+        "review_status"
+      ],
+      "properties": {
+        "created_for": {
+          "type": "string",
+          "minLength": 1
+        },
+        "review_status": {
+          "enum": [
+            "manual_transcription",
+            "verified_analysis_file",
+            "user_supplied"
+          ]
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "coordinate_model": {
+            "properties": {
+              "exact_bin_centres": {
+                "const": true
+              }
+            },
+            "required": [
+              "exact_bin_centres"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "markers": {
+            "items": {
+              "properties": {
+                "coordinate": {
+                  "properties": {
+                    "placement_method": {
+                      "const": "explicit"
+                    }
+                  },
+                  "required": [
+                    "placement_method"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

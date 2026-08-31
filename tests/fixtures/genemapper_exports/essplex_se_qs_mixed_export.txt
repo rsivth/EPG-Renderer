@@ -1,0 +1,134 @@
+Sample File	Sample Name	Sample ID	Run Name	Marker	Allele 1	Allele 2	Allele 3	Allele 4	Allele 5	Allele 6	Allele 7	Allele 8	Allele 9	Allele 10	Allele 11	Allele 12	Allele 13	Allele 14	Allele 15	Allele 16	Allele 17	Allele 18	Allele 19	Allele 20	Height 1	Height 2	Height 3	Height 4	Height 5	Height 6	Height 7	Height 8	Height 9	Height 10	Height 11	Height 12	Height 13	Height 14	Height 15	Height 16	Height 17	Height 18	Height 19	Height 20	
+A05_NK_Synth_01.hid	NK_Synth	3f7378aa-b923-2fb9-ae64-07b5f5828bce	9004X_ESS_02032026_ab-Synth	QS1	Q																				983																				
+A05_NK_Synth_01.hid	NK_Synth	3f7378aa-b923-2fb9-ae64-07b5f5828bce	9004X_ESS_02032026_ab-Synth	Amelogenin																																									
+A05_NK_Synth_01.hid	NK_Synth	3f7378aa-b923-2fb9-ae64-07b5f5828bce	9004X_ESS_02032026_ab-Synth	TH01																																									
+A05_NK_Synth_01.hid	NK_Synth	3f7378aa-b923-2fb9-ae64-07b5f5828bce	9004X_ESS_02032026_ab-Synth	D3S1358																																									
+A05_NK_Synth_01.hid	NK_Synth	3f7378aa-b923-2fb9-ae64-07b5f5828bce	9004X_ESS_02032026_ab-Synth	vWA																																									
+A05_NK_Synth_01.hid	NK_Synth	3f7378aa-b923-2fb9-ae64-07b5f5828bce	9004X_ESS_02032026_ab-Synth	D21S11																																									
+A05_NK_Synth_01.hid	NK_Synth	3f7378aa-b923-2fb9-ae64-07b5f5828bce	9004X_ESS_02032026_ab-Synth	QS2	S																				1095																				
+A05_NK_Synth_01.hid	NK_Synth	3f7378aa-b923-2fb9-ae64-07b5f5828bce	9004X_ESS_02032026_ab-Synth	D16S539																																									
+A05_NK_Synth_01.hid	NK_Synth	3f7378aa-b923-2fb9-ae64-07b5f5828bce	9004X_ESS_02032026_ab-Synth	D1S1656																																									
+A05_NK_Synth_01.hid	NK_Synth	3f7378aa-b923-2fb9-ae64-07b5f5828bce	9004X_ESS_02032026_ab-Synth	D19S433																																									
+A05_NK_Synth_01.hid	NK_Synth	3f7378aa-b923-2fb9-ae64-07b5f5828bce	9004X_ESS_02032026_ab-Synth	SE33																																									
+A05_NK_Synth_01.hid	NK_Synth	3f7378aa-b923-2fb9-ae64-07b5f5828bce	9004X_ESS_02032026_ab-Synth	D10S1248																																									
+A05_NK_Synth_01.hid	NK_Synth	3f7378aa-b923-2fb9-ae64-07b5f5828bce	9004X_ESS_02032026_ab-Synth	D22S1045																																									
+A05_NK_Synth_01.hid	NK_Synth	3f7378aa-b923-2fb9-ae64-07b5f5828bce	9004X_ESS_02032026_ab-Synth	D12S391																																									
+A05_NK_Synth_01.hid	NK_Synth	3f7378aa-b923-2fb9-ae64-07b5f5828bce	9004X_ESS_02032026_ab-Synth	D8S1179																																									
+A05_NK_Synth_01.hid	NK_Synth	3f7378aa-b923-2fb9-ae64-07b5f5828bce	9004X_ESS_02032026_ab-Synth	D2S1338																																									
+A05_NK_Synth_01.hid	NK_Synth	3f7378aa-b923-2fb9-ae64-07b5f5828bce	9004X_ESS_02032026_ab-Synth	D2S441																																									
+A05_NK_Synth_01.hid	NK_Synth	3f7378aa-b923-2fb9-ae64-07b5f5828bce	9004X_ESS_02032026_ab-Synth	D18S51																																									
+A05_NK_Synth_01.hid	NK_Synth	3f7378aa-b923-2fb9-ae64-07b5f5828bce	9004X_ESS_02032026_ab-Synth	FGA																																									
+B05_Ref_Synth_02.hid	Ref_Synth	3f46ec96-de12-1b4b-deff-a3ed8ceb986f	9004X_ESS_02032026_ab-Synth	QS1	Q																				1212																				
+B05_Ref_Synth_02.hid	Ref_Synth	3f46ec96-de12-1b4b-deff-a3ed8ceb986f	9004X_ESS_02032026_ab-Synth	Amelogenin	X	Y																			10571	9859																			
+B05_Ref_Synth_02.hid	Ref_Synth	3f46ec96-de12-1b4b-deff-a3ed8ceb986f	9004X_ESS_02032026_ab-Synth	TH01	11																				9568																				
+B05_Ref_Synth_02.hid	Ref_Synth	3f46ec96-de12-1b4b-deff-a3ed8ceb986f	9004X_ESS_02032026_ab-Synth	D3S1358	16	20																			10040	10980																			
+B05_Ref_Synth_02.hid	Ref_Synth	3f46ec96-de12-1b4b-deff-a3ed8ceb986f	9004X_ESS_02032026_ab-Synth	vWA	11	18																			10026	8830																			
+B05_Ref_Synth_02.hid	Ref_Synth	3f46ec96-de12-1b4b-deff-a3ed8ceb986f	9004X_ESS_02032026_ab-Synth	D21S11	29.2																				8906																				
+B05_Ref_Synth_02.hid	Ref_Synth	3f46ec96-de12-1b4b-deff-a3ed8ceb986f	9004X_ESS_02032026_ab-Synth	QS2	S																				1426																				
+B05_Ref_Synth_02.hid	Ref_Synth	3f46ec96-de12-1b4b-deff-a3ed8ceb986f	9004X_ESS_02032026_ab-Synth	D16S539	11	14																			8898	10147																			
+B05_Ref_Synth_02.hid	Ref_Synth	3f46ec96-de12-1b4b-deff-a3ed8ceb986f	9004X_ESS_02032026_ab-Synth	D1S1656	15	17.3																			8682	9864																			
+B05_Ref_Synth_02.hid	Ref_Synth	3f46ec96-de12-1b4b-deff-a3ed8ceb986f	9004X_ESS_02032026_ab-Synth	D19S433	10	15.2																			10971	9114																			
+B05_Ref_Synth_02.hid	Ref_Synth	3f46ec96-de12-1b4b-deff-a3ed8ceb986f	9004X_ESS_02032026_ab-Synth	SE33	33.2																				10810																				
+B05_Ref_Synth_02.hid	Ref_Synth	3f46ec96-de12-1b4b-deff-a3ed8ceb986f	9004X_ESS_02032026_ab-Synth	D10S1248	11	16																			9709	9860																			
+B05_Ref_Synth_02.hid	Ref_Synth	3f46ec96-de12-1b4b-deff-a3ed8ceb986f	9004X_ESS_02032026_ab-Synth	D22S1045	8	15																			10483	9173																			
+B05_Ref_Synth_02.hid	Ref_Synth	3f46ec96-de12-1b4b-deff-a3ed8ceb986f	9004X_ESS_02032026_ab-Synth	D12S391	25																				8532																				
+B05_Ref_Synth_02.hid	Ref_Synth	3f46ec96-de12-1b4b-deff-a3ed8ceb986f	9004X_ESS_02032026_ab-Synth	D8S1179	9																				9818																				
+B05_Ref_Synth_02.hid	Ref_Synth	3f46ec96-de12-1b4b-deff-a3ed8ceb986f	9004X_ESS_02032026_ab-Synth	D2S1338	23	27																			9741	10622																			
+B05_Ref_Synth_02.hid	Ref_Synth	3f46ec96-de12-1b4b-deff-a3ed8ceb986f	9004X_ESS_02032026_ab-Synth	D2S441	9																				10987																				
+B05_Ref_Synth_02.hid	Ref_Synth	3f46ec96-de12-1b4b-deff-a3ed8ceb986f	9004X_ESS_02032026_ab-Synth	D18S51	25																				8969																				
+B05_Ref_Synth_02.hid	Ref_Synth	3f46ec96-de12-1b4b-deff-a3ed8ceb986f	9004X_ESS_02032026_ab-Synth	FGA	21	25																			10268	9459																			
+C05_Ess_Leiter_03.hid	Ess_Leiter	8ac0f520-aa23-fd03-ead4-c16c14f35b6a	9004X_ESS_02032026_ab-Synth	QS1	Q																				1619																				
+C05_Ess_Leiter_03.hid	Ess_Leiter	8ac0f520-aa23-fd03-ead4-c16c14f35b6a	9004X_ESS_02032026_ab-Synth	Amelogenin	X	Y																			2181	2216																			
+C05_Ess_Leiter_03.hid	Ess_Leiter	8ac0f520-aa23-fd03-ead4-c16c14f35b6a	9004X_ESS_02032026_ab-Synth	TH01	4	5	6	7	8	9	9.3	10	10.3	11	13	13.3									2409	1923	2380	2005	2219	2098	2440	2169	2356	1981	2307	2221									
+C05_Ess_Leiter_03.hid	Ess_Leiter	8ac0f520-aa23-fd03-ead4-c16c14f35b6a	9004X_ESS_02032026_ab-Synth	D3S1358	9	10	11	12	13	14	15	16	17	18	19	20	21								2195	1970	2005	2431	2162	2444	2318	2388	2074	2279	2353	2242	2072								
+C05_Ess_Leiter_03.hid	Ess_Leiter	8ac0f520-aa23-fd03-ead4-c16c14f35b6a	9004X_ESS_02032026_ab-Synth	vWA	11	12	13	14	15	16	17	18	19	20	21	22	23	24							2347	1997	2312	2020	2400	1942	2254	2006	1956	2239	2332	2393	2323	2036							
+C05_Ess_Leiter_03.hid	Ess_Leiter	8ac0f520-aa23-fd03-ead4-c16c14f35b6a	9004X_ESS_02032026_ab-Synth	D21S11	24	24.2	25	26	26.2	27	28	28.2	29	29.2	30	30.2	31	31.2	32	32.2	33	33.2	34	34.2	2403	2088	2300	2096	2131	1909	2263	2079	1924	2044	2290	2087	2180	1925	2132	2369	1911	2179	2013	2267	
+C05_Ess_Leiter_03.hid	Ess_Leiter	8ac0f520-aa23-fd03-ead4-c16c14f35b6a	9004X_ESS_02032026_ab-Synth	QS2	S																				1552																				
+C05_Ess_Leiter_03.hid	Ess_Leiter	8ac0f520-aa23-fd03-ead4-c16c14f35b6a	9004X_ESS_02032026_ab-Synth	D16S539	5	8	9	10	11	12	13	14	15												2274	1946	2217	2410	2180	2215	2232	1900	2109												
+C05_Ess_Leiter_03.hid	Ess_Leiter	8ac0f520-aa23-fd03-ead4-c16c14f35b6a	9004X_ESS_02032026_ab-Synth	D1S1656	9	10	11	12	13	14	14.3	15	15.3	16	16.3	17	17.3	18	18.3	19.3	20.3				1909	2078	1947	2020	2270	2112	1991	2260	1991	1991	1953	1996	1934	2399	2397	1984	2005				
+C05_Ess_Leiter_03.hid	Ess_Leiter	8ac0f520-aa23-fd03-ead4-c16c14f35b6a	9004X_ESS_02032026_ab-Synth	D19S433	6.2	8	9	10	11	12	12.2	13	13.2	14	14.2	15	15.2	16	16.2	17	17.2	18.2			2327	2202	2382	2442	2008	2222	2349	2136	2070	2105	2032	1976	2343	2440	2318	2225	1943	2410			
+C05_Ess_Leiter_03.hid	Ess_Leiter	8ac0f520-aa23-fd03-ead4-c16c14f35b6a	9004X_ESS_02032026_ab-Synth	SE33	3	4.2	6.3	8	9	10	11	12	13	13.2	14	14.2	15	15.2	16	17	18	18.2	19	19.2	2352	2387	1965	2357	1980	2115	2039	2331	2174	2307	2332	2111	2174	2105	2439	2044	2239	2017	2428	2144	
+C05_Ess_Leiter_03.hid	Ess_Leiter	8ac0f520-aa23-fd03-ead4-c16c14f35b6a	9004X_ESS_02032026_ab-Synth	D10S1248	8	9	10	11	12	13	14	15	16	17	18	19									2093	2075	2315	2072	2228	1955	2220	2389	2291	2253	2029	1997									
+C05_Ess_Leiter_03.hid	Ess_Leiter	8ac0f520-aa23-fd03-ead4-c16c14f35b6a	9004X_ESS_02032026_ab-Synth	D22S1045	8	9	10	11	12	13	14	15	16	17	18	19									2036	2257	2287	2447	2163	2317	1924	2407	2378	2193	2349	2120									
+C05_Ess_Leiter_03.hid	Ess_Leiter	8ac0f520-aa23-fd03-ead4-c16c14f35b6a	9004X_ESS_02032026_ab-Synth	D12S391	14	15	16	17	17.3	18	18.3	19	20	21	22	23	24	25	26	27					2063	1914	1918	2101	1987	1924	2234	2239	2037	2326	2431	2338	1913	2431	2281	1912					
+C05_Ess_Leiter_03.hid	Ess_Leiter	8ac0f520-aa23-fd03-ead4-c16c14f35b6a	9004X_ESS_02032026_ab-Synth	D8S1179	7	8	9	10	11	12	13	14	15	16	17	18	19								1998	2242	2213	2418	2300	1934	2068	2081	2035	2392	1903	2083	2260								
+C05_Ess_Leiter_03.hid	Ess_Leiter	8ac0f520-aa23-fd03-ead4-c16c14f35b6a	9004X_ESS_02032026_ab-Synth	D2S1338	12	14	15	16	17	18	19	20	21	22	23	24	25	26	27	28					1938	2260	2305	2256	2037	2048	2273	1990	1924	1952	2177	1937	2200	2315	2207	2276					
+C05_Ess_Leiter_03.hid	Ess_Leiter	8ac0f520-aa23-fd03-ead4-c16c14f35b6a	9004X_ESS_02032026_ab-Synth	D2S441	8	9	10	11	11.3	12	13	14	15	16	17										2012	2281	1990	2354	1927	2299	2105	2023	2101	2098	2040										
+C05_Ess_Leiter_03.hid	Ess_Leiter	8ac0f520-aa23-fd03-ead4-c16c14f35b6a	9004X_ESS_02032026_ab-Synth	D18S51	8	9	10	10.2	11	12	13	13.2	14	14.2	15	16	17	17.2	18	18.2	19	20	21	21.2	2148	2440	2441	2040	2260	2273	2300	2168	2070	2441	2257	2393	2039	2066	1928	1961	2392	2424	2330	2377	
+C05_Ess_Leiter_03.hid	Ess_Leiter	8ac0f520-aa23-fd03-ead4-c16c14f35b6a	9004X_ESS_02032026_ab-Synth	FGA	14	15	16	17	18	18.2	19	19.2	20	20.2	21	21.2	22	22.2	23	23.2	24	24.2	25	25.2	2252	2128	2098	2406	1936	2190	2152	2412	2384	2255	2117	2155	2298	2398	1932	1911	2242	1936	1941	2008	
+D05_Case_Synth_04.hid	Case_Synth_04	8212ce1d-4bda-d02d-32fd-6e393d4ae632	9004X_ESS_02032026_ab-Synth	QS1	Q																				1245																				
+D05_Case_Synth_04.hid	Case_Synth_04	8212ce1d-4bda-d02d-32fd-6e393d4ae632	9004X_ESS_02032026_ab-Synth	Amelogenin	X	Y																			934	606																			
+D05_Case_Synth_04.hid	Case_Synth_04	8212ce1d-4bda-d02d-32fd-6e393d4ae632	9004X_ESS_02032026_ab-Synth	TH01	10.3	11																			1133	1246																			
+D05_Case_Synth_04.hid	Case_Synth_04	8212ce1d-4bda-d02d-32fd-6e393d4ae632	9004X_ESS_02032026_ab-Synth	D3S1358	11	17																			1666	741																			
+D05_Case_Synth_04.hid	Case_Synth_04	8212ce1d-4bda-d02d-32fd-6e393d4ae632	9004X_ESS_02032026_ab-Synth	vWA	11	12	13	18																	1853	843	1220	730																	
+D05_Case_Synth_04.hid	Case_Synth_04	8212ce1d-4bda-d02d-32fd-6e393d4ae632	9004X_ESS_02032026_ab-Synth	D21S11	28.2	32.2	33	37																	771	1937	463	1223																	
+D05_Case_Synth_04.hid	Case_Synth_04	8212ce1d-4bda-d02d-32fd-6e393d4ae632	9004X_ESS_02032026_ab-Synth	QS2	S																				1415																				
+D05_Case_Synth_04.hid	Case_Synth_04	8212ce1d-4bda-d02d-32fd-6e393d4ae632	9004X_ESS_02032026_ab-Synth	D16S539	5	8	9	12																	1845	599	1039	1428																	
+D05_Case_Synth_04.hid	Case_Synth_04	8212ce1d-4bda-d02d-32fd-6e393d4ae632	9004X_ESS_02032026_ab-Synth	D1S1656	9	15																			701	980																			
+D05_Case_Synth_04.hid	Case_Synth_04	8212ce1d-4bda-d02d-32fd-6e393d4ae632	9004X_ESS_02032026_ab-Synth	D19S433	12.2	13.2	14.2																		963	755	1955																		
+D05_Case_Synth_04.hid	Case_Synth_04	8212ce1d-4bda-d02d-32fd-6e393d4ae632	9004X_ESS_02032026_ab-Synth	SE33	4.2	9																			1905	1005																			
+D05_Case_Synth_04.hid	Case_Synth_04	8212ce1d-4bda-d02d-32fd-6e393d4ae632	9004X_ESS_02032026_ab-Synth	D10S1248	9	15	18																		738	628	1469																		
+D05_Case_Synth_04.hid	Case_Synth_04	8212ce1d-4bda-d02d-32fd-6e393d4ae632	9004X_ESS_02032026_ab-Synth	D22S1045	8	15	19																		1969	1619	731																		
+D05_Case_Synth_04.hid	Case_Synth_04	8212ce1d-4bda-d02d-32fd-6e393d4ae632	9004X_ESS_02032026_ab-Synth	D12S391	15	16	27																		620	564	1371																		
+D05_Case_Synth_04.hid	Case_Synth_04	8212ce1d-4bda-d02d-32fd-6e393d4ae632	9004X_ESS_02032026_ab-Synth	D8S1179	9	11	15																		652	384	1726																		
+D05_Case_Synth_04.hid	Case_Synth_04	8212ce1d-4bda-d02d-32fd-6e393d4ae632	9004X_ESS_02032026_ab-Synth	D2S1338	12	19																			2129	1181																			
+D05_Case_Synth_04.hid	Case_Synth_04	8212ce1d-4bda-d02d-32fd-6e393d4ae632	9004X_ESS_02032026_ab-Synth	D2S441	9	11.3	14																		1750	558	831																		
+D05_Case_Synth_04.hid	Case_Synth_04	8212ce1d-4bda-d02d-32fd-6e393d4ae632	9004X_ESS_02032026_ab-Synth	D18S51	15	16	18.2																		429	1229	777																		
+D05_Case_Synth_04.hid	Case_Synth_04	8212ce1d-4bda-d02d-32fd-6e393d4ae632	9004X_ESS_02032026_ab-Synth	FGA	15	18	24.2	43.2																	711	1012	1112	1832																	
+E05_Case_Synth_05.hid	Case_Synth_05	e5267764-b904-b8bb-00a5-173654a19836	9004X_ESS_02032026_ab-Synth	QS1	Q																				1394																				
+E05_Case_Synth_05.hid	Case_Synth_05	e5267764-b904-b8bb-00a5-173654a19836	9004X_ESS_02032026_ab-Synth	Amelogenin	X	Y																			1747	401																			
+E05_Case_Synth_05.hid	Case_Synth_05	e5267764-b904-b8bb-00a5-173654a19836	9004X_ESS_02032026_ab-Synth	TH01	5	10.3	11																		557	751	501																		
+E05_Case_Synth_05.hid	Case_Synth_05	e5267764-b904-b8bb-00a5-173654a19836	9004X_ESS_02032026_ab-Synth	D3S1358	10	12	15	16	18																1040	533	600	1343	1307																
+E05_Case_Synth_05.hid	Case_Synth_05	e5267764-b904-b8bb-00a5-173654a19836	9004X_ESS_02032026_ab-Synth	vWA	12	15	20	23																	505	1498	952	1165																	
+E05_Case_Synth_05.hid	Case_Synth_05	e5267764-b904-b8bb-00a5-173654a19836	9004X_ESS_02032026_ab-Synth	D21S11	26.2	32.2	33.2	37																	606	555	799	1104																	
+E05_Case_Synth_05.hid	Case_Synth_05	e5267764-b904-b8bb-00a5-173654a19836	9004X_ESS_02032026_ab-Synth	QS2	S																				1494																				
+E05_Case_Synth_05.hid	Case_Synth_05	e5267764-b904-b8bb-00a5-173654a19836	9004X_ESS_02032026_ab-Synth	D16S539	5	8	11	12	13	15															1618	602	1150	1657	1560	729															
+E05_Case_Synth_05.hid	Case_Synth_05	e5267764-b904-b8bb-00a5-173654a19836	9004X_ESS_02032026_ab-Synth	D1S1656	12	13	18																		523	624	533																		
+E05_Case_Synth_05.hid	Case_Synth_05	e5267764-b904-b8bb-00a5-173654a19836	9004X_ESS_02032026_ab-Synth	D19S433	11	12	12.2	15	16.2	17.2															907	528	1119	1268	604	1013															
+E05_Case_Synth_05.hid	Case_Synth_05	e5267764-b904-b8bb-00a5-173654a19836	9004X_ESS_02032026_ab-Synth	SE33	8	10	13.2	16																	549	1074	1657	1010																	
+E05_Case_Synth_05.hid	Case_Synth_05	e5267764-b904-b8bb-00a5-173654a19836	9004X_ESS_02032026_ab-Synth	D10S1248	8	9	15	16																	1100	842	1337	704																	
+E05_Case_Synth_05.hid	Case_Synth_05	e5267764-b904-b8bb-00a5-173654a19836	9004X_ESS_02032026_ab-Synth	D22S1045	9	13	14	18	19																695	699	1290	770	1596																
+E05_Case_Synth_05.hid	Case_Synth_05	e5267764-b904-b8bb-00a5-173654a19836	9004X_ESS_02032026_ab-Synth	D12S391	14	18	18.3	20	25	27															782	997	1392	1760	631	274															
+E05_Case_Synth_05.hid	Case_Synth_05	e5267764-b904-b8bb-00a5-173654a19836	9004X_ESS_02032026_ab-Synth	D8S1179	10	15	16	19																	612	1175	1317	1066																	
+E05_Case_Synth_05.hid	Case_Synth_05	e5267764-b904-b8bb-00a5-173654a19836	9004X_ESS_02032026_ab-Synth	D2S1338	14	19	24	26																	1651	1640	1681	397																	
+E05_Case_Synth_05.hid	Case_Synth_05	e5267764-b904-b8bb-00a5-173654a19836	9004X_ESS_02032026_ab-Synth	D2S441	10	13	16																		1416	1592	344																		
+E05_Case_Synth_05.hid	Case_Synth_05	e5267764-b904-b8bb-00a5-173654a19836	9004X_ESS_02032026_ab-Synth	D18S51	14	15	18																		514	254	434																		
+E05_Case_Synth_05.hid	Case_Synth_05	e5267764-b904-b8bb-00a5-173654a19836	9004X_ESS_02032026_ab-Synth	FGA	22.2	25.2	31.2																		490	551	1147																		
+F05_Case_Synth_06.hid	Case_Synth_06	0b22c304-9453-da31-1382-0e0ea7362e09	9004X_ESS_02032026_ab-Synth	QS1	Q																				1403																				
+F05_Case_Synth_06.hid	Case_Synth_06	0b22c304-9453-da31-1382-0e0ea7362e09	9004X_ESS_02032026_ab-Synth	Amelogenin	X	Y																			868	177																			
+F05_Case_Synth_06.hid	Case_Synth_06	0b22c304-9453-da31-1382-0e0ea7362e09	9004X_ESS_02032026_ab-Synth	TH01	5	6	8	9	13	13.3															255	588	532	1263	608	1581															
+F05_Case_Synth_06.hid	Case_Synth_06	0b22c304-9453-da31-1382-0e0ea7362e09	9004X_ESS_02032026_ab-Synth	D3S1358	9	11	12	15	16	19															1000	525	477	1022	1488	697															
+F05_Case_Synth_06.hid	Case_Synth_06	0b22c304-9453-da31-1382-0e0ea7362e09	9004X_ESS_02032026_ab-Synth	vWA	12	13	15	19	20	22															1231	612	1329	840	940	1544															
+F05_Case_Synth_06.hid	Case_Synth_06	0b22c304-9453-da31-1382-0e0ea7362e09	9004X_ESS_02032026_ab-Synth	D21S11	24	24.2	32	35.2	36																929	1576	1181	1081	718																
+F05_Case_Synth_06.hid	Case_Synth_06	0b22c304-9453-da31-1382-0e0ea7362e09	9004X_ESS_02032026_ab-Synth	QS2	S																				1427																				
+F05_Case_Synth_06.hid	Case_Synth_06	0b22c304-9453-da31-1382-0e0ea7362e09	9004X_ESS_02032026_ab-Synth	D16S539	5	9	10	11	15																403	956	183	369	1269																
+F05_Case_Synth_06.hid	Case_Synth_06	0b22c304-9453-da31-1382-0e0ea7362e09	9004X_ESS_02032026_ab-Synth	D1S1656	14	15	16	16.3	18	18.3															723	284	1419	1422	1480	1557															
+F05_Case_Synth_06.hid	Case_Synth_06	0b22c304-9453-da31-1382-0e0ea7362e09	9004X_ESS_02032026_ab-Synth	D19S433	6.2	8	14.2	16																	1235	281	1060	980																	
+F05_Case_Synth_06.hid	Case_Synth_06	0b22c304-9453-da31-1382-0e0ea7362e09	9004X_ESS_02032026_ab-Synth	SE33	4.2	9	13	13.2	14	14.2	20	21.2	22	25	27.2	30.2	31.2	32	33	34	34.2	35	37	38	490	686	980	1065	1285	1078	1294	468	1291	777	1352	1354	1077	974	549	181	918	1302	507	197	
+F05_Case_Synth_06.hid	Case_Synth_06	0b22c304-9453-da31-1382-0e0ea7362e09	9004X_ESS_02032026_ab-Synth	D10S1248	8	9	15	18																	1451	474	690	278																	
+F05_Case_Synth_06.hid	Case_Synth_06	0b22c304-9453-da31-1382-0e0ea7362e09	9004X_ESS_02032026_ab-Synth	D22S1045	8	9	11	12	13	14															546	1111	326	629	859	1167															
+F05_Case_Synth_06.hid	Case_Synth_06	0b22c304-9453-da31-1382-0e0ea7362e09	9004X_ESS_02032026_ab-Synth	D12S391	17	17.3	18.3	23																	1379	1179	381	503																	
+F05_Case_Synth_06.hid	Case_Synth_06	0b22c304-9453-da31-1382-0e0ea7362e09	9004X_ESS_02032026_ab-Synth	D8S1179	7	10	11	15	17	18															524	1454	1395	1358	421	1031															
+F05_Case_Synth_06.hid	Case_Synth_06	0b22c304-9453-da31-1382-0e0ea7362e09	9004X_ESS_02032026_ab-Synth	D2S1338	14	19	22	23	24	26															1432	205	855	1311	719	253															
+F05_Case_Synth_06.hid	Case_Synth_06	0b22c304-9453-da31-1382-0e0ea7362e09	9004X_ESS_02032026_ab-Synth	D2S441	10	11.3	15	17																	569	493	302	1020																	
+F05_Case_Synth_06.hid	Case_Synth_06	0b22c304-9453-da31-1382-0e0ea7362e09	9004X_ESS_02032026_ab-Synth	D18S51	12	14	21	28																	818	700	1416	221																	
+F05_Case_Synth_06.hid	Case_Synth_06	0b22c304-9453-da31-1382-0e0ea7362e09	9004X_ESS_02032026_ab-Synth	FGA	18.2	22.2	26	32.2																	1018	1525	1484	1328																	
+G05_Case_Synth_07.hid	Case_Synth_07	1bed7b2c-ffb5-b9dd-03fb-0acc22db4d7d	9004X_ESS_02032026_ab-Synth	QS1	Q																				1359																				
+G05_Case_Synth_07.hid	Case_Synth_07	1bed7b2c-ffb5-b9dd-03fb-0acc22db4d7d	9004X_ESS_02032026_ab-Synth	Amelogenin	X	Y																			1825	2681																			
+G05_Case_Synth_07.hid	Case_Synth_07	1bed7b2c-ffb5-b9dd-03fb-0acc22db4d7d	9004X_ESS_02032026_ab-Synth	TH01	10	13																			3064	2639																			
+G05_Case_Synth_07.hid	Case_Synth_07	1bed7b2c-ffb5-b9dd-03fb-0acc22db4d7d	9004X_ESS_02032026_ab-Synth	D3S1358	11																				3051																				
+G05_Case_Synth_07.hid	Case_Synth_07	1bed7b2c-ffb5-b9dd-03fb-0acc22db4d7d	9004X_ESS_02032026_ab-Synth	vWA	12	23																			922	2535																			
+G05_Case_Synth_07.hid	Case_Synth_07	1bed7b2c-ffb5-b9dd-03fb-0acc22db4d7d	9004X_ESS_02032026_ab-Synth	D21S11	35.2	38																			1154	2116																			
+G05_Case_Synth_07.hid	Case_Synth_07	1bed7b2c-ffb5-b9dd-03fb-0acc22db4d7d	9004X_ESS_02032026_ab-Synth	QS2	S																				1658																				
+G05_Case_Synth_07.hid	Case_Synth_07	1bed7b2c-ffb5-b9dd-03fb-0acc22db4d7d	9004X_ESS_02032026_ab-Synth	D16S539	14																				1297																				
+G05_Case_Synth_07.hid	Case_Synth_07	1bed7b2c-ffb5-b9dd-03fb-0acc22db4d7d	9004X_ESS_02032026_ab-Synth	D1S1656	17.3	18																			1780	2427																			
+G05_Case_Synth_07.hid	Case_Synth_07	1bed7b2c-ffb5-b9dd-03fb-0acc22db4d7d	9004X_ESS_02032026_ab-Synth	D19S433	8	13																			1271	1928																			
+G05_Case_Synth_07.hid	Case_Synth_07	1bed7b2c-ffb5-b9dd-03fb-0acc22db4d7d	9004X_ESS_02032026_ab-Synth	SE33	32	39																			3162	2458																			
+G05_Case_Synth_07.hid	Case_Synth_07	1bed7b2c-ffb5-b9dd-03fb-0acc22db4d7d	9004X_ESS_02032026_ab-Synth	D10S1248	8	10																			1307	2882																			
+G05_Case_Synth_07.hid	Case_Synth_07	1bed7b2c-ffb5-b9dd-03fb-0acc22db4d7d	9004X_ESS_02032026_ab-Synth	D22S1045	17																				1904																				
+G05_Case_Synth_07.hid	Case_Synth_07	1bed7b2c-ffb5-b9dd-03fb-0acc22db4d7d	9004X_ESS_02032026_ab-Synth	D12S391	18.3																				1869																				
+G05_Case_Synth_07.hid	Case_Synth_07	1bed7b2c-ffb5-b9dd-03fb-0acc22db4d7d	9004X_ESS_02032026_ab-Synth	D8S1179	13																				1002																				
+G05_Case_Synth_07.hid	Case_Synth_07	1bed7b2c-ffb5-b9dd-03fb-0acc22db4d7d	9004X_ESS_02032026_ab-Synth	D2S1338	15	19																			1522	3021																			
+G05_Case_Synth_07.hid	Case_Synth_07	1bed7b2c-ffb5-b9dd-03fb-0acc22db4d7d	9004X_ESS_02032026_ab-Synth	D2S441	9	11																			2773	2072																			
+G05_Case_Synth_07.hid	Case_Synth_07	1bed7b2c-ffb5-b9dd-03fb-0acc22db4d7d	9004X_ESS_02032026_ab-Synth	D18S51	15																				1859																				
+G05_Case_Synth_07.hid	Case_Synth_07	1bed7b2c-ffb5-b9dd-03fb-0acc22db4d7d	9004X_ESS_02032026_ab-Synth	FGA	26	48.2																			1812	2061																			

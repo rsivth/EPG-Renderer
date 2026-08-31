@@ -1,0 +1,135 @@
+[build-system]
+requires = ["setuptools==82.0.1", "wheel==0.45.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "epg-renderer"
+version = "0.13.36"
+description = "Schematic kit-aware EPG rendering from GeneMapper exports or manual profiles"
+readme = "README.md"
+license = "BSD-3-Clause"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+dependencies = []
+maintainers = [
+    {name = "rsivth"},
+]
+keywords = [
+    "electropherogram",
+    "forensic genetics",
+    "GeneMapper",
+    "STR",
+    "visualization",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Topic :: Scientific/Engineering :: Visualization",
+]
+
+[project.urls]
+Homepage = "https://github.com/rsivth/EPG-Renderer"
+Documentation = "https://github.com/rsivth/EPG-Renderer/blob/main/docs/index.md"
+Repository = "https://github.com/rsivth/EPG-Renderer"
+Issues = "https://github.com/rsivth/EPG-Renderer/issues"
+Changelog = "https://github.com/rsivth/EPG-Renderer/blob/main/CHANGELOG.md"
+
+[project.optional-dependencies]
+raster = ["CairoSVG>=2.7,<3", "Pillow>=10,<13"]
+dev = [
+    "build==1.3.0",
+    "coverage==7.13.3",
+    "mypy==1.18.2",
+    "ruff==0.12.12",
+    "setuptools==82.0.1",
+    "twine==7.0.0",
+    "wheel==0.45.1",
+]
+
+[project.scripts]
+epg-render = "epg_renderer.cli:main"
+epg-render-gui = "epg_renderer.gui:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+epg_renderer = ["data/*.json", "data/kits/*.json"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+extend-exclude = [
+    "build",
+    "dist",
+]
+
+[tool.ruff.lint]
+select = [
+    "B",
+    "BLE",
+    "C4",
+    "D",
+    "E4",
+    "E7",
+    "E9",
+    "F",
+    "I",
+    "PIE",
+    "RUF",
+    "SIM",
+    "UP",
+]
+ignore = [
+    "D105",
+    "D107",
+    "D202",
+    "D203",
+    "D213",
+    "RUF001",
+    "RUF002",
+    "RUF003",
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"
+
+[tool.mypy]
+python_version = "3.10"
+files = ["src/epg_renderer"]
+strict = true
+pretty = true
+show_error_codes = true
+warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+module = ["cairosvg", "PIL", "PIL.*"]
+ignore_missing_imports = true
+
+[tool.coverage.run]
+branch = true
+source = ["epg_renderer"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+precision = 2
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["D"]
+"examples/**/*.py" = ["D"]

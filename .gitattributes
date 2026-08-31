@@ -1,0 +1,2 @@
+*.py text eol=lf
+tests/fixtures/genemapper_exports/*.txt -text

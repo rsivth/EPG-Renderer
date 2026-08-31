@@ -1,0 +1,785 @@
+{
+  "schema_version": "1.1",
+  "kit": {
+    "name": "PowerPlex Y23",
+    "display_name": "PowerPlex Y23 System",
+    "manufacturer": "Promega Corporation",
+    "definition_version": "1.0.0",
+    "aliases": [
+      "Y23"
+    ],
+    "channels": [
+      {
+        "code": "FL",
+        "label": "Fluorescein",
+        "color_name": "blue",
+        "svg_color": "#0067C5",
+        "order": 0,
+        "aliases": [
+          "FL",
+          "Fluorescein",
+          "blue",
+          "FAM"
+        ]
+      },
+      {
+        "code": "JOE",
+        "label": "JOE",
+        "color_name": "green",
+        "svg_color": "#008B45",
+        "order": 1,
+        "aliases": [
+          "JOE",
+          "green"
+        ]
+      },
+      {
+        "code": "TMR",
+        "label": "TMR-ET",
+        "color_name": "yellow",
+        "svg_color": "#D8A500",
+        "order": 2,
+        "aliases": [
+          "TMR",
+          "TMR-ET",
+          "yellow"
+        ]
+      },
+      {
+        "code": "CXR",
+        "label": "CXR-ET",
+        "color_name": "red",
+        "svg_color": "#C62828",
+        "order": 3,
+        "aliases": [
+          "CXR",
+          "CXR-ET",
+          "red"
+        ]
+      }
+    ],
+    "kit_type": "y_str",
+    "export_compatibility": "genemapper",
+    "notes": [],
+    "linkage_groups": {}
+  },
+  "coordinate_model": {
+    "model_version": "1.0.0-nominal",
+    "coordinate_kind": "range_centered_nominal",
+    "exact_bin_centres": false
+  },
+  "sources": [
+    {
+      "title": "PowerPlex Y23 System Technical Manual",
+      "use": "Published allele ladder, dye channel and approximate fragment range table."
+    }
+  ],
+  "markers": [
+    {
+      "name": "DYS576",
+      "aliases": [],
+      "dye": "FL",
+      "order_in_dye": 0,
+      "ladder_alleles": [
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23"
+      ],
+      "coordinate": {
+        "range_min_bp": 97,
+        "range_max_bp": 145,
+        "repeat_length_bp": 4,
+        "placement_method": "range_centered_repeat",
+        "source_note": "Manufacturer manual approximate fragment range; positions are nominal display coordinates."
+      },
+      "marker_type": "str",
+      "copy_group": null,
+      "linkage_group": null,
+      "is_control": false
+    },
+    {
+      "name": "DYS389I",
+      "aliases": [],
+      "dye": "FL",
+      "order_in_dye": 1,
+      "ladder_alleles": [
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17"
+      ],
+      "coordinate": {
+        "range_min_bp": 147,
+        "range_max_bp": 179,
+        "repeat_length_bp": 4,
+        "placement_method": "range_centered_repeat",
+        "source_note": "Manufacturer manual approximate fragment range; positions are nominal display coordinates."
+      },
+      "marker_type": "str",
+      "copy_group": null,
+      "linkage_group": null,
+      "is_control": false
+    },
+    {
+      "name": "DYS448",
+      "aliases": [],
+      "dye": "FL",
+      "order_in_dye": 2,
+      "ladder_alleles": [
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24"
+      ],
+      "coordinate": {
+        "range_min_bp": 196,
+        "range_max_bp": 256,
+        "repeat_length_bp": 6,
+        "placement_method": "range_centered_repeat",
+        "source_note": "Manufacturer manual approximate fragment range; positions are nominal display coordinates."
+      },
+      "marker_type": "str",
+      "copy_group": null,
+      "linkage_group": null,
+      "is_control": false
+    },
+    {
+      "name": "DYS389II",
+      "aliases": [],
+      "dye": "FL",
+      "order_in_dye": 3,
+      "ladder_alleles": [
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34",
+        "35"
+      ],
+      "coordinate": {
+        "range_min_bp": 259,
+        "range_max_bp": 303,
+        "repeat_length_bp": 4,
+        "placement_method": "range_centered_repeat",
+        "source_note": "Manufacturer manual approximate fragment range; positions are nominal display coordinates."
+      },
+      "marker_type": "str",
+      "copy_group": null,
+      "linkage_group": null,
+      "is_control": false
+    },
+    {
+      "name": "DYS19",
+      "aliases": [],
+      "dye": "FL",
+      "order_in_dye": 4,
+      "ladder_alleles": [
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19"
+      ],
+      "coordinate": {
+        "range_min_bp": 312,
+        "range_max_bp": 352,
+        "repeat_length_bp": 4,
+        "placement_method": "range_centered_repeat",
+        "source_note": "Manufacturer manual approximate fragment range; positions are nominal display coordinates."
+      },
+      "marker_type": "str",
+      "copy_group": null,
+      "linkage_group": null,
+      "is_control": false
+    },
+    {
+      "name": "DYS391",
+      "aliases": [],
+      "dye": "JOE",
+      "order_in_dye": 0,
+      "ladder_alleles": [
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16"
+      ],
+      "coordinate": {
+        "range_min_bp": 86,
+        "range_max_bp": 130,
+        "repeat_length_bp": 4,
+        "placement_method": "range_centered_repeat",
+        "source_note": "Manufacturer manual approximate fragment range; positions are nominal display coordinates."
+      },
+      "marker_type": "str",
+      "copy_group": null,
+      "linkage_group": null,
+      "is_control": false
+    },
+    {
+      "name": "DYS481",
+      "aliases": [],
+      "dye": "JOE",
+      "order_in_dye": 1,
+      "ladder_alleles": [
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32"
+      ],
+      "coordinate": {
+        "range_min_bp": 139,
+        "range_max_bp": 184,
+        "repeat_length_bp": 3,
+        "placement_method": "range_centered_repeat",
+        "source_note": "Manufacturer manual approximate fragment range; positions are nominal display coordinates."
+      },
+      "marker_type": "str",
+      "copy_group": null,
+      "linkage_group": null,
+      "is_control": false
+    },
+    {
+      "name": "DYS549",
+      "aliases": [],
+      "dye": "JOE",
+      "order_in_dye": 2,
+      "ladder_alleles": [
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17"
+      ],
+      "coordinate": {
+        "range_min_bp": 198,
+        "range_max_bp": 238,
+        "repeat_length_bp": 4,
+        "placement_method": "range_centered_repeat",
+        "source_note": "Manufacturer manual approximate fragment range; positions are nominal display coordinates."
+      },
+      "marker_type": "str",
+      "copy_group": null,
+      "linkage_group": null,
+      "is_control": false
+    },
+    {
+      "name": "DYS533",
+      "aliases": [],
+      "dye": "JOE",
+      "order_in_dye": 3,
+      "ladder_alleles": [
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17"
+      ],
+      "coordinate": {
+        "range_min_bp": 245,
+        "range_max_bp": 285,
+        "repeat_length_bp": 4,
+        "placement_method": "range_centered_repeat",
+        "source_note": "Manufacturer manual approximate fragment range; positions are nominal display coordinates."
+      },
+      "marker_type": "str",
+      "copy_group": null,
+      "linkage_group": null,
+      "is_control": false
+    },
+    {
+      "name": "DYS438",
+      "aliases": [],
+      "dye": "JOE",
+      "order_in_dye": 4,
+      "ladder_alleles": [
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16"
+      ],
+      "coordinate": {
+        "range_min_bp": 293,
+        "range_max_bp": 343,
+        "repeat_length_bp": 5,
+        "placement_method": "range_centered_repeat",
+        "source_note": "Manufacturer manual approximate fragment range; positions are nominal display coordinates."
+      },
+      "marker_type": "str",
+      "copy_group": null,
+      "linkage_group": null,
+      "is_control": false
+    },
+    {
+      "name": "DYS437",
+      "aliases": [],
+      "dye": "JOE",
+      "order_in_dye": 5,
+      "ladder_alleles": [
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18"
+      ],
+      "coordinate": {
+        "range_min_bp": 344,
+        "range_max_bp": 380,
+        "repeat_length_bp": 4,
+        "placement_method": "range_centered_repeat",
+        "source_note": "Manufacturer manual approximate fragment range; positions are nominal display coordinates."
+      },
+      "marker_type": "str",
+      "copy_group": null,
+      "linkage_group": null,
+      "is_control": false
+    },
+    {
+      "name": "DYS570",
+      "aliases": [],
+      "dye": "TMR",
+      "order_in_dye": 0,
+      "ladder_alleles": [
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25"
+      ],
+      "coordinate": {
+        "range_min_bp": 90,
+        "range_max_bp": 150,
+        "repeat_length_bp": 4,
+        "placement_method": "range_centered_repeat",
+        "source_note": "Manufacturer manual approximate fragment range; positions are nominal display coordinates."
+      },
+      "marker_type": "str",
+      "copy_group": null,
+      "linkage_group": null,
+      "is_control": false
+    },
+    {
+      "name": "DYS635",
+      "aliases": [],
+      "dye": "TMR",
+      "order_in_dye": 1,
+      "ladder_alleles": [
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28"
+      ],
+      "coordinate": {
+        "range_min_bp": 150,
+        "range_max_bp": 202,
+        "repeat_length_bp": 4,
+        "placement_method": "range_centered_repeat",
+        "source_note": "Manufacturer manual approximate fragment range; positions are nominal display coordinates."
+      },
+      "marker_type": "str",
+      "copy_group": null,
+      "linkage_group": null,
+      "is_control": false
+    },
+    {
+      "name": "DYS390",
+      "aliases": [],
+      "dye": "TMR",
+      "order_in_dye": 2,
+      "ladder_alleles": [
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29"
+      ],
+      "coordinate": {
+        "range_min_bp": 207,
+        "range_max_bp": 255,
+        "repeat_length_bp": 4,
+        "placement_method": "range_centered_repeat",
+        "source_note": "Manufacturer manual approximate fragment range; positions are nominal display coordinates."
+      },
+      "marker_type": "str",
+      "copy_group": null,
+      "linkage_group": null,
+      "is_control": false
+    },
+    {
+      "name": "DYS439",
+      "aliases": [],
+      "dye": "TMR",
+      "order_in_dye": 3,
+      "ladder_alleles": [
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17"
+      ],
+      "coordinate": {
+        "range_min_bp": 263,
+        "range_max_bp": 307,
+        "repeat_length_bp": 4,
+        "placement_method": "range_centered_repeat",
+        "source_note": "Manufacturer manual approximate fragment range; positions are nominal display coordinates."
+      },
+      "marker_type": "str",
+      "copy_group": null,
+      "linkage_group": null,
+      "is_control": false
+    },
+    {
+      "name": "DYS392",
+      "aliases": [],
+      "dye": "TMR",
+      "order_in_dye": 4,
+      "ladder_alleles": [
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20"
+      ],
+      "coordinate": {
+        "range_min_bp": 314,
+        "range_max_bp": 362,
+        "repeat_length_bp": 3,
+        "placement_method": "range_centered_repeat",
+        "source_note": "Manufacturer manual approximate fragment range; positions are nominal display coordinates."
+      },
+      "marker_type": "str",
+      "copy_group": null,
+      "linkage_group": null,
+      "is_control": false
+    },
+    {
+      "name": "DYS643",
+      "aliases": [],
+      "dye": "TMR",
+      "order_in_dye": 5,
+      "ladder_alleles": [
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17"
+      ],
+      "coordinate": {
+        "range_min_bp": 368,
+        "range_max_bp": 423,
+        "repeat_length_bp": 5,
+        "placement_method": "range_centered_repeat",
+        "source_note": "Manufacturer manual approximate fragment range; positions are nominal display coordinates."
+      },
+      "marker_type": "str",
+      "copy_group": null,
+      "linkage_group": null,
+      "is_control": false
+    },
+    {
+      "name": "DYS393",
+      "aliases": [],
+      "dye": "CXR",
+      "order_in_dye": 0,
+      "ladder_alleles": [
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18"
+      ],
+      "coordinate": {
+        "range_min_bp": 101,
+        "range_max_bp": 145,
+        "repeat_length_bp": 4,
+        "placement_method": "range_centered_repeat",
+        "source_note": "Manufacturer manual approximate fragment range; positions are nominal display coordinates."
+      },
+      "marker_type": "str",
+      "copy_group": null,
+      "linkage_group": null,
+      "is_control": false
+    },
+    {
+      "name": "DYS458",
+      "aliases": [],
+      "dye": "CXR",
+      "order_in_dye": 1,
+      "ladder_alleles": [
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24"
+      ],
+      "coordinate": {
+        "range_min_bp": 159,
+        "range_max_bp": 215,
+        "repeat_length_bp": 4,
+        "placement_method": "range_centered_repeat",
+        "source_note": "Manufacturer manual approximate fragment range; positions are nominal display coordinates."
+      },
+      "marker_type": "str",
+      "copy_group": null,
+      "linkage_group": null,
+      "is_control": false
+    },
+    {
+      "name": "DYS385a/b",
+      "aliases": [
+        "DYS385"
+      ],
+      "dye": "CXR",
+      "order_in_dye": 2,
+      "ladder_alleles": [
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28"
+      ],
+      "coordinate": {
+        "range_min_bp": 223,
+        "range_max_bp": 307,
+        "repeat_length_bp": 4,
+        "placement_method": "range_centered_repeat",
+        "source_note": "Manufacturer manual approximate fragment range; positions are nominal display coordinates."
+      },
+      "marker_type": "str",
+      "copy_group": "DYS385",
+      "linkage_group": null,
+      "is_control": false
+    },
+    {
+      "name": "DYS456",
+      "aliases": [],
+      "dye": "CXR",
+      "order_in_dye": 3,
+      "ladder_alleles": [
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23"
+      ],
+      "coordinate": {
+        "range_min_bp": 316,
+        "range_max_bp": 364,
+        "repeat_length_bp": 4,
+        "placement_method": "range_centered_repeat",
+        "source_note": "Manufacturer manual approximate fragment range; positions are nominal display coordinates."
+      },
+      "marker_type": "str",
+      "copy_group": null,
+      "linkage_group": null,
+      "is_control": false
+    },
+    {
+      "name": "Y-GATA-H4",
+      "aliases": [],
+      "dye": "CXR",
+      "order_in_dye": 4,
+      "ladder_alleles": [
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18"
+      ],
+      "coordinate": {
+        "range_min_bp": 374,
+        "range_max_bp": 414,
+        "repeat_length_bp": 4,
+        "placement_method": "range_centered_repeat",
+        "source_note": "Manufacturer manual approximate fragment range; positions are nominal display coordinates."
+      },
+      "marker_type": "str",
+      "copy_group": null,
+      "linkage_group": null,
+      "is_control": false
+    }
+  ],
+  "metadata": {
+    "created_for": "EPG-Renderer v0.10.4",
+    "review_status": "manual_transcription"
+  }
+}

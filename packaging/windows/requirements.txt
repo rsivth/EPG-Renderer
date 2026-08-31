@@ -1,0 +1,18 @@
+# Exact Python inputs for Windows x64 PyInstaller builds.
+# Native Cairo DLLs are supplied separately by the Windows build runner.
+altgraph==0.17.5
+CairoSVG==2.9.0
+cairocffi==1.7.1
+cffi==2.1.1
+cssselect2==0.9.0
+defusedxml==0.7.1
+packaging==26.3
+pefile==2024.8.26
+Pillow==12.3.0
+pycparser==3.0
+pyinstaller==6.22.2
+pyinstaller-hooks-contrib==2026.7
+pywin32-ctypes==0.2.3
+setuptools==82.0.1
+tinycss2==1.5.1
+webencodings==0.6.1
