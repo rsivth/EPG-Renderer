@@ -56,6 +56,13 @@ The output directory receives one file per successful sample plus
 for old renderer-created images. It retires only recorded image files and preserves
 unrelated files. A malformed manifest or unsafe recorded filename stops the rerun.
 
+Filenames are derived from the sample identifier: characters outside letters, digits,
+`-`, `_` and `.` become underscores, the stem is capped at 120 characters, and names
+that would collide receive a numeric suffix. A sample whose name is a reserved Windows
+device name (`CON`, `PRN`, `AUX`, `NUL`, `COM1`–`COM9`, `LPT1`–`LPT9`) receives a
+trailing underscore on that segment, because Windows cannot create such files even with
+a suffix. The manifest always records the filename actually written.
+
 By default, a batch continues after an individual sample error and returns a non-zero
 status if any sample failed. Inspect the manifest rather than assuming that every
 requested sample was written.

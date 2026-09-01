@@ -31,6 +31,16 @@ from .version import __version__
 from .workflow import OMITTED_PEAK_ISSUE_CODES, issue_message
 
 _EXPECTED_SAMPLE_ERRORS = (KitResolutionError, PositionModelError, SvgRenderError)
+_RESERVED_DEVICE_NAMES = frozenset(
+    {
+        "con",
+        "prn",
+        "aux",
+        "nul",
+        *(f"com{index}" for index in range(1, 10)),
+        *(f"lpt{index}" for index in range(1, 10)),
+    }
+)
 _BATCH_OUTPUT_SUFFIXES = frozenset({".svg", ".png", ".jpg", ".jpeg"})
 
 
@@ -454,14 +464,22 @@ def _write_batch_manifest(
 
 
 def safe_output_stem(sample_id: str) -> str:
-    """Return a deterministic, filesystem-safe stem for one sample identifier."""
+    """Return a deterministic, filesystem-safe stem for one sample identifier.
+
+    Windows refuses to create files whose first name segment is a reserved device
+    name, with or without a suffix, so such stems receive a trailing underscore.
+    """
 
     text = str(sample_id).strip()
     cleaned = "".join(
         character if character.isalnum() or character in "-_." else "_" for character in text
     )
     cleaned = cleaned.strip(" ._")
-    return cleaned[:120] or "sample"
+    stem = cleaned[:120] or "sample"
+    head, separator, tail = stem.partition(".")
+    if head.casefold() in _RESERVED_DEVICE_NAMES:
+        return f"{head}_{separator}{tail}"
+    return stem
 
 
 __all__ = [
