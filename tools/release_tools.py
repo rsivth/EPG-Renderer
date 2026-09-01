@@ -35,6 +35,8 @@ _FORBIDDEN_DIRECTORY_NAMES = {
     "release",
 }
 _FORBIDDEN_SUFFIXES = (".pyc", ".pyo")
+_FORBIDDEN_FILE_NAMES = frozenset({".ds_store", "thumbs.db", "desktop.ini"})
+_APPLE_DOUBLE_PREFIX = "._"
 _ROOT_GENERATED_PATTERNS = (
     re.compile(r"^EPG-Renderer_v.+\.zip(?:\.sha256)?$"),
     re.compile(r"^epg_renderer-.+\.tar\.gz$"),
@@ -138,6 +140,8 @@ def is_release_source(relative: Path) -> bool:
         return False
     if relative.suffix.casefold() in _FORBIDDEN_SUFFIXES:
         return False
+    if _is_operating_system_clutter(relative.name):
+        return False
     if len(relative.parts) == 1:
         if relative.name in {".coverage", "coverage.json", "MANIFEST.sha256"}:
             return False
@@ -149,6 +153,16 @@ def is_release_source(relative: Path) -> bool:
     if relative.parts[0] == "packaging":
         return relative.as_posix() in _ALLOWED_PACKAGING_FILES
     return relative.parts[0] in _ALLOWED_TOP_LEVEL_DIRECTORIES
+
+
+def _is_operating_system_clutter(name: str) -> bool:
+    """Return whether a filename is desktop-environment clutter at any depth.
+
+    These files are never part of a release and must be reported wherever they
+    appear, not only in the project root.
+    """
+
+    return name.casefold() in _FORBIDDEN_FILE_NAMES or name.startswith(_APPLE_DOUBLE_PREFIX)
 
 
 def _is_known_excluded(relative: Path) -> bool:

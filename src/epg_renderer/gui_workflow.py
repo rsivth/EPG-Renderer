@@ -68,15 +68,38 @@ def suggested_output_path(
     return source.with_name(f"{safe}_epg{suffix}")
 
 
+def default_output_directory() -> Path:
+    """Return a predictable folder for images that have no input file beside them.
+
+    The process working directory is deliberately not used: for an installed
+    application it depends on how the program was started and is therefore
+    unpredictable for the person using it.
+    """
+
+    home = Path.home()
+    documents = home / "Documents"
+    return documents if documents.is_dir() else home
+
+
 def suggested_manual_output_path(
     profile_name: str,
     output_format: str,
     *,
     directory: str | Path | None = None,
+    input_path: str | Path | None = None,
 ) -> Path:
-    """Build a deterministic default output path for a manual profile."""
+    """Build a deterministic default output path for a manual profile.
 
-    base = Path.cwd() if directory is None else Path(directory)
+    An explicit directory wins. Otherwise the image is proposed beside the
+    currently loaded input file, and without one in the default output folder.
+    """
+
+    if directory is not None:
+        base = Path(directory)
+    elif input_path is not None and str(input_path).strip():
+        base = Path(input_path).expanduser().parent
+    else:
+        base = default_output_directory()
     safe = _safe_output_stem(profile_name, fallback="manual_profile")
     return base / f"{safe}_epg{_output_suffix(output_format)}"
 

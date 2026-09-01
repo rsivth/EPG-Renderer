@@ -37,6 +37,7 @@ from tools.release_tools import (
     is_release_source,
     project_version,
     source_files,
+    unexpected_release_paths,
     verify_manifest,
     verify_source_archive,
 )
@@ -141,6 +142,36 @@ class ReleaseToolTests(unittest.TestCase):
         self.assertTrue(is_release_source(Path("src/epg_renderer/parser.py")))
         self.assertFalse(is_release_source(Path("private-notes.txt")))
         self.assertFalse(is_release_source(Path("secrets/config.env")))
+
+    def test_operating_system_clutter_is_rejected_at_every_depth(self):
+        rejected = (
+            Path(".DS_Store"),
+            Path("docs/.DS_Store"),
+            Path("docs/.ds_store"),
+            Path("src/epg_renderer/.DS_Store"),
+            Path("src/epg_renderer/data/kits/.DS_Store"),
+            Path("tests/Thumbs.db"),
+            Path("tests/fixtures/thumbs.db"),
+            Path("examples/desktop.ini"),
+            Path("docs/._SOURCES.md"),
+            Path(".github/workflows/.DS_Store"),
+        )
+        for path in rejected:
+            with self.subTest(path=path):
+                self.assertFalse(is_release_source(path))
+
+    def test_files_that_only_resemble_clutter_stay_release_sources(self):
+        for path in (Path("docs/ds_store.md"), Path("docs/desktop_ini_notes.md")):
+            with self.subTest(path=path):
+                self.assertTrue(is_release_source(path))
+
+    def test_nested_clutter_makes_the_release_check_fail(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "docs").mkdir()
+            (root / "docs" / "API.md").write_text("x", encoding="utf-8")
+            (root / "docs" / ".DS_Store").write_bytes(b"\x00")
+            self.assertEqual(unexpected_release_paths(root), (Path("docs/.DS_Store"),))
 
     def test_prior_default_release_output_is_known_generated_content(self):
         with tempfile.TemporaryDirectory() as directory:

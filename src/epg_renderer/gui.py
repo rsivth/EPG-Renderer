@@ -361,6 +361,7 @@ class EpgRendererApp:
                 suggested_manual_output_path(
                     self.manual_profile.name,
                     self.format_var.get(),
+                    input_path=self.input_var.get() or None,
                 )
             )
         elif self.inspection is not None and self.input_var.get():
