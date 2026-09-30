@@ -18,6 +18,17 @@ from .kits import KitDefinition, normalize_identifier
 from .positions import KitCoordinateModel
 
 
+class UnknownKitError(KeyError, ValueError):
+    """Raised when a kit name or alias is not bundled with the package.
+
+    It remains a ``KeyError`` for existing callers and is also a ``ValueError`` so that
+    user-facing entry points report it like any other invalid input.
+    """
+
+    def __str__(self) -> str:
+        return str(self.args[0]) if self.args else ""
+
+
 def available_kit_profiles() -> tuple[KitProfile, ...]:
     """Return all bundled kit profiles in deterministic resource order."""
 
@@ -51,7 +62,9 @@ def get_kit_profile(name: str) -> KitProfile:
     try:
         return _registry()[1][key]
     except KeyError as exc:
-        raise KeyError(f"Unknown kit {name!r}. Available kits: {available_kit_names()!r}.") from exc
+        raise UnknownKitError(
+            f"Unknown kit {name!r}. Available kits: {available_kit_names()!r}."
+        ) from exc
 
 
 def get_kit(name: str) -> KitDefinition:
@@ -110,6 +123,7 @@ __all__ = [
     "DuplicateKitDefinitionError",
     "KitProfile",
     "KitSchemaError",
+    "UnknownKitError",
     "available_genemapper_kit_names",
     "available_genemapper_kit_profiles",
     "available_kit_names",

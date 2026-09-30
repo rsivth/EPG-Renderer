@@ -12,6 +12,13 @@
   tag/version validation, indexed-wheel byte comparison, and a protected live-release
   boundary
 
+## 0.13.38 - 2026-09-30
+
+- reported an unknown `--kit` value as a normal CLI error (exit status 2) instead of a
+  Python traceback
+- raised `UnknownKitError` from `get_kit_profile`; it remains a `KeyError` for existing
+  callers, is also a `ValueError`, and prints its message without extra quotes
+
 ## 0.13.37 - 2026-09-30
 
 - reported an exported `Size n` outside the selected kit's marker range as
