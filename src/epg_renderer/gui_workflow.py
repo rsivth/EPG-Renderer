@@ -11,6 +11,8 @@ from .kit_workflow import KitMatch, KitResolutionError, detect_kits, resolve_kit
 from .models import GeneMapperProject
 from .parser import read_genotypes_table
 
+_IMAGE_SUFFIXES = frozenset({".svg", ".png", ".jpg", ".jpeg"})
+
 
 @dataclass(frozen=True, slots=True)
 class SampleKitDecision:
@@ -129,7 +131,21 @@ def validated_output_path(value: str, output_format: str) -> Path:
     path = Path(raw).expanduser()
     if path.exists() and path.is_dir():
         raise ValueError("The output path must name a file, not a directory.")
-    return path.with_suffix(_output_suffix(output_format))
+    return output_path_with_suffix(path, output_format)
+
+
+def output_path_with_suffix(value: str | Path, output_format: str) -> Path:
+    """Return a path whose suffix matches the selected output format.
+
+    An existing image suffix is replaced. Any other dot belongs to the file name, as in
+    ``run.v2`` or ``DNA-12.3``, so the format suffix is appended instead.
+    """
+
+    path = Path(value)
+    suffix = _output_suffix(output_format)
+    if path.suffix.casefold() in _IMAGE_SUFFIXES:
+        return path.with_suffix(suffix)
+    return path.with_name(path.name + suffix)
 
 
 def _decision_for_sample(sample_id: str, project: GeneMapperProject) -> SampleKitDecision:

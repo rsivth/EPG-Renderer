@@ -12,6 +12,12 @@
   tag/version validation, indexed-wheel byte comparison, and a protected live-release
   boundary
 
+## 0.13.42 - 2026-09-30
+
+- kept dots inside GUI output file names such as `run.v2` or `DNA-12.3`; only an
+  existing `.svg`, `.png`, `.jpg` or `.jpeg` suffix is replaced by the selected format
+- used the same suffix rule when the output format is switched in the GUI
+
 ## 0.13.41 - 2026-09-30
 
 - replaced three stacked strings in `render_svg`, of which Python kept only the first as

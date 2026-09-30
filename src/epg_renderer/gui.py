@@ -18,6 +18,7 @@ from .gui_workflow import (
     FileInspection,
     choose_output_path_value,
     inspect_genemapper_file,
+    output_path_with_suffix,
     suggested_manual_output_path,
     suggested_output_path,
     validated_output_path,
@@ -390,7 +391,7 @@ class EpgRendererApp:
             self._suggest_output(force=True)
             return
         if value:
-            self.output_var.set(str(Path(value).with_suffix("." + self.format_var.get())))
+            self.output_var.set(str(output_path_with_suffix(value, self.format_var.get())))
         if self.manual_profile is not None or self.inspection is not None:
             current = self.output_var.get()
             self._suggest_output()
