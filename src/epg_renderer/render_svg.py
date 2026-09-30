@@ -868,6 +868,15 @@ def _segment_intersects_rect(
 
 
 def _validate_positioned_sample(positioned: PositionedSample, kit: KitDefinition) -> None:
+    """Validate a positioned sample against its kit before any SVG is drawn.
+
+    Kit dyes, markers and XML-safe text can only be checked here. Heights, ranges and
+    coordinates are also enforced by the ``PositionedPeak`` and ``PositionedSample``
+    constructors; repeating them here is deliberate defense in depth. A sample that
+    bypassed its constructors must fail loudly instead of drawing a plausible but wrong
+    image, such as a peak under a neighbouring marker.
+    """
+
     validate_xml_text(positioned.sample_id, "sample_id")
     if not positioned.sample_id:
         raise SvgRenderError("sample_id must not be empty.")

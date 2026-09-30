@@ -12,6 +12,15 @@
   tag/version validation, indexed-wheel byte comparison, and a protected live-release
   boundary
 
+## 0.13.49 - 2026-09-30
+
+- documented the render-time re-check of heights, ranges and coordinates as deliberate
+  defense in depth: a positioned sample that bypassed its constructors fails instead of
+  drawing a peak under the wrong marker or at a wrong height
+- added regressions for the kit-dependent render checks (unknown dye or marker, dye
+  conflict, XML-invalid text), for a forged coordinate outside its marker band, and for
+  every constructor guarantee the renderer re-checks
+
 ## 0.13.48 - 2026-09-30
 
 - rejected `footer_height` below 58 px while the disclaimer is shown; smaller values
