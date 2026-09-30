@@ -1,74 +1,19 @@
 # EPG-Renderer
 
-EPG-Renderer creates schematic, kit-aware electropherogram-style figures from forensic
-STR data. It reads GeneMapper genotype-table CSV/TSV exports or builds a profile from
-alleles entered manually in the graphical interface.
+EPG-Renderer turns forensic STR profiles into clear, kit-aware electropherogram-style
+figures. Load a GeneMapper genotype-table export or type in the alleles, and every peak
+appears in its dye channel at its place in the kit's size range, with marker and allele
+labels.
 
-The program is a visualization tool. It does not read raw capillary-electrophoresis
-data, reconstruct measured fluorescence curves, or replace analytical interpretation
-and quality control.
+- **Publications and expert reports:** SVG is vector graphics and stays sharp at any
+  size; refine the figure in Inkscape or Adobe Illustrator.
+- **Teaching and training:** enter invented profiles by hand to show heterozygous
+  loci, shared alleles or mixtures, without using casework data.
+- **Slides and lectures:** create PNG or JPG for PowerPoint or Keynote.
 
 ## Example output
 
 [![Synthetic two-person PowerPlex ESI 17 Fast electropherogram](https://raw.githubusercontent.com/rsivth/EPG-Renderer/main/examples/esi17_two_person_mixture_example.svg)](https://github.com/rsivth/EPG-Renderer/blob/main/examples/esi17_two_person_mixture_example.svg)
-
-## Create a figure without programming
-
-The graphical interface reads a GeneMapper export or lets you enter alleles manually,
-resolves the kit and creates the image.
-
-- **Windows:** download the GUI ZIP from the
-  [Releases page](https://github.com/rsivth/EPG-Renderer/releases), extract it and
-  start `EPG-Renderer-GUI.exe`. Python is not needed.
-- **macOS and Linux:** the GUI runs with Python 3.10 or newer including Tkinter.
-
-Step by step:
-[installation guide](https://github.com/rsivth/EPG-Renderer/blob/main/docs/INSTALLATION.md)
-and [GUI guide](https://github.com/rsivth/EPG-Renderer/blob/main/docs/GETTING_STARTED.md).
-
-For slides, for example in PowerPoint or Keynote, create PNG or JPG. Create SVG to edit
-the figure in a vector graphics program such as Inkscape or Adobe Illustrator.
-
-## Use EPG-Renderer in your software
-
-Install the Python package from the wheel on the
-[Releases page](https://github.com/rsivth/EPG-Renderer/releases); it provides SVG
-output, the `epg-render` command and the Python API. EPG-Renderer is not on PyPI. The
-[installation guide](https://github.com/rsivth/EPG-Renderer/blob/main/docs/INSTALLATION.md#python-package)
-has the command, PNG and JPG output, source installs and the standalone Windows
-`epg-render.exe`.
-
-### Command line
-
-```bash
-epg-render run.tsv sample.svg --sample-id DNA-123 --kit GlobalFiler
-epg-render run.tsv output_directory --all-samples --format svg --kit GlobalFiler
-```
-
-See the [CLI guide](https://github.com/rsivth/EPG-Renderer/blob/main/docs/CLI.md)
-for all workflows, exit behavior, and application integration.
-
-### Python
-
-```python
-from epg_renderer import render_file_report
-
-report = render_file_report(
-    "run.tsv",
-    "sample.svg",
-    sample_id="DNA-123",
-    kit_name="GlobalFiler",
-)
-print(report.output_path)
-for message in report.messages():
-    print(message)
-```
-
-Show these messages to your users: parser warnings, for example about an export that
-may have cut off alleles, do not stop rendering.
-
-See the [Python vignette](https://github.com/rsivth/EPG-Renderer/blob/main/docs/PYTHON.md)
-and [API reference](https://github.com/rsivth/EPG-Renderer/blob/main/docs/API.md).
 
 ## Capabilities
 
@@ -81,8 +26,40 @@ and [API reference](https://github.com/rsivth/EPG-Renderer/blob/main/docs/API.md
   wheel builds
 - fully local processing without profile-data uploads
 
+## Documentation
+
+Start at the [documentation home](https://github.com/rsivth/EPG-Renderer/blob/main/docs/index.md) or go directly to your task.
+
+**Create a figure without programming**
+
+- Windows: [download and start the GUI](https://github.com/rsivth/EPG-Renderer/blob/main/docs/INSTALLATION.md#windows-gui); Python
+  is not needed.
+- macOS and Linux: [start the GUI with Python](https://github.com/rsivth/EPG-Renderer/blob/main/docs/INSTALLATION.md#gui-with-python).
+- [GUI guide](https://github.com/rsivth/EPG-Renderer/blob/main/docs/GETTING_STARTED.md): from export or manual entry to the finished
+  figure, and which format to choose.
+
+**Use EPG-Renderer in your software**
+
+- [Install the Python package](https://github.com/rsivth/EPG-Renderer/blob/main/docs/INSTALLATION.md#python-package): the wheel from
+  the [Releases page](https://github.com/rsivth/EPG-Renderer/releases); EPG-Renderer is
+  not on PyPI.
+- [Command line and standalone Windows `epg-render.exe`](https://github.com/rsivth/EPG-Renderer/blob/main/docs/CLI.md)
+- [Python vignette](https://github.com/rsivth/EPG-Renderer/blob/main/docs/PYTHON.md) and [API reference](https://github.com/rsivth/EPG-Renderer/blob/main/docs/API.md)
+
+**Background and development**
+
+- [GeneMapper input requirements](https://github.com/rsivth/EPG-Renderer/blob/main/docs/GENEMAPPER.md),
+  [coordinate model](https://github.com/rsivth/EPG-Renderer/blob/main/docs/COORDINATE_MODEL.md) and
+  [sources and provenance](https://github.com/rsivth/EPG-Renderer/blob/main/docs/SOURCES.md)
+- [Development and release checks](https://github.com/rsivth/EPG-Renderer/blob/main/docs/DEVELOPMENT.md),
+  [architecture](https://github.com/rsivth/EPG-Renderer/blob/main/docs/ARCHITECTURE.md) and
+  [declarative kit format](https://github.com/rsivth/EPG-Renderer/blob/main/docs/KIT_FORMAT.md)
+- Release history: [changelog](https://github.com/rsivth/EPG-Renderer/blob/main/CHANGELOG.md)
+
 ## Scope and limitations
 
+- EPG-Renderer is a visualization tool. It does not reconstruct measured
+  fluorescence curves or replace analytical interpretation and quality control.
 - Input must be a GeneMapper genotype-table export, not an `.fsa` file or other raw
   capillary-electrophoresis data.
 - Exported `Size n` values are used when present. Otherwise, peak positions are
@@ -100,24 +77,6 @@ Read the
 [coordinate model](https://github.com/rsivth/EPG-Renderer/blob/main/docs/COORDINATE_MODEL.md),
 and [sources and provenance](https://github.com/rsivth/EPG-Renderer/blob/main/docs/SOURCES.md)
 before scientific use.
-
-## Documentation
-
-The [documentation home](https://github.com/rsivth/EPG-Renderer/blob/main/docs/index.md)
-routes users to:
-
-- [Installation](https://github.com/rsivth/EPG-Renderer/blob/main/docs/INSTALLATION.md)
-- [Getting started and GUI manual](https://github.com/rsivth/EPG-Renderer/blob/main/docs/GETTING_STARTED.md)
-- [CLI and standalone binaries](https://github.com/rsivth/EPG-Renderer/blob/main/docs/CLI.md)
-- [Python vignette](https://github.com/rsivth/EPG-Renderer/blob/main/docs/PYTHON.md)
-- [API reference](https://github.com/rsivth/EPG-Renderer/blob/main/docs/API.md)
-- [GeneMapper input requirements](https://github.com/rsivth/EPG-Renderer/blob/main/docs/GENEMAPPER.md)
-- [Development and release checks](https://github.com/rsivth/EPG-Renderer/blob/main/docs/DEVELOPMENT.md)
-- [Architecture](https://github.com/rsivth/EPG-Renderer/blob/main/docs/ARCHITECTURE.md)
-  and [declarative kit format](https://github.com/rsivth/EPG-Renderer/blob/main/docs/KIT_FORMAT.md)
-
-Release history is recorded in the
-[changelog](https://github.com/rsivth/EPG-Renderer/blob/main/CHANGELOG.md).
 
 ## License
 

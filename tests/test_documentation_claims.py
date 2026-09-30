@@ -5,7 +5,9 @@ against ``kit_definition_schema.json`` (``kit_schema.py`` validates them; the JS
 is not used at runtime) and told contributors to keep complete source exports as
 fixtures (the repository holds synthetic data only). The README claimed reproducible
 Windows builds (only the source ZIP, sdist and wheel are built twice and compared), and
-its Python example used ``render_file``, which returns no parser warnings.
+its Python example used ``render_file``, which returns no parser warnings. Since
+0.14.0.dev11 the README has no code; the diagnostics example checked here is the
+``render_file_report`` example of the Python vignette.
 """
 
 from __future__ import annotations
@@ -19,17 +21,17 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 README = ROOT / "README.md"
+PYTHON_VIGNETTE = ROOT / "docs" / "PYTHON.md"
 KIT_FORMAT = ROOT / "docs" / "KIT_FORMAT.md"
 FIXTURE = ROOT / "tests" / "fixtures" / "globalfiler_minimal.tsv"
 
 
-def _readme_python_example() -> str:
-    readme = README.read_text(encoding="utf-8")
-    section = readme.split("### Python\n", 1)[1].split("\n## ", 1)[0]
-    match = re.search(r"```python\n(?P<code>.*?)```", section, re.DOTALL)
-    if match is None:
-        raise AssertionError("The README Python section has no Python example.")
-    return match["code"]
+def _diagnostics_example() -> str:
+    vignette = PYTHON_VIGNETTE.read_text(encoding="utf-8")
+    for code in re.findall(r"```python\n(.*?)```", vignette, re.DOTALL):
+        if "render_file_report(" in code:
+            return code
+    raise AssertionError("The Python vignette has no render_file_report example.")
 
 
 class KitFormatClaimTests(unittest.TestCase):
@@ -64,13 +66,13 @@ class ReadmeClaimTests(unittest.TestCase):
                 message = f"Two clean {artifact} builds are not byte-reproducible."
                 self.assertIn(message, release_tools)
 
-    def test_readme_python_example_reports_diagnostics(self) -> None:
-        code = _readme_python_example()
+    def test_python_diagnostics_example_reports_diagnostics(self) -> None:
+        code = _diagnostics_example()
         self.assertIn("render_file_report(", code)
         self.assertIn("report.messages()", code)
 
-    def test_readme_python_example_runs_on_synthetic_data(self) -> None:
-        code = _readme_python_example()
+    def test_python_diagnostics_example_runs_on_synthetic_data(self) -> None:
+        code = _diagnostics_example()
         with tempfile.TemporaryDirectory() as directory:
             workspace = Path(directory)
             export = workspace / "run.tsv"
@@ -84,9 +86,10 @@ class ReadmeClaimTests(unittest.TestCase):
             code = code.replace('"sample.svg"', repr(str(output)))
             stdout = io.StringIO()
             with contextlib.redirect_stdout(stdout):
-                exec(compile(code, "README.md", "exec"), {})
+                exec(compile(code, "PYTHON.md", "exec"), {})
             self.assertTrue(output.is_file())
-            self.assertEqual(stdout.getvalue().splitlines()[0], str(output))
+            # The synthetic export is complete: no warnings, nothing omitted.
+            self.assertEqual(stdout.getvalue(), "")
 
 
 if __name__ == "__main__":

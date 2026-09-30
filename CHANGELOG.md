@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- reordered the README as a short landing page (`0.14.0.dev11`): introduction with the
+  uses of the figures (publications and expert reports, teaching, slides), example,
+  capabilities, documentation, scope and limitations, license; the GUI and developer
+  sections with commands and code were replaced by audience routes in the
+  Documentation section, whose targets already hold these steps
+
 - the documentation no longer installs the Python package from PyPI (`0.14.0.dev10`):
   EPG-Renderer is not published there and the name `epg-renderer` is unregistered, so
   anyone could publish a package under it; the installation guide now installs the

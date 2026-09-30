@@ -41,8 +41,6 @@ INSTALLATION_ONLY = (
     "SmartScreen",
     "Run anyway",
 )
-GUI_SECTION = "## Create a figure without programming"
-DEVELOPER_SECTION = "## Use EPG-Renderer in your software"
 
 
 def _section(text: str, heading: str) -> str:
@@ -84,16 +82,8 @@ class InstallationGuideTests(unittest.TestCase):
 
 
 class AudienceStructureTests(unittest.TestCase):
-    def test_readme_addresses_gui_users_before_developers(self) -> None:
-        readme = README.read_text(encoding="utf-8")
-        self.assertLess(readme.index(GUI_SECTION), readme.index(DEVELOPER_SECTION))
-        gui = _section(readme, GUI_SECTION)
-        self.assertIn("docs/GETTING_STARTED.md", gui)
-        self.assertIn("docs/INSTALLATION.md", gui)
-        developer = _section(readme, DEVELOPER_SECTION)
-        for target in ("docs/INSTALLATION.md", "docs/CLI.md", "docs/PYTHON.md", "docs/API.md"):
-            with self.subTest(target=target):
-                self.assertIn(target, developer + readme.split(DEVELOPER_SECTION, 1)[1])
+    # Since 0.14.0.dev11 the README has no GUI and developer sections; the check that it
+    # routes GUI users before developers moved to ReadmeOrderTests (Documentation section).
 
     def test_format_advice_matches_the_purpose_of_each_format(self) -> None:
         guide = (DOCS / "GETTING_STARTED.md").read_text(encoding="utf-8")
@@ -103,7 +93,8 @@ class AudienceStructureTests(unittest.TestCase):
                 self.assertIn(phrase, formats)
         readme = README.read_text(encoding="utf-8")
         self.assertNotIn("Keep SVG selected unless", readme + guide)
-        self.assertIn("PNG or JPG", _section(readme, GUI_SECTION))
+        # Since 0.14.0.dev11 the README gives the format advice in its introduction.
+        self.assertIn("PNG or JPG", readme.split("\n## ", 1)[0])
 
     def test_index_routes_to_the_installation_guide(self) -> None:
         index = (DOCS / "index.md").read_text(encoding="utf-8")
@@ -162,6 +153,51 @@ class ReleaseWheelInstallationTests(unittest.TestCase):
         )
         pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
         self.assertIn('name = "epg-renderer"', pyproject)
+
+
+class ReadmeOrderTests(unittest.TestCase):
+    """Since 0.14.0.dev11 the README is a short landing page.
+
+    Until 0.14.0.dev10 it carried GUI download steps, CLI commands and a Python example
+    between the example image and the capabilities. Now it reads: introduction with the
+    uses of the figures, example, capabilities, documentation, scope, license; every
+    route for GUI users and developers is in the Documentation section.
+    """
+
+    def test_readme_sections_follow_the_agreed_order(self) -> None:
+        headings = re.findall(r"^## (.+)$", README.read_text(encoding="utf-8"), re.MULTILINE)
+        self.assertEqual(
+            headings,
+            ["Example output", "Capabilities", "Documentation", "Scope and limitations", "License"],
+        )
+
+    def test_introduction_names_the_uses_of_the_figures(self) -> None:
+        intro = README.read_text(encoding="utf-8").split("\n## ", 1)[0].casefold()
+        for phrase in ("publication", "teaching", "PNG or JPG", "SVG", "Inkscape"):
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase.casefold(), intro)
+
+    def test_documentation_section_holds_both_audience_routes(self) -> None:
+        section = _section(README.read_text(encoding="utf-8"), "## Documentation")
+        blob = "https://github.com/rsivth/EPG-Renderer/blob/main/"
+        gui = (
+            blob + "docs/INSTALLATION.md#windows-gui",
+            blob + "docs/INSTALLATION.md#gui-with-python",
+            blob + "docs/GETTING_STARTED.md",
+        )
+        developer = (
+            blob + "docs/INSTALLATION.md#python-package",
+            blob + "docs/CLI.md",
+            blob + "docs/PYTHON.md",
+            blob + "docs/API.md",
+        )
+        for target in (*gui, *developer, blob + "docs/index.md"):
+            with self.subTest(target=target):
+                self.assertIn(target + ")", section)
+        self.assertLess(
+            max(section.index(t + ")") for t in gui),
+            min(section.index(t + ")") for t in developer),
+        )
 
 
 if __name__ == "__main__":
