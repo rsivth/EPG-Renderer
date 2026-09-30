@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -37,6 +38,7 @@ _REMOVED_ENVIRONMENT_KEYS = {
     "TK_LIBRARY",
     "VIRTUAL_ENV",
 }
+_EXPECTED_VERSION = re.compile(r"\d+\.\d+\.\d+(?:rc\d+|\.dev\d+)?")
 
 
 class BinarySmokeError(RuntimeError):
@@ -48,7 +50,11 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--cli", required=True, type=Path, help="Packaged CLI executable")
     parser.add_argument("--gui", required=True, type=Path, help="GUI executable inside its bundle")
     parser.add_argument("--fixture", required=True, type=Path, help="GeneMapper smoke fixture")
-    parser.add_argument("--expected-version", required=True, help="Expected three-part version")
+    parser.add_argument(
+        "--expected-version",
+        required=True,
+        help="Expected project version: X.Y.Z, X.Y.ZrcN or X.Y.Z.devN",
+    )
     return parser
 
 
@@ -179,6 +185,16 @@ def _verify_batch(directory: Path, expected_version: str) -> None:
     _verify_svg(directory / output_name, expected_version)
 
 
+def _check_expected_version(expected_version: str) -> None:
+    """Accept the same version formats as the Windows build (``spec_common.py``)."""
+
+    if _EXPECTED_VERSION.fullmatch(expected_version) is None:
+        raise BinarySmokeError(
+            "Expected version must have the form X.Y.Z, X.Y.ZrcN or X.Y.Z.devN: "
+            f"{expected_version!r}"
+        )
+
+
 def _run_checks(
     cli: Path,
     gui: Path,
@@ -188,11 +204,7 @@ def _run_checks(
 ) -> None:
     if not fixture.is_file():
         raise BinarySmokeError(f"GeneMapper fixture is missing: {fixture}")
-    version_parts = expected_version.split(".")
-    if len(version_parts) != 3 or any(not part.isdecimal() for part in version_parts):
-        raise BinarySmokeError(
-            f"Expected version must have three numeric parts: {expected_version!r}"
-        )
+    _check_expected_version(expected_version)
 
     artifacts = workspace / "artifacts"
     isolated_cli, isolated_gui = _copy_artifacts(cli.resolve(), gui.resolve(), artifacts)

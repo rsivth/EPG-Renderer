@@ -2,7 +2,11 @@
 
 ## Unreleased
 
-- switched to development versions `X.Y.Z.devN` between releases (this is
+- fixed the Windows binary smoke test, which still required three numeric version
+  parts and therefore failed the Windows CI job for `0.14.0.dev1`; it now accepts the
+  same formats as the Windows build, and a test keeps both checks in step
+  (`0.14.0.dev2`)
+- switched to development versions `X.Y.Z.devN` between releases (starting with
   `0.14.0.dev1`); documented the scheme in the development guide
 - accepted `X.Y.Z.devN` and `X.Y.ZrcN` in the Windows bundle version mapping, which
   previously rejected every non-final version and therefore also the documented

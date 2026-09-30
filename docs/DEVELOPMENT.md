@@ -70,7 +70,8 @@ changes under `## Unreleased` in `CHANGELOG.md`, and rename that section to the
 version when it is released.
 
 Windows file-version metadata holds four numbers, so `X.Y.Z.devN` and `X.Y.ZrcN` map
-to `X.Y.Z.0`; the full version remains visible as the product version.
+to `X.Y.Z.0`; the full version remains visible as the product version. The Windows
+binary smoke test accepts the same three formats.
 
 ## CI contract
 
