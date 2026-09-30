@@ -12,6 +12,16 @@
   tag/version validation, indexed-wheel byte comparison, and a protected live-release
   boundary
 
+## 0.13.48 - 2026-09-30
+
+- rejected `footer_height` below 58 px while the disclaimer is shown; smaller values
+  previously placed the second disclaimer line (the coordinate statement) outside the
+  image and clipped the marker-annotation legend
+- moved the footer layout values into shared `render_metrics` footer metrics used by
+  footer drawing, document height and option validation
+- added a footer geometry regression over accepted option combinations; default output
+  is unchanged
+
 ## 0.13.47 - 2026-09-30
 
 - implemented atomic SVG text writes through the atomic byte writer, so one function

@@ -131,3 +131,35 @@ _TYPOGRAPHY_METRICS = _TypographyMetrics(
     primary_text_color="#202124",
     secondary_text_color="#5F6368",
 )
+
+
+@dataclass(frozen=True, slots=True)
+class _FooterMetrics:
+    """Vertical footer layout below the last channel panel, in pixels."""
+
+    first_baseline_offset_px: int
+    disclaimer_line_gap_px: int
+    disclaimer_block_px: int
+    legend_gap_px: int
+    legend_heading_px: int
+    legend_line_px: int
+    bottom_padding_px: int
+
+
+_FOOTER_METRICS = _FooterMetrics(
+    first_baseline_offset_px=24,
+    disclaimer_line_gap_px=17,
+    disclaimer_block_px=28,
+    legend_gap_px=14,
+    legend_heading_px=22,
+    legend_line_px=16,
+    bottom_padding_px=17,
+)
+
+
+def _minimum_footer_height_with_disclaimer() -> int:
+    return (
+        _FOOTER_METRICS.first_baseline_offset_px
+        + _FOOTER_METRICS.disclaimer_line_gap_px
+        + _FOOTER_METRICS.bottom_padding_px
+    )

@@ -32,6 +32,7 @@ from .render_layout import (
     resolve_x_domain,
     rfu_scale_maxima,
 )
+from .render_metrics import _FOOTER_METRICS
 from .render_options import (
     SvgRenderError,
     SvgRenderOptions,
@@ -287,10 +288,12 @@ def _extra_footer_height(
 ) -> int:
     if not marker_annotation_messages:
         return 0
-    heading_height = 22
-    line_height = 16
-    spacing_after_disclaimer = 14 if options.show_disclaimer else 0
-    return spacing_after_disclaimer + heading_height + len(marker_annotation_messages) * line_height
+    spacing_after_disclaimer = _FOOTER_METRICS.legend_gap_px if options.show_disclaimer else 0
+    return (
+        spacing_after_disclaimer
+        + _FOOTER_METRICS.legend_heading_px
+        + len(marker_annotation_messages) * _FOOTER_METRICS.legend_line_px
+    )
 
 
 def _validate_peaks_in_domain(
@@ -548,11 +551,11 @@ def _channel_display_color(plan: _SvgDocumentPlan, channel: DyeChannel) -> str:
 
 
 def _render_document_footer(root: ET.Element, plan: _SvgDocumentPlan, channel_y: int) -> None:
-    footer_y = channel_y + 24
+    footer_y = channel_y + _FOOTER_METRICS.first_baseline_offset_px
     current_y = footer_y
     if plan.options.show_disclaimer:
         _add_disclaimer(root, plan, current_y)
-        current_y += 28
+        current_y += _FOOTER_METRICS.disclaimer_block_px
     if plan.omitted_count:
         ET.SubElement(
             root,
@@ -566,7 +569,7 @@ def _render_document_footer(root: ET.Element, plan: _SvgDocumentPlan, channel_y:
             },
         ).text = f"Omitted unpositioned peaks: {plan.omitted_count}"
     if plan.marker_annotation_messages:
-        current_y += 14
+        current_y += _FOOTER_METRICS.legend_gap_px
         _add_marker_annotation_legend(
             root, plan.options, current_y, plan.marker_annotation_messages
         )
@@ -584,7 +587,7 @@ def _add_marker_annotation_legend(
         {"x": str(options.left_margin), "y": str(legend_y), "class": "legend-heading"},
     ).text = "Marker annotations"
     for index, message in enumerate(messages):
-        item_y = legend_y + 16 + index * 16
+        item_y = legend_y + (index + 1) * _FOOTER_METRICS.legend_line_px
         group = ET.SubElement(
             root,
             _q("g"),
@@ -647,7 +650,11 @@ def _add_disclaimer(root: ET.Element, plan: _SvgDocumentPlan, footer_y: int) -> 
     ET.SubElement(
         root,
         _q("text"),
-        {"x": str(options.left_margin), "y": str(footer_y + 17), "class": "disclaimer"},
+        {
+            "x": str(options.left_margin),
+            "y": str(footer_y + _FOOTER_METRICS.disclaimer_line_gap_px),
+            "class": "disclaimer",
+        },
     ).text = plan.coordinate_description
 
 

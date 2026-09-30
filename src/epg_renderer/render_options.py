@@ -11,7 +11,7 @@ from dataclasses import dataclass
 from decimal import Decimal, DecimalException
 from enum import Enum
 
-from .render_metrics import _minimum_channel_height
+from .render_metrics import _minimum_channel_height, _minimum_footer_height_with_disclaimer
 
 
 class SvgRenderError(ValueError):
@@ -136,6 +136,7 @@ def validate_svg_options(options: SvgRenderOptions) -> _ValidatedOptions:
     _validate_canvas(options)
     _validate_label_area(options)
     _validate_boolean_options(options)
+    _validate_footer(options)
     fixed_max_rfu = _validated_fixed_max_rfu(options.fixed_max_rfu)
     scale_mode, unpositioned, yellow_channel_mode = _validated_modes(options)
     x_min, x_max = _validated_x_domain(options)
@@ -217,6 +218,14 @@ def _validate_boolean_options(options: SvgRenderOptions) -> None:
     for name, value in boolean_fields.items():
         if not isinstance(value, bool):
             raise SvgRenderError(f"{name} must be boolean.")
+
+
+def _validate_footer(options: SvgRenderOptions) -> None:
+    minimum = _minimum_footer_height_with_disclaimer()
+    if options.show_disclaimer and options.footer_height < minimum:
+        raise SvgRenderError(
+            f"footer_height must be at least {minimum} pixels when the disclaimer is shown."
+        )
 
 
 def _validated_fixed_max_rfu(value: int | None) -> int | None:
