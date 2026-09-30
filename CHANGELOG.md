@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- pinned every external GitHub Action in `ci.yml` to the same full commits as the
+  publication workflow (Node.js 24 releases); CI no longer warns about the removed
+  Node.js 20 runtime, and a test keeps both workflows on one revision per action
+  (`0.14.0.dev3`)
 - fixed the Windows binary smoke test, which still required three numeric version
   parts and therefore failed the Windows CI job for `0.14.0.dev1`; it now accepts the
   same formats as the Windows build, and a test keeps both checks in step

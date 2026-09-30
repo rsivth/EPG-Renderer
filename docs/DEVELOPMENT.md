@@ -78,6 +78,10 @@ binary smoke test accepts the same three formats.
 Normal CI exercises Python 3.10 through 3.14 on Linux, Windows, and macOS. Release
 preflight repeats on all three platforms after the complete test matrix succeeds.
 
+Both workflows pin every external action to a full commit with its release tag as a
+comment, and use the same commit for the same action. Update an action in
+`ci.yml` and `publish-pypi.yml` together.
+
 The dedicated Windows binary job:
 
 1. builds the stable `epg-render.exe` CLI and versioned GUI ZIP on a native runner;
