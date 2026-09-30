@@ -60,6 +60,34 @@ class SourceDocumentationTests(unittest.TestCase):
                     findings.append(f"{path.name}:{getattr(node, 'lineno', 1)}")
         self.assertEqual(findings, [])
 
+    def test_no_string_statements_follow_the_docstring(self) -> None:
+        """Reject bare string statements, which Python silently discards."""
+        findings: list[str] = []
+        for path in sorted(_PACKAGE.glob("*.py")):
+            tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+            for node in ast.walk(tree):
+                body = getattr(node, "body", None)
+                if not isinstance(body, list):
+                    continue
+                for index, statement in enumerate(body):
+                    is_string = isinstance(statement, ast.Expr) and isinstance(
+                        getattr(statement.value, "value", None), str
+                    )
+                    documentable = isinstance(
+                        node, ast.Module | ast.ClassDef | ast.FunctionDef | ast.AsyncFunctionDef
+                    )
+                    if is_string and not (index == 0 and documentable):
+                        findings.append(f"{path.name}:{statement.lineno}")
+        self.assertEqual(findings, [])
+
+    def test_render_svg_docstring_describes_both_input_types(self) -> None:
+        """Document both accepted sample types of the root rendering operation."""
+        from epg_renderer import render_svg
+
+        docstring = render_svg.__doc__ or ""
+        self.assertIn("SampleCall", docstring)
+        self.assertIn("PositionedSample", docstring)
+
     def test_pydocstyle_rules_are_part_of_the_ruff_gate(self) -> None:
         """Prevent accidental removal of the documentation lint rules."""
         configuration = (_ROOT / "pyproject.toml").read_text(encoding="utf-8")

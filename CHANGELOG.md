@@ -12,6 +12,13 @@
   tag/version validation, indexed-wheel byte comparison, and a protected live-release
   boundary
 
+## 0.13.41 - 2026-09-30
+
+- replaced three stacked strings in `render_svg`, of which Python kept only the first as
+  docstring, with one docstring that documents both accepted sample types
+- added a source-documentation regression that rejects bare string statements after a
+  docstring
+
 ## 0.13.40 - 2026-09-30
 
 - drew exactly one full-width baseline segment in channels without called peaks instead

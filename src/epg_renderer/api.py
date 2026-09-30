@@ -126,9 +126,13 @@ def render_svg(
     strict_positioning: bool = True,
     genemapper_only: bool = False,
 ) -> str:
-    """Render an unpositioned sample after resolving and applying a kit model."""
-    """Render a sample that already contains nominal fragment coordinates."""
-    """Render a parsed or already positioned sample as deterministic SVG text."""
+    """Render a parsed or already positioned sample as deterministic SVG text.
+
+    A ``SampleCall`` is first resolved to a kit and positioned; ``kit_name``,
+    ``strict_positioning`` and ``genemapper_only`` control that step. A
+    ``PositionedSample`` already carries its kit and coordinates, so supplying
+    ``kit_name`` for it raises ``ValueError``.
+    """
 
     if isinstance(sample, PositionedSample):
         if kit_name is not None:
