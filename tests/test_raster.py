@@ -100,7 +100,9 @@ class RasterOutputTests(unittest.TestCase):
                 write_epg_output(self.svg, target)
             self.assertTrue(target.read_text(encoding="utf-8").startswith("<?xml"))
 
-    def test_missing_optional_dependency_has_actionable_error(self):
+    def test_missing_dependency_error_points_to_the_installation_guide(self):
+        # Until 0.14.0.dev11 the message said "pip install epg-renderer[raster]": the
+        # PyPI name is not ours, and GUI users without a terminal cannot act on it.
         original_import = builtins.__import__
 
         def blocked_import(name, *args, **kwargs):
@@ -111,9 +113,20 @@ class RasterOutputTests(unittest.TestCase):
         with (
             tempfile.TemporaryDirectory() as directory,
             patch("builtins.__import__", side_effect=blocked_import),
-            self.assertRaisesRegex(RasterDependencyError, "epg-renderer\\[raster\\]"),
+            self.assertRaises(RasterDependencyError) as caught,
         ):
             write_raster_image(self.svg, Path(directory) / "image.png")
+        message = str(caught.exception)
+        for phrase in (
+            "CairoSVG",
+            "Pillow",
+            "https://github.com/rsivth/EPG-Renderer/blob/main/docs/INSTALLATION.md"
+            "#png-and-jpg-output",
+            "SVG output",
+        ):
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, message)
+        self.assertNotIn("pip install", message)
 
     def test_invalid_raster_options_are_rejected(self):
         invalid = (

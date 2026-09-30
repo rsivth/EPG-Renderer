@@ -5,7 +5,7 @@ figures. Load a GeneMapper genotype-table export or type in the alleles, and eve
 appears in its dye channel at its place in the kit's size range, with marker and allele
 labels.
 
-- **Publications and expert reports:** SVG is vector graphics and stays sharp at any
+- **Publications:** SVG is vector graphics and stays sharp at any
   size; refine the figure in Inkscape or Adobe Illustrator.
 - **Teaching and training:** enter invented profiles by hand to show heterozygous
   loci, shared alleles or mixtures, without using casework data.

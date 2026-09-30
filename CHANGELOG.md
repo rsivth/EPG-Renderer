@@ -2,8 +2,13 @@
 
 ## Unreleased
 
+- the missing-raster-support message no longer names the unregistered PyPI package
+  (`0.14.0.dev12`): it names CairoSVG and Pillow, says that SVG output works without
+  them and links the installation guide; the README introduction no longer names a
+  use that requires original GeneMapper electropherograms instead of these figures
+
 - reordered the README as a short landing page (`0.14.0.dev11`): introduction with the
-  uses of the figures (publications and expert reports, teaching, slides), example,
+  uses of the figures (publications, teaching, slides), example,
   capabilities, documentation, scope and limitations, license; the GUI and developer
   sections with commands and code were replaced by audience routes in the
   Documentation section, whose targets already hold these steps

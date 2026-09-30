@@ -127,7 +127,7 @@ def write_raster_image(
     """Rasterize a generated SVG and atomically write PNG or JPEG output.
 
     CairoSVG is used for SVG rasterization. JPEG encoding is performed with Pillow.
-    Both are optional dependencies installed with ``pip install epg-renderer[raster]``.
+    Both are optional dependencies from the package's ``raster`` extra.
     """
 
     path = Path(output_path)
@@ -183,8 +183,10 @@ def _load_raster_dependencies() -> tuple[_CairoSvgModule, _ImageModule]:
         from PIL import Image
     except ImportError as exc:
         raise RasterDependencyError(
-            "PNG/JPEG output requires optional dependencies. Install with "
-            "'pip install epg-renderer[raster]'."
+            "PNG/JPEG output requires CairoSVG and Pillow, which are not installed. "
+            "SVG output works without them. Installation: "
+            "https://github.com/rsivth/EPG-Renderer/blob/main/docs/INSTALLATION.md"
+            "#png-and-jpg-output"
         ) from exc
     return cast(_CairoSvgModule, cairosvg), cast(_ImageModule, Image)
 

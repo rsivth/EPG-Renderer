@@ -123,6 +123,15 @@ class ReleaseWheelInstallationTests(unittest.TestCase):
         ]
         self.assertEqual(findings, [])
 
+    def test_no_source_file_installs_the_package_by_bare_name(self) -> None:
+        # Since 0.14.0.dev12 this also covers messages and docstrings in the package.
+        findings = [
+            str(path.relative_to(ROOT))
+            for path in sorted((ROOT / "src").rglob("*.py"))
+            if re.search(r"pip install\s+\S*epg-renderer", path.read_text(encoding="utf-8"))
+        ]
+        self.assertEqual(findings, [])
+
     def test_no_page_claims_the_package_is_on_pypi(self) -> None:
         for page in self.PAGES:
             text = " ".join(page.read_text(encoding="utf-8").split())
@@ -176,6 +185,14 @@ class ReadmeOrderTests(unittest.TestCase):
         for phrase in ("publication", "teaching", "PNG or JPG", "SVG", "Inkscape"):
             with self.subTest(phrase=phrase):
                 self.assertIn(phrase.casefold(), intro)
+
+    def test_no_page_offers_the_figures_for_expert_reports(self) -> None:
+        # Since 0.14.0.dev12: expert reports use original GeneMapper electropherograms,
+        # never these schematic figures.
+        for page in (README, ROOT / "CHANGELOG.md", *sorted(DOCS.glob("*.md"))):
+            text = " ".join(page.read_text(encoding="utf-8").split()).casefold()
+            with self.subTest(page=page.name):
+                self.assertNotIn("expert report", text)
 
     def test_documentation_section_holds_both_audience_routes(self) -> None:
         section = _section(README.read_text(encoding="utf-8"), "## Documentation")
