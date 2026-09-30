@@ -8,6 +8,7 @@ from .api import (
     position_sample,
     render_batch,
     render_file,
+    render_file_report,
     render_svg,
 )
 from .version import __version__
@@ -21,5 +22,6 @@ __all__ = [
     "position_sample",
     "render_batch",
     "render_file",
+    "render_file_report",
     "render_svg",
 ]

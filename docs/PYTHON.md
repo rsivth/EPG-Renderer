@@ -1,6 +1,6 @@
 # Python vignette
 
-The Python package exposes eight stable root-level operations and `__version__`.
+The Python package exposes nine stable root-level operations and `__version__`.
 Lower-level types and exceptions remain in the modules that own their contracts.
 
 ## Installation
@@ -43,6 +43,19 @@ print(output)
 When the export contains exactly one sample, `sample_id` can be omitted. When kit
 evidence resolves one compatible profile unambiguously, `kit_name` can also be
 omitted.
+
+`render_file` returns only the output path. Use `render_file_report` with the same
+arguments when parser warnings and positioning issues must be shown:
+
+```python
+from epg_renderer import render_file_report
+
+report = render_file_report("run.tsv", "sample.svg", sample_id="DNA-123")
+if report.has_omitted_peaks:
+    print("The image is missing at least one called peak.")
+for message in report.messages():
+    print(message)
+```
 
 ## Inspect samples and parser warnings
 

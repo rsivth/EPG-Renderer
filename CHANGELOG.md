@@ -12,6 +12,13 @@
   tag/version validation, indexed-wheel byte comparison, and a protected live-release
   boundary
 
+## 0.13.39 - 2026-09-30
+
+- added the root operation `render_file_report`, which renders like `render_file` and
+  returns a `RenderReport` with parser warnings, positioning issues and
+  `has_omitted_peaks`
+- pointed the `render_file` docstring and the API/Python guides to the new operation
+
 ## 0.13.38 - 2026-09-30
 
 - reported an unknown `--kit` value as a normal CLI error (exit status 2) instead of a

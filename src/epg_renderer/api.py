@@ -15,7 +15,7 @@ from .parser import read_genotypes_table
 from .positions import KitCoordinateModel, PositionedSample
 from .render_document import render_positioned_sample_svg, render_sample_svg
 from .render_options import OutputFormat, RasterRenderOptions, SvgRenderOptions
-from .workflow import render_genemapper_epg
+from .workflow import RenderReport, render_genemapper_epg, render_genemapper_epg_report
 
 
 def load_project(
@@ -154,9 +154,42 @@ def render_file(
     strict_positioning: bool = True,
     sample_id_column: str | None = None,
 ) -> Path:
-    """Render one selected sample from a GeneMapper export to SVG, PNG, or JPEG."""
+    """Render one selected sample from a GeneMapper export to SVG, PNG, or JPEG.
+
+    Only the output path is returned. Use :func:`render_file_report` when parser
+    warnings and positioning issues, including omitted peaks, must be presented.
+    """
 
     return render_genemapper_epg(
+        input_path,
+        output_path,
+        sample_id=sample_id,
+        kit_name=kit_name,
+        options=options,
+        raster_options=raster_options,
+        strict_positioning=strict_positioning,
+        sample_id_column=sample_id_column,
+    )
+
+
+def render_file_report(
+    input_path: str | Path,
+    output_path: str | Path,
+    *,
+    sample_id: str | None = None,
+    kit_name: str | None = None,
+    options: SvgRenderOptions | None = None,
+    raster_options: RasterRenderOptions | None = None,
+    strict_positioning: bool = True,
+    sample_id_column: str | None = None,
+) -> RenderReport:
+    """Render like :func:`render_file` and return the output path with all diagnostics.
+
+    With permissive positioning an image can omit called peaks. The returned report
+    lists parser warnings and positioning issues; ``has_omitted_peaks`` flags that loss.
+    """
+
+    return render_genemapper_epg_report(
         input_path,
         output_path,
         sample_id=sample_id,
@@ -203,5 +236,6 @@ __all__ = [
     "position_sample",
     "render_batch",
     "render_file",
+    "render_file_report",
     "render_svg",
 ]

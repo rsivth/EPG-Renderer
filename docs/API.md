@@ -1,6 +1,6 @@
 # EPG-Renderer API
 
-This document describes the current Python API. The package root intentionally exposes only eight operations and `__version__`.
+This document describes the current Python API. The package root intentionally exposes only nine operations and `__version__`.
 
 ## Canonical operations
 
@@ -54,6 +54,22 @@ path = render_file(
 )
 ```
 
+### `render_file_report(...) -> RenderReport`
+
+Same parameters and behavior as `render_file`, but returns a `RenderReport` with the
+output path, parser warnings and positioning issues. With permissive positioning an
+image can omit called peaks; `has_omitted_peaks` flags that loss and `messages()`
+returns every diagnostic as readable text. Applications that present results to users
+should prefer this operation.
+
+```python
+from epg_renderer import render_file_report
+
+report = render_file_report("run.tsv", "sample.svg", sample_id="DNA-123")
+for message in report.messages():
+    print(message)
+```
+
 ### `render_batch(...) -> BatchRenderResult`
 
 Render every sample into a target directory. Each `BatchRenderItem` uses the `BatchStatus` enum internally; the JSON manifest serializes the stable string values `"ok"` and `"error"`.
@@ -76,7 +92,7 @@ The package root does not re-export types. Import them from the module that owns
 - `epg_renderer.batch`: `BatchRenderItem`, `BatchRenderResult`
 - `epg_renderer.manual_profile`: validated manual-profile types, parsing helpers and `ManualProfileError`
 - `epg_renderer.rfu`: the manufacturer-backed `MAX_RFU` boundary and shared validator
-- `epg_renderer.workflow`: the lower-level `render_manual_epg` workflow used by the GUI
+- `epg_renderer.workflow`: `RenderReport` and the lower-level `render_manual_epg` workflow used by the GUI
 
 This separation keeps the root namespace stable and makes dependencies explicit.
 

@@ -14,6 +14,7 @@ from epg_renderer import (
     position_sample,
     render_batch,
     render_file,
+    render_file_report,
     render_svg,
 )
 from epg_renderer.batch import BatchRenderItem, BatchRenderResult
@@ -42,6 +43,7 @@ OPERATIONS = {
     "position_sample": position_sample,
     "render_batch": render_batch,
     "render_file": render_file,
+    "render_file_report": render_file_report,
     "render_svg": render_svg,
 }
 
