@@ -1,8 +1,8 @@
 # Installation
 
 Choose the section that matches how you want to use EPG-Renderer. Downloads are on the
-[EPG-Renderer Releases page](https://github.com/rsivth/EPG-Renderer/releases); the
-Python package is on PyPI. Do not mix files from different versions.
+[EPG-Renderer Releases page](https://github.com/rsivth/EPG-Renderer/releases),
+including the Python package. Do not mix files from different versions.
 
 | You want to | Section | Python needed? |
 |---|---|---|
@@ -80,10 +80,11 @@ The [CLI guide](CLI.md) describes all commands.
 
 ## Python package
 
-Install the package from PyPI:
+EPG-Renderer is not on PyPI. Install the wheel from the Releases page by its address;
+replace both `X.Y.Z` with the version shown on the Releases page:
 
 ```bash
-python -m pip install epg-renderer
+python -m pip install "epg-renderer @ https://github.com/rsivth/EPG-Renderer/releases/download/vX.Y.Z/epg_renderer-X.Y.Z-py3-none-any.whl"
 ```
 
 This provides SVG output, the `epg-render` command and the Python API without
@@ -101,7 +102,7 @@ python -m pip install .
 PNG and JPG need the raster extra and a working native Cairo library:
 
 ```bash
-python -m pip install "epg-renderer[raster]"
+python -m pip install "epg-renderer[raster] @ https://github.com/rsivth/EPG-Renderer/releases/download/vX.Y.Z/epg_renderer-X.Y.Z-py3-none-any.whl"
 ```
 
 For an extracted source ZIP, use `python -m pip install ".[raster]"` instead.

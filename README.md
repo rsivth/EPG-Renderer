@@ -31,13 +31,12 @@ the figure in a vector graphics program such as Inkscape or Adobe Illustrator.
 
 ## Use EPG-Renderer in your software
 
-```bash
-python3 -m pip install epg-renderer
-```
-
-This installs SVG output, the `epg-render` command and the Python API. PNG and JPG
-output, source installs and the standalone Windows `epg-render.exe` are covered in the
-[installation guide](https://github.com/rsivth/EPG-Renderer/blob/main/docs/INSTALLATION.md).
+Install the Python package from the wheel on the
+[Releases page](https://github.com/rsivth/EPG-Renderer/releases); it provides SVG
+output, the `epg-render` command and the Python API. EPG-Renderer is not on PyPI. The
+[installation guide](https://github.com/rsivth/EPG-Renderer/blob/main/docs/INSTALLATION.md#python-package)
+has the command, PNG and JPG output, source installs and the standalone Windows
+`epg-render.exe`.
 
 ### Command line
 

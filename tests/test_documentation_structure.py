@@ -10,12 +10,15 @@ PNG or JPG for slides and SVG for editing in a vector graphics program.
 
 from __future__ import annotations
 
+import fnmatch
 import re
 import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
+RELEASE_DOWNLOAD = "https://github.com/rsivth/EPG-Renderer/releases/download/"
+WHEEL_URL = RELEASE_DOWNLOAD + "vX.Y.Z/epg_renderer-X.Y.Z-py3-none-any.whl"
 README = ROOT / "README.md"
 INSTALLATION = DOCS / "INSTALLATION.md"
 # Contributor setup in DEVELOPMENT.md is not user installation and may repeat commands.
@@ -24,8 +27,10 @@ USER_PAGES = tuple(
     for path in (README, *sorted(DOCS.glob("*.md")))
     if path.name not in {"INSTALLATION.md", "DEVELOPMENT.md"}
 )
+# Since 0.14.0.dev10 the package is installed from the release wheel address.
 INSTALLATION_ONLY = (
-    '"epg-renderer[raster]"',
+    '"epg-renderer @ ',
+    '"epg-renderer[raster] @ ',
     '".[raster]"',
     "pip install .",
     "Get-FileHash",
@@ -103,6 +108,60 @@ class AudienceStructureTests(unittest.TestCase):
     def test_index_routes_to_the_installation_guide(self) -> None:
         index = (DOCS / "index.md").read_text(encoding="utf-8")
         self.assertIn("](INSTALLATION.md)", index)
+
+
+class ReleaseWheelInstallationTests(unittest.TestCase):
+    """Since 0.14.0.dev10 the Python package is installed from the GitHub Release.
+
+    Until 0.14.0.dev9 the README and the installation guide told developers to run
+    ``pip install epg-renderer`` and called the package available on PyPI. The project
+    has never been published there and the name is unregistered: anyone could publish
+    a package under it, and readers following our instructions would install that code.
+    """
+
+    PAGES = (README, *sorted(DOCS.glob("*.md")))
+
+    def test_no_page_installs_the_package_by_bare_name(self) -> None:
+        findings = [
+            f"{page.name}: {line.strip()}"
+            for page in self.PAGES
+            for line in page.read_text(encoding="utf-8").splitlines()
+            if "pip install" in line
+            and re.search(r"\bepg-renderer\b", line)
+            and f" @ {RELEASE_DOWNLOAD}" not in line
+        ]
+        self.assertEqual(findings, [])
+
+    def test_no_page_claims_the_package_is_on_pypi(self) -> None:
+        for page in self.PAGES:
+            text = " ".join(page.read_text(encoding="utf-8").split())
+            for claim in ("is on PyPI", "from PyPI"):
+                with self.subTest(page=page.name, claim=claim):
+                    self.assertNotIn(claim, text)
+
+    def test_installation_guide_installs_the_release_wheel(self) -> None:
+        guide = INSTALLATION.read_text(encoding="utf-8")
+        section = _section(guide, "## Python package")
+        self.assertIn(f'python -m pip install "epg-renderer @ {WHEEL_URL}"', section)
+        self.assertIn(f'python -m pip install "epg-renderer[raster] @ {WHEEL_URL}"', section)
+        self.assertIn("not on PyPI", section)
+
+    def test_documented_wheel_address_matches_the_release_assets(self) -> None:
+        # release.yml requires the tag v<version>; github_release.py uploads the wheel
+        # under its built name, which must match the documented file name.
+        version = "1.2.3"
+        tag, wheel = WHEEL_URL.removeprefix(RELEASE_DOWNLOAD).split("/")
+        workflow = (ROOT / ".github" / "workflows" / "release.yml").read_text("utf-8")
+        self.assertIn('"$GITHUB_REF_NAME" != "v$version"', workflow)
+        self.assertEqual(tag.replace("X.Y.Z", version), f"v{version}")
+        assembler = (ROOT / "tools" / "github_release.py").read_text(encoding="utf-8")
+        pattern = 'f"epg_renderer-{version}-*.whl"'
+        self.assertIn(pattern, assembler)
+        self.assertTrue(
+            fnmatch.fnmatchcase(wheel.replace("X.Y.Z", version), f"epg_renderer-{version}-*.whl")
+        )
+        pyproject = (ROOT / "pyproject.toml").read_text(encoding="utf-8")
+        self.assertIn('name = "epg-renderer"', pyproject)
 
 
 if __name__ == "__main__":

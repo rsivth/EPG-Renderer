@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- the documentation no longer installs the Python package from PyPI (`0.14.0.dev10`):
+  EPG-Renderer is not published there and the name `epg-renderer` is unregistered, so
+  anyone could publish a package under it; the installation guide now installs the
+  wheel from the GitHub Release by its address, and the README links that section
+
 - fixed two errors in the `0.14.0.dev8` release workflow (`0.14.0.dev9`): the dry run
   wrote the release notes into the source tree before the release gate, which rejects
   unapproved files; the notes now wait outside it and join the gate's output
