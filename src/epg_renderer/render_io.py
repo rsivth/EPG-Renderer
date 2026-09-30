@@ -201,33 +201,15 @@ def _validate_svg_document(svg: str) -> None:
 
 
 def _atomic_write_text(path: Path, text: str) -> Path:
-    temp_name: str | None = None
-    try:
-        path.parent.mkdir(parents=True, exist_ok=True)
-        with tempfile.NamedTemporaryFile(
-            mode="w",
-            encoding="utf-8",
-            newline="\n",
-            prefix=f".{path.name}.",
-            suffix=".tmp",
-            dir=path.parent,
-            delete=False,
-        ) as handle:
-            temp_name = handle.name
-            handle.write(text)
-            handle.flush()
-            os.fsync(handle.fileno())
-        os.replace(temp_name, path)
-    except OSError as exc:
-        raise SvgRenderError(f"Could not write output to {path}: {exc}") from exc
-    finally:
-        if temp_name:
-            with suppress(OSError):
-                Path(temp_name).unlink(missing_ok=True)
-    return path
+    return _atomic_write_bytes(path, text.encode("utf-8"), error=SvgRenderError)
 
 
-def _atomic_write_bytes(path: Path, data: bytes) -> Path:
+def _atomic_write_bytes(
+    path: Path,
+    data: bytes,
+    *,
+    error: type[SvgRenderError] = RasterRenderError,
+) -> Path:
     temp_name: str | None = None
     try:
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -244,7 +226,7 @@ def _atomic_write_bytes(path: Path, data: bytes) -> Path:
             os.fsync(handle.fileno())
         os.replace(temp_name, path)
     except OSError as exc:
-        raise RasterRenderError(f"Could not write output to {path}: {exc}") from exc
+        raise error(f"Could not write output to {path}: {exc}") from exc
     finally:
         if temp_name:
             with suppress(OSError):

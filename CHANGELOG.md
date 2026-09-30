@@ -12,6 +12,14 @@
   tag/version validation, indexed-wheel byte comparison, and a protected live-release
   boundary
 
+## 0.13.47 - 2026-09-30
+
+- implemented atomic SVG text writes through the atomic byte writer, so one function
+  creates, syncs, replaces and cleans up temporary files; SVG write failures remain
+  `SvgRenderError`, raster write failures remain `RasterRenderError`
+- added regressions for exact UTF-8 output, replacement of existing files, error types
+  and temporary-file cleanup after a failed replace
+
 ## 0.13.46 - 2026-09-30
 
 - added `kit_workflow.resolve_and_position` as the single resolve-then-position step of
