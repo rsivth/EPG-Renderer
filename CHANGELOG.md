@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- the GUI preselects PNG when PNG and JPG output works and SVG otherwise
+  (`0.14.0.dev14`); until now it always preselected SVG, although the guide recommends
+  PNG or JPG for slides; raster output counts as unavailable also when CairoSVG is
+  installed but the native Cairo library is missing
+
 - the development guide no longer asks for end-to-end kit tests "where representative
   exports are available" (`0.14.0.dev13`): all test data is synthetic, and laboratory
   exports are never committed, as the kit format guide already said

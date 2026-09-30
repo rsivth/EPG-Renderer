@@ -48,7 +48,7 @@ are accepted only when the selected coordinate model can position them safely.
 
 The Windows program includes PNG and JPG support. A Python installation needs the
 [raster components](INSTALLATION.md#png-and-jpg-output) for PNG and JPG; SVG always
-works.
+works. PNG is preselected when PNG and JPG output is available, otherwise SVG.
 
 ## Troubleshooting
 

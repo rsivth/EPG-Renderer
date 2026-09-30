@@ -26,6 +26,7 @@ from .gui_workflow import (
 from .kit_registry import available_genemapper_kit_names, available_kit_profiles
 from .manual_gui import show_manual_profile_dialog
 from .manual_profile import ManualProfile
+from .render_io import raster_output_available
 from .render_options import RasterDependencyError, SvgRenderOptions, YellowChannelMode
 from .version import __version__
 from .workflow import (
@@ -47,6 +48,12 @@ YELLOW_DYE_CHOICES = (
 )
 
 
+def default_image_format() -> str:
+    """Preselect PNG when raster output works, otherwise SVG."""
+
+    return "png" if raster_output_available() else "svg"
+
+
 class EpgRendererApp:
     """Single-window, guided EPG rendering interface."""
 
@@ -59,7 +66,7 @@ class EpgRendererApp:
         self.input_var = tk.StringVar()
         self.sample_var = tk.StringVar()
         self.kit_var = tk.StringVar()
-        self.format_var = tk.StringVar(value="svg")
+        self.format_var = tk.StringVar(value=default_image_format())
         self.yellow_var = tk.StringVar(value=YellowChannelMode.YELLOW.value)
         self.output_var = tk.StringVar()
         self.open_var = tk.BooleanVar(value=True)

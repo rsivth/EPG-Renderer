@@ -177,6 +177,19 @@ def write_raster_image(
     return _atomic_write_bytes(path, jpeg_bytes)
 
 
+def raster_output_available() -> bool:
+    """Return whether PNG and JPEG output can be created in this installation.
+
+    CairoSVG raises ``OSError`` on import when the native Cairo library is missing.
+    """
+
+    try:
+        _load_raster_dependencies()
+    except (RasterDependencyError, OSError):
+        return False
+    return True
+
+
 def _load_raster_dependencies() -> tuple[_CairoSvgModule, _ImageModule]:
     try:
         import cairosvg
