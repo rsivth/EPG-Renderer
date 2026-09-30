@@ -17,6 +17,11 @@ writing code. To install and start the program, follow the
    when yellow peaks are hard to read, for example on a projector.
 6. Select **Create image**.
 
+![EPG-Renderer main window after opening a GeneMapper export: sample S1, kit GlobalFiler, PNG selected, output file proposed next to the export](images/gui_main_window.png)
+
+The main window after opening a synthetic GlobalFiler export, shown on macOS; the
+Windows program has the same controls.
+
 The GUI does not guess when no compatible kit can be established. See the
 [GeneMapper input requirements](GENEMAPPER.md) when a file is rejected or kit
 selection remains unavailable.

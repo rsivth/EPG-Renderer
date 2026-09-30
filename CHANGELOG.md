@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- the GUI guide shows a screenshot of the main window after opening a synthetic
+  GlobalFiler export (`0.14.0.dev15`); the image is stored without metadata or colour
+  profile
+
 - the GUI preselects PNG when PNG and JPG output works and SVG otherwise
   (`0.14.0.dev14`); until now it always preselected SVG, although the guide recommends
   PNG or JPG for slides; raster output counts as unavailable also when CairoSVG is

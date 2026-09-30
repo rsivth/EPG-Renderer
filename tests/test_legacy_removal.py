@@ -107,6 +107,8 @@ class CurrentSourceTreeTests(unittest.TestCase):
                 "PYTHON.md",
                 "SOURCES.md",
                 "index.md",
+                # Since 0.14.0.dev15: GUI screenshot for GETTING_STARTED.md.
+                "images/gui_main_window.png",
             },
         )
         examples = {path.name for path in (ROOT / "examples").iterdir() if path.is_file()}
