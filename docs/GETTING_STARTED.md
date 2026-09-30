@@ -104,7 +104,8 @@ python -m epg_renderer.gui
 3. Confirm the automatically resolved kit. If several profiles are compatible,
    select the correct kit explicitly.
 4. Choose SVG, PNG, or JPG and review the proposed output path.
-5. Choose whether yellow-channel profiles should remain yellow or display in black.
+5. Under **Yellow dye shown as**, keep **Yellow** or choose **Black (better contrast)**
+   when yellow peaks are hard to read, for example on a projector.
 6. Select **Create image**.
 
 The GUI does not guess when no compatible kit can be established. See the

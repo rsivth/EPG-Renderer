@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- renamed the GUI choice "Yellow channel: Yellow / Black" to "Yellow dye shown as:
+  Yellow / Black (better contrast)" and updated the GUI guide; the CLI option
+  `--yellow-channel` and the Python option `yellow_channel_mode` are unchanged
+  (`0.14.0.dev6`)
 - formatted `tests/test_documentation_claims.py` with the pinned Ruff formatter; the
   CI quality gate had rejected `0.14.0.dev4` (`0.14.0.dev5`)
 - corrected four documentation statements (`0.14.0.dev4`): the kit-format guide now

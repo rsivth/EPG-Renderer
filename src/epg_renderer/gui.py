@@ -40,6 +40,11 @@ DIAGNOSTICS_COLOR = "#C62828"
 MAIN_WINDOW_WIDTH = 760
 MAIN_MIN_WIDTH = 700
 MAIN_SELECTOR_WIDTH = 31
+YELLOW_DYE_LABEL = "Yellow dye shown as"
+YELLOW_DYE_CHOICES = (
+    ("Yellow", YellowChannelMode.YELLOW),
+    ("Black (better contrast)", YellowChannelMode.BLACK),
+)
 
 
 class EpgRendererApp:
@@ -166,23 +171,18 @@ class EpgRendererApp:
                 command=self._update_output_suffix,
             ).pack(side="left", padx=(0, 16))
 
-        ttk.Label(output_group, text="Yellow channel").grid(
+        ttk.Label(output_group, text=YELLOW_DYE_LABEL).grid(
             row=1, column=0, sticky="w", padx=(0, 10), pady=(8, 0)
         )
         yellow_frame = ttk.Frame(output_group)
         yellow_frame.grid(row=1, column=1, sticky="w", pady=(8, 0))
-        ttk.Radiobutton(
-            yellow_frame,
-            text="Yellow",
-            value="yellow",
-            variable=self.yellow_var,
-        ).pack(side="left", padx=(0, 16))
-        ttk.Radiobutton(
-            yellow_frame,
-            text="Black",
-            value="black",
-            variable=self.yellow_var,
-        ).pack(side="left")
+        for text, mode in YELLOW_DYE_CHOICES:
+            ttk.Radiobutton(
+                yellow_frame,
+                text=text,
+                value=mode.value,
+                variable=self.yellow_var,
+            ).pack(side="left", padx=(0, 16))
 
         ttk.Label(output_group, text="Output file").grid(
             row=2, column=0, sticky="w", padx=(0, 10), pady=(10, 0)
