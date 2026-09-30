@@ -55,7 +55,11 @@ class PyProjectMetadataTests(unittest.TestCase):
     def test_public_readme_uses_pypi_and_absolute_project_links(self) -> None:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         self.assertIn("python3 -m pip install epg-renderer", readme)
-        self.assertIn('python3 -m pip install "epg-renderer[raster]"', readme)
+        # Since 0.14.0.dev7 the raster install command lives in the installation guide,
+        # which the PyPI README must link absolutely.
+        self.assertIn(
+            "https://github.com/rsivth/EPG-Renderer/blob/main/docs/INSTALLATION.md", readme
+        )
         for target in re.findall(r"!?\[[^]]*\]\(([^)\s]+)", readme):
             self.assertTrue(
                 target.startswith("https://"),

@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- reorganized the documentation by audience (`0.14.0.dev7`): the README addresses GUI
+  users first and developers second; all installation steps moved to the new
+  `docs/INSTALLATION.md`; the GUI guide now describes only the window and recommends
+  PNG or JPG for slides and SVG for editing in a vector graphics program
 - renamed the GUI choice "Yellow channel: Yellow / Black" to "Yellow dye shown as:
   Yellow / Black (better contrast)" and updated the GUI guide; the CLI option
   `--yellow-channel` and the Python option `yellow_channel_mode` are unchanged

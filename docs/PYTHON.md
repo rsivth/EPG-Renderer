@@ -5,26 +5,10 @@ Lower-level types and exceptions remain in the modules that own their contracts.
 
 ## Installation
 
-Install the package from PyPI:
-
-```bash
-python -m pip install epg-renderer
-```
-
-Or install an extracted source tree for development:
-
-```bash
-python -m pip install .
-```
-
-For PNG and JPEG output, install the raster extra and provide native Cairo:
-
-```bash
-python -m pip install "epg-renderer[raster]"
-```
-
-Use `python -m pip install ".[raster]"` instead when installing the checked-out source
-tree. SVG rendering has no third-party runtime dependency.
+Install the package as described in the
+[installation guide](INSTALLATION.md#python-package). SVG rendering has no third-party
+runtime dependency; PNG and JPG need the
+[raster components](INSTALLATION.md#png-and-jpg-output).
 
 ## Render one file
 

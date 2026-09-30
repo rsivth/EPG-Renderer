@@ -12,83 +12,42 @@ and quality control.
 
 [![Synthetic two-person PowerPlex ESI 17 Fast electropherogram](https://raw.githubusercontent.com/rsivth/EPG-Renderer/main/examples/esi17_two_person_mixture_example.svg)](https://github.com/rsivth/EPG-Renderer/blob/main/examples/esi17_two_person_mixture_example.svg)
 
-## Choose a download
+## Create a figure without programming
 
-Use PyPI for Python installations and the
-[EPG-Renderer Releases page](https://github.com/rsivth/EPG-Renderer/releases) for
-standalone Windows binaries and the complete source ZIP.
+The graphical interface reads a GeneMapper export or lets you enter alleles manually,
+resolves the kit and creates the image.
 
-| Goal | Distribution | Python required? |
-|---|---|---:|
-| Run the graphical interface on Windows x64 | `EPG-Renderer_GUI_Windows_x64_vX.Y.Z.zip` | No |
-| Integrate the Windows command-line renderer | `epg-render.exe` | No |
-| Use SVG rendering from the CLI or Python | `python3 -m pip install epg-renderer` | Yes, Python 3.10+ |
-| Add PNG and JPEG output | `python3 -m pip install "epg-renderer[raster]"` | Yes, plus native Cairo |
-| Run the GUI directly from source | `EPG-Renderer_vX.Y.Z.zip` | Yes, Python 3.10+ with Tkinter |
+- **Windows:** download the GUI ZIP from the
+  [Releases page](https://github.com/rsivth/EPG-Renderer/releases), extract it and
+  start `EPG-Renderer-GUI.exe`. Python is not needed.
+- **macOS and Linux:** the GUI runs with Python 3.10 or newer including Tkinter.
 
-The initial binary release target is Windows x64. The PyPI package is operating-system
-independent; Tkinter and native Cairo remain system components where the GUI or raster
-output needs them. Verify GitHub release assets against their published SHA-256
-checksums before use.
+Step by step:
+[installation guide](https://github.com/rsivth/EPG-Renderer/blob/main/docs/INSTALLATION.md)
+and [GUI guide](https://github.com/rsivth/EPG-Renderer/blob/main/docs/GETTING_STARTED.md).
 
-## Quick start
+For slides, for example in PowerPoint or Keynote, create PNG or JPG. Create SVG to edit
+the figure in a vector graphics program such as Inkscape or Adobe Illustrator.
 
-### Python package from PyPI
-
-Install the dependency-free SVG core:
+## Use EPG-Renderer in your software
 
 ```bash
 python3 -m pip install epg-renderer
-epg-render --version
 ```
 
-For PNG and JPEG output, install `epg-renderer[raster]` and provide native Cairo. Start
-the installed GUI with `epg-render-gui` when the Python installation includes Tkinter.
-
-### Windows GUI without Python
-
-1. Download the versioned Windows GUI ZIP from the Releases page.
-2. Extract the complete ZIP; do not run the application from inside the archive.
-3. Open the extracted `EPG-Renderer-GUI` folder and start
-   `EPG-Renderer-GUI.exe`.
-4. Keep SVG selected unless a raster image is specifically required.
-
-The initial executable may be unsigned, so Windows can show a SmartScreen warning.
-Verify the checksum and release source before deciding whether your local security
-policy permits the application.
-
-### GUI from an extracted source ZIP
-
-Windows:
-
-```bat
-py -3 launch_gui.py
-```
-
-macOS or Linux:
-
-```bash
-python3 launch_gui.py
-```
-
-The source launcher needs Tkinter but does not require the package to be installed.
-See the
-[Getting started and GUI manual](https://github.com/rsivth/EPG-Renderer/blob/main/docs/GETTING_STARTED.md)
-for installation, manual-profile entry, and troubleshooting.
+This installs SVG output, the `epg-render` command and the Python API. PNG and JPG
+output, source installs and the standalone Windows `epg-render.exe` are covered in the
+[installation guide](https://github.com/rsivth/EPG-Renderer/blob/main/docs/INSTALLATION.md).
 
 ### Command line
-
-An installed package provides `epg-render`; a standalone Windows download provides
-`epg-render.exe`.
 
 ```bash
 epg-render run.tsv sample.svg --sample-id DNA-123 --kit GlobalFiler
 epg-render run.tsv output_directory --all-samples --format svg --kit GlobalFiler
 ```
 
-See the
-[CLI and standalone binary guide](https://github.com/rsivth/EPG-Renderer/blob/main/docs/CLI.md)
-for all normal workflows, exit behavior, and application integration.
+See the [CLI guide](https://github.com/rsivth/EPG-Renderer/blob/main/docs/CLI.md)
+for all workflows, exit behavior, and application integration.
 
 ### Python
 
@@ -123,11 +82,6 @@ and [API reference](https://github.com/rsivth/EPG-Renderer/blob/main/docs/API.md
   wheel builds
 - fully local processing without profile-data uploads
 
-SVG is the recommended output format because it is scalable, editable, and requires
-no raster libraries. Source and wheel installations need Pillow, CairoSVG, and a
-working native Cairo library for PNG/JPEG output. Verified Windows binaries include
-their required raster runtime.
-
 ## Scope and limitations
 
 - Input must be a GeneMapper genotype-table export, not an `.fsa` file or other raw
@@ -153,6 +107,7 @@ before scientific use.
 The [documentation home](https://github.com/rsivth/EPG-Renderer/blob/main/docs/index.md)
 routes users to:
 
+- [Installation](https://github.com/rsivth/EPG-Renderer/blob/main/docs/INSTALLATION.md)
 - [Getting started and GUI manual](https://github.com/rsivth/EPG-Renderer/blob/main/docs/GETTING_STARTED.md)
 - [CLI and standalone binaries](https://github.com/rsivth/EPG-Renderer/blob/main/docs/CLI.md)
 - [Python vignette](https://github.com/rsivth/EPG-Renderer/blob/main/docs/PYTHON.md)

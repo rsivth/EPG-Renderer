@@ -33,10 +33,12 @@ class DocumentationSiteTests(unittest.TestCase):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         self.assertLessEqual(len(readme.splitlines()), 180)
         self.assertLessEqual(len(readme.split()), 1_100)
+        # Since 0.14.0.dev7 the README is organized by audience; installation details
+        # live in docs/INSTALLATION.md instead of "Choose a download" / "Quick start".
         for heading in (
             "## Example output",
-            "## Choose a download",
-            "## Quick start",
+            "## Create a figure without programming",
+            "## Use EPG-Renderer in your software",
             "## Scope and limitations",
             "## Documentation",
         ):

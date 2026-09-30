@@ -2,7 +2,8 @@
 
 The command-line interface renders GeneMapper genotype-table exports without opening
 the GUI. An installed package provides `epg-render`; the standalone Windows x64 asset
-provides `epg-render.exe` and does not require Python.
+provides `epg-render.exe` and does not require Python. The
+[installation guide](INSTALLATION.md) describes both.
 
 ## Verify the command
 

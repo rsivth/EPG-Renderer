@@ -10,7 +10,8 @@ guide that matches your task.
 
 | Task | Guide |
 |---|---|
-| Download and start the graphical interface | [Getting started and GUI manual](GETTING_STARTED.md) |
+| Install or start EPG-Renderer | [Installation](INSTALLATION.md) |
+| Create a figure with the graphical interface | [Getting started and GUI manual](GETTING_STARTED.md) |
 | Render from a terminal or another application | [CLI and standalone binaries](CLI.md) |
 | Use EPG-Renderer from Python | [Python vignette](PYTHON.md) |
 | Check public functions and type ownership | [API reference](API.md) |
@@ -22,12 +23,8 @@ guide that matches your task.
 
 ## Downloads
 
-Install the Python package with `python -m pip install epg-renderer`. The
-[EPG-Renderer Releases page](https://github.com/rsivth/EPG-Renderer/releases) provides
-the complete source ZIP and platform-specific assets. Verify GitHub downloads against
-the published SHA-256 checksums. The initial standalone binary target is Windows x64;
-the PyPI wheel and standard source distribution support the documented Python
-versions across operating systems.
+The [installation guide](INSTALLATION.md) lists every download and installation path:
+the Windows programs, the source ZIP and the Python package.
 
 ## Scientific scope
 

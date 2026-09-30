@@ -102,6 +102,7 @@ class CurrentSourceTreeTests(unittest.TestCase):
                 "DEVELOPMENT.md",
                 "GENEMAPPER.md",
                 "GETTING_STARTED.md",
+                "INSTALLATION.md",
                 "KIT_FORMAT.md",
                 "PYTHON.md",
                 "SOURCES.md",
