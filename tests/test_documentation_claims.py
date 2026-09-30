@@ -53,9 +53,7 @@ class KitFormatClaimTests(unittest.TestCase):
 
 class ReadmeClaimTests(unittest.TestCase):
     def test_readme_claims_reproducibility_only_for_artifacts_that_are_compared(self) -> None:
-        claims = [
-            line for line in README.read_text("utf-8").splitlines() if "reproducible" in line
-        ]
+        claims = [line for line in README.read_text("utf-8").splitlines() if "reproducible" in line]
         self.assertTrue(claims)
         for line in claims:
             with self.subTest(line=line):

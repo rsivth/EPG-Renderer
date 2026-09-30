@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- formatted `tests/test_documentation_claims.py` with the pinned Ruff formatter; the
+  CI quality gate had rejected `0.14.0.dev4` (`0.14.0.dev5`)
 - corrected four documentation statements (`0.14.0.dev4`): the kit-format guide now
   names `epg_renderer.kit_schema` as the validator (the JSON schema is not used at
   runtime) and asks for synthetic fixtures only instead of retained source exports; the
