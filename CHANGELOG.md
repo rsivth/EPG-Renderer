@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- the development guide no longer asks for end-to-end kit tests "where representative
+  exports are available" (`0.14.0.dev13`): all test data is synthetic, and laboratory
+  exports are never committed, as the kit format guide already said
+
 - the missing-raster-support message no longer names the unregistered PyPI package
   (`0.14.0.dev12`): it names CairoSVG and Pillow, says that SVG output works without
   them and links the installation guide; the README introduction no longer names a

@@ -23,6 +23,7 @@ ROOT = Path(__file__).resolve().parents[1]
 README = ROOT / "README.md"
 PYTHON_VIGNETTE = ROOT / "docs" / "PYTHON.md"
 KIT_FORMAT = ROOT / "docs" / "KIT_FORMAT.md"
+DEVELOPMENT = ROOT / "docs" / "DEVELOPMENT.md"
 FIXTURE = ROOT / "tests" / "fixtures" / "globalfiler_minimal.tsv"
 
 
@@ -51,6 +52,17 @@ class KitFormatClaimTests(unittest.TestCase):
         self.assertNotIn("retain it unchanged", guide)
         self.assertIn("synthetic", guide)
         self.assertIn("SOURCES.md#test-data-provenance", guide)
+
+    def test_development_guide_asks_for_synthetic_test_data_only(self) -> None:
+        # Until 0.14.0.dev12 DEVELOPMENT.md asked for end-to-end tests "where
+        # representative exports are available", which reads as an invitation to use
+        # laboratory exports; KIT_FORMAT.md and SOURCES.md allow synthetic data only.
+        guide = DEVELOPMENT.read_text(encoding="utf-8")
+        section = guide.split("## Adding or changing kit profiles\n", 1)[1].split("\n## ", 1)[0]
+        self.assertNotIn("representative exports", section)
+        self.assertIn("synthetic", section)
+        self.assertIn("Never commit a laboratory export", section)
+        self.assertIn("SOURCES.md#test-data-provenance", section)
 
 
 class ReadmeClaimTests(unittest.TestCase):

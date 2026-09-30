@@ -152,7 +152,9 @@ generated examples.
 
 Follow the [declarative kit format](KIT_FORMAT.md). New profiles require authoritative
 source provenance plus schema, detection, positioning, rendering, and end-to-end input
-tests where representative exports are available.
+tests. All test data is synthetic. Never commit a laboratory export; build a synthetic
+export with the same column layout instead (see
+[test data provenance](SOURCES.md#test-data-provenance)).
 
 ## Technical references
 
