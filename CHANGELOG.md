@@ -12,6 +12,13 @@
   tag/version validation, indexed-wheel byte comparison, and a protected live-release
   boundary
 
+## 0.13.43 - 2026-09-30
+
+- documented that permissive positioning only relaxes allele-level problems and that the
+  rendering workflows always reject unknown markers and dye conflicts; the coordinate
+  model guide previously implied otherwise
+- added regressions that pin this behavior for single-file and batch rendering
+
 ## 0.13.42 - 2026-09-30
 
 - kept dots inside GUI output file names such as `run.v2` or `DNA-12.3`; only an

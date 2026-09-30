@@ -62,6 +62,10 @@ image can omit called peaks; `has_omitted_peaks` flags that loss and `messages()
 returns every diagnostic as readable text. Applications that present results to users
 should prefer this operation.
 
+`strict_positioning=False` only relaxes allele-level problems. The rendering operations
+check marker names and dyes against the kit first and always reject unknown markers and
+dye conflicts with `KitResolutionError`.
+
 ```python
 from epg_renderer import render_file_report
 

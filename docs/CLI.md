@@ -84,7 +84,9 @@ requested sample was written.
 
 Permissive positioning is not a repair mechanism. It deliberately produces an output
 that omits peaks the selected coordinate model cannot place; review recorded issues
-before using such an image.
+before using such an image. It only relaxes allele-level problems. Kit checks run
+before positioning and always reject unknown markers and dye conflicts, so such input
+ends with exit status `2` in both modes.
 
 ## Exit behavior
 
