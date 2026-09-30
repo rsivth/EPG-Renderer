@@ -669,7 +669,7 @@ def _range_centered_coordinates(
     first = range_min + (available - span) / Decimal(2)
     return tuple(
         AlleleCoordinate(allele, first + code - codes[0])
-        for allele, code in zip(marker.ladder_alleles, codes, strict=False)
+        for allele, code in zip(marker.ladder_alleles, codes, strict=True)
     )
 
 

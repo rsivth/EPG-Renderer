@@ -174,7 +174,7 @@ def assign_label_lanes(
     lane_right: list[float] = []
     placements: list[LabelPlacement] = []
     gap = _LABEL_METRICS.horizontal_gap_px
-    for x, width in zip(x_positions, widths, strict=False):
+    for x, width in zip(x_positions, widths, strict=True):
         width = max(_LABEL_METRICS.minimum_width_px, min(width, max_x - min_x))
         centre = max(min_x + width / 2, min(max_x - width / 2, x))
         left = centre - width / 2

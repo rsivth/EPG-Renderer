@@ -12,6 +12,14 @@
   tag/version validation, indexed-wheel byte comparison, and a protected live-release
   boundary
 
+## 0.13.45 - 2026-09-30
+
+- made every paired `zip` strict, so unequal peak and label lists raise instead of
+  silently dropping peaks from a channel
+- removed the duplicate `_required_coordinate_bp` helper from `render_svg`
+- added guards for strict pairing, the fail-fast channel behavior and single private
+  helper definitions
+
 ## 0.13.44 - 2026-09-30
 
 - moved the Tkinter-dependent manual-dialog RFU test into `test_gui_manual_rfu.py`, so

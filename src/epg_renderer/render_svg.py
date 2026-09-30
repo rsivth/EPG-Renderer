@@ -19,6 +19,7 @@ from .render_layout import (
     ChannelPlan,
     LabelPlacement,
     _estimate_bold_text_width,
+    _required_coordinate_bp,
     decimal_text,
     float_text,
     ticks,
@@ -74,12 +75,6 @@ class _PeakGeometry:
     x_positions: tuple[float, ...]
     half_width_px: float
     connectors: tuple[tuple[float, float, float, float], ...]
-
-
-def _required_coordinate_bp(peak: PositionedPeak) -> Decimal:
-    if peak.coordinate_bp is None:
-        raise SvgRenderError(f"Peak {peak.marker} {peak.allele!r} has no coordinate.")
-    return peak.coordinate_bp
 
 
 def _render_channel(context: _ChannelRenderContext) -> None:
@@ -330,7 +325,7 @@ def _plan_peak_geometry(
                 + placement.lane * geometry.label_lane_height
             ),
         )
-        for peak_x, placement in zip(x_positions, context.plan.placements, strict=False)
+        for peak_x, placement in zip(x_positions, context.plan.placements, strict=True)
     )
     return _PeakGeometry(x_positions, half_width_px, connectors)
 
@@ -504,7 +499,7 @@ def _render_connectors(
 ) -> None:
     connector_layer = ET.SubElement(group, _q("g"), {"class": "connector-layer"})
     for index, (peak, connector) in enumerate(
-        zip(context.peaks, peak_geometry.connectors, strict=False)
+        zip(context.peaks, peak_geometry.connectors, strict=True)
     ):
         x1, y1, x2, y2 = connector
         ET.SubElement(
@@ -536,7 +531,7 @@ def _render_peaks(
         context.peaks,
         peak_geometry.x_positions,
         context.plan.placements,
-        strict=False,
+        strict=True,
     )
     for index, (peak, peak_x, placement) in enumerate(triples):
         if context.plan.height_mode is PeakHeightMode.UNIFORM:

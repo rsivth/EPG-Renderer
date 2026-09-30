@@ -224,7 +224,7 @@ class KitCoordinateModel:
         actual = tuple(marker.marker for marker in self.markers)
         if actual != expected:
             raise PositionModelError("Coordinate markers must exactly match kit marker order.")
-        for coordinate, kit_marker in zip(self.markers, selected_kit.markers, strict=False):
+        for coordinate, kit_marker in zip(self.markers, selected_kit.markers, strict=True):
             if coordinate.dye != kit_marker.dye:
                 raise PositionModelError(f"Dye mismatch for marker {kit_marker.name!r}.")
             if coordinate.range_min_bp >= coordinate.range_max_bp:
