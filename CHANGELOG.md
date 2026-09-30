@@ -12,6 +12,15 @@
   tag/version validation, indexed-wheel byte comparison, and a protected live-release
   boundary
 
+## 0.13.37 - 2026-09-30
+
+- reported an exported `Size n` outside the selected kit's marker range as
+  `MeasuredSizeOutsideRangeError` (a `PositionModelError` naming marker, allele, size
+  and range) instead of a bare `ValueError`
+- recorded such peaks in permissive mode as omitted with issue code
+  `measured_size_outside_range` (CLI exit status 3)
+- isolated the affected sample in strict batch runs instead of aborting the batch
+
 ## 0.13.36 - 2026-08-27
 
 - bounded vertical bp grid lines by the RFU plotting area

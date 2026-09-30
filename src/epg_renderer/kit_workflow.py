@@ -14,6 +14,7 @@ from .models import SampleCall
 from .positions import (
     DyeMismatchPositionError,
     KitCoordinateModel,
+    MeasuredSizeOutsideRangeError,
     PeakCoordinateSource,
     PositionedPeak,
     PositionedSample,
@@ -239,6 +240,17 @@ def position_sample(
             annotation_only = False
             try:
                 if allele_call.size_bp is not None:
+                    if not (
+                        marker_coordinates.range_min_bp
+                        <= allele_call.size_bp
+                        <= marker_coordinates.range_max_bp
+                    ):
+                        raise MeasuredSizeOutsideRangeError(
+                            f"Marker {canonical!r} allele {allele_call.allele!r} has measured "
+                            f"size {allele_call.size_bp} bp outside the marker range "
+                            f"{marker_coordinates.range_min_bp}–"
+                            f"{marker_coordinates.range_max_bp} bp of {match.kit.name}."
+                        )
                     coordinate_bp = allele_call.size_bp
                     coordinate_source = PeakCoordinateSource.MEASURED
                     allele_label = canonicalize_allele_label(allele_call.allele)
@@ -265,6 +277,20 @@ def position_sample(
                             allele_call.allele,
                         )
                     )
+            except MeasuredSizeOutsideRangeError as exc:
+                if strict:
+                    raise
+                issues.append(
+                    PositioningIssue(
+                        "measured_size_outside_range",
+                        str(exc),
+                        canonical,
+                        allele_call.allele,
+                    )
+                )
+                allele_label = canonicalize_allele_label(allele_call.allele)
+                coordinate_bp = None
+                coordinate_source = PeakCoordinateSource.UNPOSITIONED
             except UnknownAllelePositionError as exc:
                 allele_label = canonicalize_allele_label(allele_call.allele)
                 issue_code = "unknown_allele"

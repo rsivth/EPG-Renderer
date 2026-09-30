@@ -73,6 +73,9 @@ comparison. Duplicate marker rows are rejected instead of being silently combine
 - Imported RFU heights must be whole numbers from 0 through 32,767.
 - A populated allele without its required height is rejected.
 - Optional size and area values must be valid finite numeric values when present.
+- A measured size outside the selected kit's marker range is a positioning error. With
+  permissive positioning the peak is omitted and reported as
+  `measured_size_outside_range`.
 - The 32,767-RFU ceiling is a structural supported-domain limit, not a universal
   analytical threshold. Data from a 3500/3500xL may already be off-scale above
   32,000 RFU and requires upstream review.

@@ -56,6 +56,10 @@ class UnknownAllelePositionError(PositionModelError):
     """Raised when a called allele has no validated nominal coordinate."""
 
 
+class MeasuredSizeOutsideRangeError(PositionModelError):
+    """Raised when an exported fragment size lies outside the kit's marker range."""
+
+
 class DyeMismatchPositionError(PositionModelError):
     """Raised when the exported dye conflicts with the selected kit definition."""
 
@@ -443,6 +447,7 @@ __all__ = [
     "DyeMismatchPositionError",
     "KitCoordinateModel",
     "MarkerCoordinateDefinition",
+    "MeasuredSizeOutsideRangeError",
     "PeakCoordinateSource",
     "PlacementMethod",
     "PositionModelError",

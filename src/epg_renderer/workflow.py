@@ -15,7 +15,12 @@ from .render_io import write_epg_output
 from .render_options import RasterRenderOptions, SampleSelectionError, SvgRenderOptions
 
 OMITTED_PEAK_ISSUE_CODES = frozenset(
-    {"unknown_allele", "off_ladder_without_size", "missing_height"}
+    {
+        "unknown_allele",
+        "off_ladder_without_size",
+        "missing_height",
+        "measured_size_outside_range",
+    }
 )
 
 
