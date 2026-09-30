@@ -11,6 +11,7 @@ the preview artifact. Only the tag-triggered release job may write to the reposi
 from __future__ import annotations
 
 import re
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -86,6 +87,29 @@ class ReleaseWorkflowTests(unittest.TestCase):
         for phrase in ('gh release create "$GITHUB_REF_NAME"', "--verify-tag", "--notes-file"):
             with self.subTest(phrase=phrase):
                 self.assertIn(phrase, publish)
+
+
+class ReleaseNotesLocationTests(unittest.TestCase):
+    """0.14.0.dev8 wrote the notes into notes/ before the release gate, which rejects
+    every unapproved file in the source tree; the dry run failed there."""
+
+    def test_notes_are_written_outside_the_checked_source_tree(self) -> None:
+        build = _job(RELEASE.read_text(encoding="utf-8"), "build")
+        self.assertNotIn("notes/release-notes.md", build)
+        self.assertIn('--output "$RUNNER_TEMP/release-notes.md"', build)
+        gate = build.index("python -m tools.run_release_checks --output-dir release")
+        copy = build.index('cp "$RUNNER_TEMP/release-notes.md" release/release-notes.md')
+        self.assertLess(gate, copy)
+
+    def test_release_gate_ignores_its_output_directory_but_not_other_new_files(self) -> None:
+        from tools.release_tools import unexpected_release_paths
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for name in ("notes/release-notes.md", "release/release-notes.md"):
+                (root / name).parent.mkdir(parents=True, exist_ok=True)
+                (root / name).write_text("- change\n", encoding="utf-8")
+            self.assertEqual(unexpected_release_paths(root), (Path("notes/release-notes.md"),))
 
 
 if __name__ == "__main__":

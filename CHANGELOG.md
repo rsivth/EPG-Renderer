@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- fixed two errors in the `0.14.0.dev8` release workflow (`0.14.0.dev9`): the dry run
+  wrote the release notes into the source tree before the release gate, which rejects
+  unapproved files; the notes now wait outside it and join the gate's output
+  afterwards; `SHA256SUMS.txt` is sorted by file name on every platform instead of by
+  path objects, which Windows compares case-insensitively
 - replaced the PyPI publication workflow with `release.yml` (`0.14.0.dev8`): a version
   tag builds and verifies the sources and the Windows programs and creates the GitHub
   Release with the GUI ZIP, `epg-render.exe`, the source ZIP, the wheel,

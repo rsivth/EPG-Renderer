@@ -63,10 +63,15 @@ jobs:
         run: |
           heading="Unreleased"
           if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then heading="$VERSION"; fi
-          python -m tools.github_release notes --heading "$heading" --output notes/release-notes.md
+          python -m tools.github_release notes --heading "$heading" --output "$RUNNER_TEMP/release-notes.md"
 
       - name: Run the complete release gate and retain its artifacts
         run: python -m tools.run_release_checks --output-dir release
+
+      # The gate rejects unapproved files in the source tree, so the notes wait outside
+      # it until the gate has passed; release/ is the gate's own output directory.
+      - name: Add the release notes to the verified sources
+        run: cp "$RUNNER_TEMP/release-notes.md" release/release-notes.md
 
       - name: Upload the verified release sources
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -75,7 +80,7 @@ jobs:
           path: |
             release/EPG-Renderer_v*.zip
             release/*.whl
-            notes/release-notes.md
+            release/release-notes.md
           if-no-files-found: error
           retention-days: 7
 
@@ -113,7 +118,7 @@ jobs:
           VERSION: ${{ needs.build.outputs.version }}
         run: |
           python -m tools.github_release assemble --version "$VERSION" --input incoming --output release-preview/assets
-          cp incoming/sources/notes/release-notes.md release-preview/release-notes.md
+          cp incoming/sources/release-notes.md release-preview/release-notes.md
 
       - name: Upload the release preview
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1

@@ -52,7 +52,9 @@ def assemble_release(version: str, incoming: Path, output: Path) -> tuple[Path, 
         raise ReleaseError(f"Release asset directory is not empty: {output}")
     output.mkdir(parents=True, exist_ok=True)
     assets = tuple(Path(shutil.copyfile(source, output / source.name)) for source in sources)
-    lines = [f"{sha256_file(asset)}  {asset.name}" for asset in sorted(assets)]
+    # Sort by the name string: Windows compares Path objects case-insensitively.
+    ordered = sorted(assets, key=lambda asset: asset.name)
+    lines = [f"{sha256_file(asset)}  {asset.name}" for asset in ordered]
     checksums = output / CHECKSUM_FILE
     checksums.write_text("\n".join(lines) + "\n", encoding="utf-8")
     return (*assets, checksums)
