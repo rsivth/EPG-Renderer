@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- switched to development versions `X.Y.Z.devN` between releases (this is
+  `0.14.0.dev1`); documented the scheme in the development guide
+- accepted `X.Y.Z.devN` and `X.Y.ZrcN` in the Windows bundle version mapping, which
+  previously rejected every non-final version and therefore also the documented
+  release-candidate step
 - completed PyPI project metadata, public links, classifiers, license expression, and
   installation documentation
 - added a byte-reproducible standard source distribution beside the existing complete

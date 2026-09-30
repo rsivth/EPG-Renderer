@@ -110,10 +110,32 @@ class WindowsPackagingTests(unittest.TestCase):
             [(str(ROOT / "src" / "epg_renderer" / "data"), "epg_renderer/data")],
         )
 
+    def test_windows_version_tuple_accepts_development_and_candidate_versions(self):
+        common = _load_spec_common()
+        cases = {
+            "1.2.3": (1, 2, 3, 0),
+            "0.14.0.dev1": (0, 14, 0, 0),
+            "0.14.0.dev12": (0, 14, 0, 0),
+            "0.14.0rc2": (0, 14, 0, 0),
+        }
+        for version, expected in cases.items():
+            with self.subTest(version=version):
+                self.assertEqual(common.numeric_windows_version(version), expected)
+
     def test_windows_version_tuple_requires_three_numeric_components(self):
         common = _load_spec_common()
         self.assertEqual(common.numeric_windows_version("0.13.37"), (0, 13, 37, 0))
-        for invalid in ("0.13", "0.13.37rc1", "0.13.65536"):
+        # Since 0.14.0.dev1, rcN and .devN suffixes are accepted (see the test above);
+        # the numeric three-part base and the 65535 limit remain mandatory.
+        for invalid in (
+            "0.13",
+            "0.13.65536",
+            "0.14.0.dev",
+            "0.14.0a1",
+            "0.14.0.post1",
+            "0.14.0-dev1",
+            "v0.14.0",
+        ):
             with self.subTest(invalid=invalid), self.assertRaises(ValueError):
                 common.numeric_windows_version(invalid)
 

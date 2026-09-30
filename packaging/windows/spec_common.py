@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+import re
 from pathlib import Path
 
 from tools.release_tools import project_version
@@ -14,13 +15,23 @@ PACKAGE_DATA = [
 HIDDEN_IMPORTS = ["cairosvg", "PIL.Image"]
 
 
-def numeric_windows_version(version: str) -> tuple[int, int, int, int]:
-    """Convert a three-part package version to a Windows file-version tuple."""
+_WINDOWS_VERSION = re.compile(r"(\d+)\.(\d+)\.(\d+)(?:rc\d+|\.dev\d+)?")
 
-    parts = version.split(".")
-    if len(parts) != 3 or any(not part.isdecimal() for part in parts):
-        raise ValueError(f"Windows bundles require a numeric three-part version, got {version!r}.")
-    values = tuple(int(part) for part in parts)
+
+def numeric_windows_version(version: str) -> tuple[int, int, int, int]:
+    """Convert ``X.Y.Z``, ``X.Y.ZrcN`` or ``X.Y.Z.devN`` to a Windows file-version tuple.
+
+    Windows file versions hold four numbers only, so a candidate or development suffix
+    maps to ``X.Y.Z.0``; the complete version remains in the textual version fields.
+    """
+
+    match = _WINDOWS_VERSION.fullmatch(version)
+    if match is None:
+        raise ValueError(
+            "Windows bundles require a version of the form X.Y.Z, X.Y.ZrcN or X.Y.Z.devN, "
+            f"got {version!r}."
+        )
+    values = tuple(int(part) for part in match.groups())
     if any(value > 65535 for value in values):
         raise ValueError(f"Windows version components must not exceed 65535, got {version!r}.")
     return values[0], values[1], values[2], 0

@@ -60,6 +60,18 @@ python -m tools.run_release_checks --output-dir release
 Only the wheel and standard source distribution belong on PyPI. The complete source
 ZIP, its checksum, and standalone Windows deliverables remain GitHub Release assets.
 
+## Versions
+
+Published releases use `X.Y.Z`. Every change between two releases is delivered as a
+development version `X.Y.Z.devN` of the next release, for example `0.14.0.dev1`,
+`0.14.0.dev2`, and then `0.14.0`. `pip` never prefers a development version over a
+release. Keep `pyproject.toml` and `src/epg_renderer/version.py` identical, record
+changes under `## Unreleased` in `CHANGELOG.md`, and rename that section to the
+version when it is released.
+
+Windows file-version metadata holds four numbers, so `X.Y.Z.devN` and `X.Y.ZrcN` map
+to `X.Y.Z.0`; the full version remains visible as the product version.
+
 ## CI contract
 
 Normal CI exercises Python 3.10 through 3.14 on Linux, Windows, and macOS. Release
