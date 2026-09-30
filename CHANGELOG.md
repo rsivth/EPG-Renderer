@@ -12,6 +12,13 @@
   tag/version validation, indexed-wheel byte comparison, and a protected live-release
   boundary
 
+## 0.13.44 - 2026-09-30
+
+- moved the Tkinter-dependent manual-dialog RFU test into `test_gui_manual_rfu.py`, so
+  the six parser and model RFU-limit tests also run without Tkinter
+- added a regression that imports every non-GUI test module with Tkinter blocked
+- documented the test-runner invocation and the GUI test-module convention
+
 ## 0.13.43 - 2026-09-30
 
 - documented that permissive positioning only relaxes allele-level problems and that the

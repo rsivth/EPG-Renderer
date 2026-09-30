@@ -22,6 +22,10 @@ Run the complete functional test suite:
 python -m tools.run_all_tests
 ```
 
+Run it from the repository root with `-m`; starting `tools/run_all_tests.py` by path
+cannot import the `tools` package. Tests that need Tkinter belong in `test_gui*.py`
+modules; every other test module must import without Tkinter.
+
 Run linting, formatting verification, strict MyPy, and compilation:
 
 ```bash
