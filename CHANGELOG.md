@@ -12,6 +12,14 @@
   tag/version validation, indexed-wheel byte comparison, and a protected live-release
   boundary
 
+## 0.13.46 - 2026-09-30
+
+- added `kit_workflow.resolve_and_position` as the single resolve-then-position step of
+  `render_sample_svg`, `render_genemapper_epg_report` and `render_manual_epg_report`
+- stopped `position_sample` from scoring an explicitly selected kit a second time
+- corrected the operation count in `docs/ARCHITECTURE.md` (nine since 0.13.39) and
+  added a documentation regression for it
+
 ## 0.13.45 - 2026-09-30
 
 - made every paired `zip` strict, so unequal peak and label lists raise instead of

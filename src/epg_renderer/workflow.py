@@ -6,7 +6,7 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
 
-from .kit_workflow import position_sample, resolve_kit
+from .kit_workflow import resolve_and_position
 from .manual_profile import ManualProfile
 from .parser import read_genotypes_table
 from .positions import PositioningIssue
@@ -100,10 +100,9 @@ def render_genemapper_epg_report(
             )
 
     sample = project.sample(selected_id)
-    match = resolve_kit(sample, kit_name=kit_name, require_genemapper_compatible=True)
-    positioned = position_sample(
+    positioned = resolve_and_position(
         sample,
-        kit_name=match.kit.name,
+        kit_name=kit_name,
         strict=strict_positioning,
         require_genemapper_compatible=True,
     )
@@ -158,10 +157,9 @@ def render_manual_epg_report(
     """Render one validated manual profile and return its diagnostics."""
 
     sample = profile.to_sample_call()
-    match = resolve_kit(sample, kit_name=profile.kit_name, require_genemapper_compatible=False)
-    positioned = position_sample(
+    positioned = resolve_and_position(
         sample,
-        kit_name=match.kit.name,
+        kit_name=profile.kit_name,
         strict=strict_positioning,
         require_genemapper_compatible=False,
     )

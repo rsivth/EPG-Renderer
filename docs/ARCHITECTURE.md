@@ -2,13 +2,13 @@
 
 EPG-Renderer separates public orchestration, immutable domain state, data ingestion, kit knowledge, coordinate placement and presentation.
 
-- `api.py` defines the eight canonical package operations.
+- `api.py` defines the nine canonical package operations.
 - `domain.py` contains typed enums and immutable kit/batch metadata.
 - `models.py` contains immutable project, sample, marker and allele structures shared by parsed and manual inputs.
 - `parser.py` separates source decoding, CSV syntax validation, table-shape normalization, semantic header-family interpretation, source-injection identity and row accumulation before publishing immutable models.
 - `kit_schema.py` validates declarative kit profiles and constructs typed immutable metadata.
 - `kit_registry.py` loads and caches bundled profiles.
-- `kit_workflow.py` detects kits, resolves one profile and coordinates positioning.
+- `kit_workflow.py` detects kits, resolves one profile and coordinates positioning. `resolve_and_position` is the single resolve-then-position step of the rendering workflows; the batch runner keeps the two steps separate because it checks for one common kit between them.
 - `positions.py` defines nominal kit coordinate models and provenance-aware positioned peaks.
 - `render_options.py` validates rendering configuration through small field-specific validators.
 - `render_layout.py` contains deterministic layout calculations.

@@ -168,7 +168,7 @@ def position_sample(
         profile = get_kit_profile(kit_name)
         _require_export_compatibility(profile, require_genemapper_compatible)
         _reject_duplicate_canonical_markers(sample, profile)
-        match = _score_profile(sample, profile)
+    kit = profile.kit
 
     selected_model = model or profile.coordinate_model
     if selected_model.kit_name != profile.kit.name:
@@ -180,40 +180,39 @@ def position_sample(
     if require_exact_bin_centres:
         selected_model.require_exact()
 
-    channel_order = {channel.code: channel.order for channel in match.kit.channels}
+    channel_order = {channel.code: channel.order for channel in kit.channels}
     marker_order = {
-        marker.name: (channel_order[marker.dye], marker.order_in_dye)
-        for marker in match.kit.markers
+        marker.name: (channel_order[marker.dye], marker.order_in_dye) for marker in kit.markers
     }
     peaks: list[PositionedPeak] = []
     issues: list[PositioningIssue] = []
     for source_marker in sample.markers.values():
-        canonical = match.kit.canonical_marker(source_marker.marker)
+        canonical = kit.canonical_marker(source_marker.marker)
         if canonical is None:
             issue = PositioningIssue(
                 "unknown_marker",
-                f"Marker {source_marker.marker!r} is not defined for {match.kit.name}.",
+                f"Marker {source_marker.marker!r} is not defined for {kit.name}.",
                 source_marker.marker,
             )
             if strict:
                 raise PositionModelError(issue.message)
             issues.append(issue)
             continue
-        kit_marker = match.kit.marker(canonical)
+        kit_marker = kit.marker(canonical)
         source_dye = None if source_marker.dye is None else profile.normalize_dye(source_marker.dye)
         dye_issue: PositioningIssue | None = None
         if source_marker.dye is not None and source_dye is None:
             dye_issue = PositioningIssue(
                 "unknown_dye",
                 f"Marker {canonical!r} has unrecognized dye {source_marker.dye!r} "
-                f"in the export; {match.kit.name} expects {kit_marker.dye!r}.",
+                f"in the export; {kit.name} expects {kit_marker.dye!r}.",
                 canonical,
             )
         elif source_dye is not None and source_dye != kit_marker.dye:
             dye_issue = PositioningIssue(
                 "dye_mismatch",
                 f"Marker {canonical!r} is assigned to dye {source_marker.dye!r} "
-                f"in the export but to {kit_marker.dye!r} in {match.kit.name}.",
+                f"in the export but to {kit_marker.dye!r} in {kit.name}.",
                 canonical,
             )
         if dye_issue is not None:
@@ -249,7 +248,7 @@ def position_sample(
                             f"Marker {canonical!r} allele {allele_call.allele!r} has measured "
                             f"size {allele_call.size_bp} bp outside the marker range "
                             f"{marker_coordinates.range_min_bp}–"
-                            f"{marker_coordinates.range_max_bp} bp of {match.kit.name}."
+                            f"{marker_coordinates.range_max_bp} bp of {kit.name}."
                         )
                     coordinate_bp = allele_call.size_bp
                     coordinate_source = PeakCoordinateSource.MEASURED
@@ -334,7 +333,7 @@ def position_sample(
     )
     return PositionedSample(
         sample_id=sample.sample_id,
-        kit_name=match.kit.name,
+        kit_name=kit.name,
         coordinate_model_version=selected_model.model_version,
         coordinate_kind=selected_model.coordinate_kind,
         exact_bin_centres=selected_model.exact_bin_centres,
@@ -343,6 +342,33 @@ def position_sample(
         display_name=sample.display_name,
         origin=sample.origin,
         height_mode=sample.height_mode,
+    )
+
+
+def resolve_and_position(
+    sample: SampleCall,
+    *,
+    kit_name: str | None = None,
+    strict: bool = True,
+    require_genemapper_compatible: bool = False,
+) -> PositionedSample:
+    """Resolve a compatible kit with the workflow checks, then position the sample.
+
+    Unlike ``position_sample`` with an explicit kit, this always applies the
+    compatibility checks of ``resolve_kit``: unknown markers and dye conflicts are
+    rejected regardless of ``strict``, which only relaxes allele-level problems.
+    """
+
+    match = resolve_kit(
+        sample,
+        kit_name=kit_name,
+        require_genemapper_compatible=require_genemapper_compatible,
+    )
+    return position_sample(
+        sample,
+        kit_name=match.kit.name,
+        strict=strict,
+        require_genemapper_compatible=require_genemapper_compatible,
     )
 
 
@@ -472,5 +498,6 @@ __all__ = [
     "KitResolutionError",
     "detect_kits",
     "position_sample",
+    "resolve_and_position",
     "resolve_kit",
 ]

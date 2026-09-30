@@ -98,6 +98,17 @@ class DocumentationSiteTests(unittest.TestCase):
         for name in epg_renderer.__all__:
             self.assertIn(name, vignette)
 
+    def test_documented_operation_count_matches_the_package_root(self) -> None:
+        words = {7: "seven", 8: "eight", 9: "nine", 10: "ten", 11: "eleven", 12: "twelve"}
+        expected = words[len(epg_renderer.__all__) - 1]
+        pattern = re.compile(r"\b(" + "|".join(words.values()) + r")\b[^.]*\boperations\b")
+        findings: list[str] = []
+        for source in MARKDOWN_FILES:
+            for match in pattern.finditer(source.read_text(encoding="utf-8")):
+                if match.group(1) != expected:
+                    findings.append(f"{source.name}: {match.group(0)!r}")
+        self.assertEqual(findings, [])
+
     def test_cli_guide_tracks_every_long_command_option(self) -> None:
         guide = (DOCS / "CLI.md").read_text(encoding="utf-8")
         options = {

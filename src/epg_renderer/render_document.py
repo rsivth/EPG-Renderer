@@ -16,7 +16,7 @@ from decimal import Decimal
 from .domain import PeakHeightMode, ProfileOrigin
 from .kit_registry import get_kit_profile
 from .kit_schema import KitProfile
-from .kit_workflow import position_sample, resolve_kit
+from .kit_workflow import resolve_and_position
 from .kits import DyeChannel
 from .models import SampleCall
 from .positions import (
@@ -89,14 +89,9 @@ def render_sample_svg(
 ) -> str:
     """Resolve, position, and render one parsed sample as SVG."""
 
-    match = resolve_kit(
+    positioned = resolve_and_position(
         sample,
         kit_name=kit_name,
-        require_genemapper_compatible=require_genemapper_compatible,
-    )
-    positioned = position_sample(
-        sample,
-        kit_name=match.kit.name,
         strict=strict_positioning,
         require_genemapper_compatible=require_genemapper_compatible,
     )
