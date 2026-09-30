@@ -432,14 +432,6 @@ def _render_segmented_baseline(
             geometry.signal_bottom,
             context.color,
         )
-    if not peak_intervals:
-        _add_baseline_segment(
-            baseline_group,
-            geometry.plot_left,
-            geometry.plot_right,
-            geometry.signal_bottom,
-            context.color,
-        )
 
 
 def _add_baseline_segment(

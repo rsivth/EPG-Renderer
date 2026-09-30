@@ -12,6 +12,11 @@
   tag/version validation, indexed-wheel byte comparison, and a protected live-release
   boundary
 
+## 0.13.40 - 2026-09-30
+
+- drew exactly one full-width baseline segment in channels without called peaks instead
+  of two identical overlapping segments
+
 ## 0.13.39 - 2026-09-30
 
 - added the root operation `render_file_report`, which renders like `render_file` and
