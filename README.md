@@ -93,16 +93,21 @@ for all normal workflows, exit behavior, and application integration.
 ### Python
 
 ```python
-from epg_renderer import render_file
+from epg_renderer import render_file_report
 
-output = render_file(
+report = render_file_report(
     "run.tsv",
     "sample.svg",
     sample_id="DNA-123",
     kit_name="GlobalFiler",
 )
-print(output)
+print(report.output_path)
+for message in report.messages():
+    print(message)
 ```
+
+Show these messages to your users: parser warnings, for example about an export that
+may have cut off alleles, do not stop rendering.
 
 See the [Python vignette](https://github.com/rsivth/EPG-Renderer/blob/main/docs/PYTHON.md)
 and [API reference](https://github.com/rsivth/EPG-Renderer/blob/main/docs/API.md).
@@ -114,7 +119,8 @@ and [API reference](https://github.com/rsivth/EPG-Renderer/blob/main/docs/API.md
 - explicit RFU or uniform non-quantitative manual peak-height modes
 - batch rendering with one image per sample and a JSON manifest
 - automatic or explicit kit resolution using 14 bundled profiles
-- deterministic SVG output and reproducible source, wheel, and Windows builds
+- deterministic SVG output and byte-reproducible source ZIP, source distribution, and
+  wheel builds
 - fully local processing without profile-data uploads
 
 SVG is the recommended output format because it is scalable, editable, and requires

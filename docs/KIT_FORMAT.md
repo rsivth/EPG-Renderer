@@ -1,6 +1,8 @@
 # Declarative kit format
 
-Bundled profiles are JSON files in `src/epg_renderer/data/kits/` and are validated against `src/epg_renderer/data/kit_definition_schema.json`. The only supported schema version is `1.1`.
+Bundled profiles are JSON files in `src/epg_renderer/data/kits/`. `epg_renderer.kit_schema` validates every profile when it is loaded; that loader is authoritative. The only supported schema version is `1.1`.
+
+`src/epg_renderer/data/kit_definition_schema.json` describes the same format as a JSON Schema for editors and external tools. It is not used at runtime, and no automated test compares it with the loader.
 
 ## Top-level structure
 
@@ -25,6 +27,6 @@ Every source entry states a title and the data transcribed from that source. `re
 1. Create one uniquely named JSON file in `data/kits/`.
 2. Transcribe marker order, channels, aliases and ladder alleles from authoritative sources.
 3. Use nominal coordinates unless exact bins were independently verified.
-4. Add profile-specific validation, detection, positioning and rendering tests. When a complete source export is available, retain it unchanged as a hashed end-to-end fixture.
+4. Add profile-specific validation, detection, positioning and rendering tests with synthetic data only. Never commit a laboratory export. When an export shape needs end-to-end protection, build a synthetic export with the same column layout and keep it as a hashed fixture (see [test data provenance](SOURCES.md#test-data-provenance)).
 5. Verify that automatic matching distinguishes the profile from kits with overlapping marker sets; absent dye evidence must not be treated as agreement strong enough for an exact match.
 6. Run `python -m tools.run_release_checks`.

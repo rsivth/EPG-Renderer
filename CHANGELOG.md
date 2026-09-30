@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- corrected four documentation statements (`0.14.0.dev4`): the kit-format guide now
+  names `epg_renderer.kit_schema` as the validator (the JSON schema is not used at
+  runtime) and asks for synthetic fixtures only instead of retained source exports; the
+  README claims byte-reproducibility only for the source ZIP, sdist and wheel, which
+  are built twice and compared, and its Python example uses `render_file_report` so
+  that parser warnings are shown
 - pinned every external GitHub Action in `ci.yml` to the same full commits as the
   publication workflow (Node.js 24 releases); CI no longer warns about the removed
   Node.js 20 runtime, and a test keeps both workflows on one revision per action
