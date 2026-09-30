@@ -127,7 +127,10 @@ class WindowsBinaryBuildTests(unittest.TestCase):
                 )
 
     def test_ci_builds_extracts_smoke_tests_and_uploads_exact_assets(self):
-        workflow = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8")
+        # Since 0.14.0.dev8 the job lives in the reusable workflow called by CI and release.
+        workflow = (ROOT / ".github" / "workflows" / "windows-binaries.yml").read_text(
+            encoding="utf-8"
+        )
         for phrase in (
             "windows-binaries:",
             "runs-on: windows-2022",

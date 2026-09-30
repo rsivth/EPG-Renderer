@@ -111,37 +111,41 @@ class SourceDistributionTests(unittest.TestCase):
         self.assertIn('"--output-dir"', runner)
 
 
-class TrustedPublishingWorkflowTests(unittest.TestCase):
-    def setUp(self) -> None:
-        self.source = (ROOT / ".github/workflows/publish-pypi.yml").read_text(encoding="utf-8")
+class ReleaseWorkflowPrivilegeTests(unittest.TestCase):
+    """Former PyPI publication checks, carried over to release.yml in 0.14.0.dev8.
 
-    def test_workflow_uses_least_privilege_trusted_publishing(self) -> None:
-        self.assertEqual(self.source.count("id-token: write"), 2)
+    PyPI publication is deferred; the intent of these tests remains: least privilege,
+    validation before publication, and pinned external actions.
+    """
+
+    def setUp(self) -> None:
+        self.source = (ROOT / ".github/workflows/release.yml").read_text(encoding="utf-8")
+
+    def test_workflow_uses_least_privilege(self) -> None:
         self.assertIn("permissions:\n  contents: read", self.source)
-        self.assertNotIn("contents: write", self.source)
+        self.assertEqual(self.source.count("contents: write"), 1)
+        self.assertNotIn("id-token: write", self.source)
         self.assertNotIn("secrets.", self.source)
         self.assertNotIn("api-token", self.source.casefold())
-        self.assertNotIn("skip-existing", self.source)
-        self.assertNotIn("twine upload", self.source)
-        self.assertIn("environment:\n      name: testpypi", self.source)
-        self.assertIn("environment:\n      name: pypi", self.source)
 
-    def test_workflow_validates_test_index_before_live_publication(self) -> None:
+    def test_workflow_validates_everything_before_publication(self) -> None:
         for phrase in (
             "if: github.event_name == 'push' && github.ref_type == 'tag'",
             '"$GITHUB_REF_NAME" != "v$version"',
-            "Manual TestPyPI publication must run from the default branch.",
-            "repository-url: https://test.pypi.org/legacy/",
-            "needs: [build, publish-testpypi]",
-            "cmp --silent",
-            "needs: [build, verify-testpypi]",
+            "A manual dry run must start from the default branch.",
             "python -m tools.run_release_checks --output-dir release",
+            "needs: [build, windows]",
+            "needs: [build, assemble]",
         ):
             self.assertIn(phrase, self.source)
 
     def test_every_external_action_is_pinned_to_a_full_commit(self) -> None:
-        action_lines = [line.strip() for line in self.source.splitlines() if "uses:" in line]
-        self.assertGreaterEqual(len(action_lines), 8)
+        action_lines = [
+            line.strip().removeprefix("- ")
+            for line in self.source.splitlines()
+            if "uses:" in line and "uses: ./" not in line
+        ]
+        self.assertGreaterEqual(len(action_lines), 6)
         for line in action_lines:
             with self.subTest(line=line):
                 self.assertRegex(line, r"^uses: [^@]+@[0-9a-f]{40}(?: # .+)?$")

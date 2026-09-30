@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- replaced the PyPI publication workflow with `release.yml` (`0.14.0.dev8`): a version
+  tag builds and verifies the sources and the Windows programs and creates the GitHub
+  Release with the GUI ZIP, `epg-render.exe`, the source ZIP, the wheel,
+  `SHA256SUMS.txt` and the changelog section as release text; a manual run is a dry
+  run that only uploads the preview; the Windows build moved into the reusable
+  `windows-binaries.yml`, shared by CI and release; PyPI publication is deferred
 - reorganized the documentation by audience (`0.14.0.dev7`): the README addresses GUI
   users first and developers second; all installation steps moved to the new
   `docs/INSTALLATION.md`; the GUI guide now describes only the window and recommends

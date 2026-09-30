@@ -58,6 +58,7 @@ _ALLOWED_TOOL_FILES = {
     "build_release.py",
     "build_windows_binaries.py",
     "coverage_policy.py",
+    "github_release.py",
     "release_tools.py",
     "run_all_tests.py",
     "run_coverage_checks.py",

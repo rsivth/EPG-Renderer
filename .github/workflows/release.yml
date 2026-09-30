@@ -1,0 +1,150 @@
+name: Release
+
+# A version tag vX.Y.Z builds and verifies every release asset and creates the GitHub
+# Release. A manual run from the default branch is a dry run: it produces the same
+# assets and notes as the artifact "release-preview" and publishes nothing.
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build and verify release sources
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+
+    steps:
+      - name: Check out the release source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.14"
+          cache: pip
+
+      - name: Install the pinned release environment
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev,raster]"
+
+      - name: Read and validate the release version
+        id: version
+        env:
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          EVENT_NAME: ${{ github.event_name }}
+        shell: bash
+        run: |
+          version=$(python -c "from pathlib import Path; from tools.release_tools import project_version; print(project_version(Path.cwd()))")
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          if [[ "$EVENT_NAME" == "workflow_dispatch" && "$GITHUB_REF" != "refs/heads/$DEFAULT_BRANCH" ]]; then
+            echo "A manual dry run must start from the default branch." >&2
+            exit 1
+          fi
+          if [[ "$GITHUB_REF_TYPE" == "tag" && "$GITHUB_REF_NAME" != "v$version" ]]; then
+            echo "Tag $GITHUB_REF_NAME does not match package version $version." >&2
+            exit 1
+          fi
+
+      - name: Extract the release notes from the changelog
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        shell: bash
+        run: |
+          heading="Unreleased"
+          if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then heading="$VERSION"; fi
+          python -m tools.github_release notes --heading "$heading" --output notes/release-notes.md
+
+      - name: Run the complete release gate and retain its artifacts
+        run: python -m tools.run_release_checks --output-dir release
+
+      - name: Upload the verified release sources
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: release-sources
+          path: |
+            release/EPG-Renderer_v*.zip
+            release/*.whl
+            notes/release-notes.md
+          if-no-files-found: error
+          retention-days: 7
+
+  windows:
+    uses: ./.github/workflows/windows-binaries.yml
+
+  assemble:
+    name: Assemble the release assets
+    needs: [build, windows]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the release tools
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.14"
+
+      - name: Download the verified release sources
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: release-sources
+          path: incoming/sources
+
+      - name: Download the verified Windows deliverables
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: windows-x64-verified-${{ github.sha }}
+          path: incoming/windows
+
+      - name: Select the assets and write their checksums
+        env:
+          VERSION: ${{ needs.build.outputs.version }}
+        run: |
+          python -m tools.github_release assemble --version "$VERSION" --input incoming --output release-preview/assets
+          cp incoming/sources/notes/release-notes.md release-preview/release-notes.md
+
+      - name: Upload the release preview
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: release-preview
+          path: release-preview/
+          if-no-files-found: error
+          retention-days: 14
+
+  github-release:
+    name: Create the GitHub Release
+    if: github.event_name == 'push' && github.ref_type == 'tag'
+    needs: [build, assemble]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download the release preview
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: release-preview
+          path: release-preview
+
+      - name: Create the release with the verified assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ needs.build.outputs.version }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" release-preview/assets/* \
+            --repo "$GITHUB_REPOSITORY" \
+            --verify-tag \
+            --title "EPG-Renderer $VERSION" \
+            --notes-file release-preview/release-notes.md

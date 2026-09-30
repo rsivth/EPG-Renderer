@@ -38,7 +38,7 @@ Run tests with enforced line and branch coverage:
 python -m tools.run_coverage_checks
 ```
 
-Before committing a release candidate, run the aggregate release gate:
+Before tagging a release, run the aggregate release gate:
 
 ```bash
 python -m tools.run_release_checks
@@ -57,8 +57,8 @@ To retain the exact fully verified artifacts instead of using a temporary direct
 python -m tools.run_release_checks --output-dir release
 ```
 
-Only the wheel and standard source distribution belong on PyPI. The complete source
-ZIP, its checksum, and standalone Windows deliverables remain GitHub Release assets.
+The release workflow attaches the complete source ZIP and the wheel to the GitHub
+Release. The standard source distribution is built and checked but not published.
 
 ## Versions
 
@@ -78,11 +78,12 @@ binary smoke test accepts the same three formats.
 Normal CI exercises Python 3.10 through 3.14 on Linux, Windows, and macOS. Release
 preflight repeats on all three platforms after the complete test matrix succeeds.
 
-Both workflows pin every external action to a full commit with its release tag as a
-comment, and use the same commit for the same action. Update an action in
-`ci.yml` and `publish-pypi.yml` together.
+All workflows pin every external action to a full commit with its release tag as a
+comment, and use the same commit for the same action. Update an action in every
+workflow file together.
 
-The dedicated Windows binary job:
+The Windows binary job lives in `windows-binaries.yml` and is called by both `ci.yml`
+and `release.yml`. It:
 
 1. builds the stable `epg-render.exe` CLI and versioned GUI ZIP on a native runner;
 2. extracts the exact GUI ZIP;
@@ -96,47 +97,28 @@ An automated smoke test cannot cover SmartScreen, antivirus policy, or interacti
 behavior on an ordinary user workstation. That downloaded-artifact check remains a
 separate release gate.
 
-## TestPyPI and PyPI publication
+## GitHub release
 
-Publication uses `.github/workflows/publish-pypi.yml` and PyPI Trusted Publishing.
-The build job has read-only repository access and no publishing identity. Only the two
-small publish jobs receive `id-token: write`; no PyPI API token or password belongs in
-GitHub secrets.
+Releases are published only on GitHub; PyPI publication is deferred. The workflow
+`release.yml` needs no secrets: only its final job may write to the repository.
 
-Before the first run:
+Dry run: start **Release** manually from the default branch. It runs the release gate
+and the Windows build, and uploads the exact assets plus the notes from
+`## Unreleased` as the artifact `release-preview`. Nothing is published.
 
-1. enable two-factor authentication on the TestPyPI and PyPI maintainer accounts;
-2. create GitHub environments named exactly `testpypi` and `pypi` and protect `pypi`
-   with a required reviewer;
-3. configure a pending Trusted Publisher separately on TestPyPI and PyPI with project
-   name `epg-renderer`, owner `rsivth`, repository `EPG-Renderer`, workflow filename
-   `publish-pypi.yml`, and the matching environment name;
-4. confirm that the public maintainer identity in `pyproject.toml` is the identity that
-   should appear in package metadata.
+Release:
 
-The normal release sequence is:
+1. set the version `X.Y.Z` in `pyproject.toml` and `src/epg_renderer/version.py`,
+   rename `## Unreleased` in `CHANGELOG.md` to `## X.Y.Z - YYYY-MM-DD`, regenerate the
+   examples, and wait for a green CI run;
+2. push the tag `vX.Y.Z`; a tag that does not match the version is rejected;
+3. the workflow builds and verifies everything again and creates the GitHub Release
+   with the GUI ZIP, `epg-render.exe`, the source ZIP, the wheel and `SHA256SUMS.txt`;
+   the changelog section becomes the release text;
+4. continue with `X.Y.(Z+1).dev1` and a new `## Unreleased` section.
 
-1. set an unused release-candidate version such as `X.Y.Zrc1` in both
-   `pyproject.toml` and `src/epg_renderer/version.py`, update the changelog and
-   generated examples, and merge only after the complete CI matrix is green;
-2. manually run **Publish Python distributions** from the default branch; this builds
-   and verifies the artifacts, publishes only to TestPyPI, downloads the indexed
-   wheel, byte-compares it with the build artifact, and smoke-tests it;
-3. inspect the TestPyPI project description, links, metadata, and installation in a
-   normal user environment;
-4. prepare the unused final version `X.Y.Z`, repeat the checks, and push the exact tag
-   `vX.Y.Z`; a mismatched tag is rejected before any upload;
-5. the tag workflow first validates the final artifacts through TestPyPI again, then
-   waits at the protected `pypi` environment before publishing the same wheel and
-   source distribution to PyPI;
-6. create the corresponding GitHub Release and attach the verified complete source
-   ZIP, checksums, and any verified platform binaries.
-
-PyPI and TestPyPI versions are immutable. Do not reuse a version, enable
-`skip-existing`, delete and recreate a release, or upload a locally rebuilt
-replacement. Correct a failed candidate with a new release-candidate number. See the
-[PyPI Trusted Publishing guide](https://docs.pypi.org/trusted-publishers/) for account
-and pending-publisher setup.
+A missing changelog section or release asset stops the workflow before anything is
+published. Do not move or reuse a published tag; correct a release with a new version.
 
 ## Documentation checks
 
