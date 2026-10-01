@@ -120,6 +120,9 @@ class CurrentSourceTreeTests(unittest.TestCase):
                 "globalfiler_example.svg",
                 "ngm_example.svg",
                 "esi17_two_person_mixture_example.svg",
+                # Since 0.15.0.dev3: README figure, three-person mixture.
+                "esi17_three_person_mixture_example.svg",
+                "render_esi17_three_person_mixture_example.py",
                 "ngm_detect_five_person_mixture_example.svg",
                 # Since 0.15.0.dev1: showcase for docs/READING_THE_FIGURE.md.
                 "ngm_showcase_example.svg",

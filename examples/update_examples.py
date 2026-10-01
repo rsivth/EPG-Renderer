@@ -44,6 +44,12 @@ EXAMPLE_SPECS: tuple[ExampleSpec, ...] = (
         kit_name="NGM Detect",
     ),
     ExampleSpec(
+        name="esi17-three-person-mixture",
+        fixture_path="tests/fixtures/esi17_three_person_mixture.tsv",
+        target_path="examples/esi17_three_person_mixture_example.svg",
+        kit_name="PowerPlex ESI 17 Fast",
+    ),
+    ExampleSpec(
         name="ngm-showcase",
         fixture_path="tests/fixtures/ngm_showcase.tsv",
         target_path="examples/ngm_showcase_example.svg",

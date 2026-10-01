@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- the README example is now a synthetic three-person mixture with contributor
+  proportions 6:3:1 instead of a two-person mixture
 - manual profiles accept off-ladder calls as `OL@<allele>`: the peak is labelled `OL`
   and drawn at the estimated position of a helper allele outside the ladder bins, for
   example `OL@34.1` for D21S11; ladder alleles and positions outside the marker range

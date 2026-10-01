@@ -13,7 +13,10 @@ labels.
 
 ## Example output
 
-[![Synthetic two-person PowerPlex ESI 17 Fast electropherogram](https://raw.githubusercontent.com/rsivth/EPG-Renderer/main/examples/esi17_two_person_mixture_example.svg)](https://github.com/rsivth/EPG-Renderer/blob/main/examples/esi17_two_person_mixture_example.svg)
+[![Synthetic three-person PowerPlex ESI 17 Fast mixture, contributor proportions 6:3:1](https://raw.githubusercontent.com/rsivth/EPG-Renderer/main/examples/esi17_three_person_mixture_example.svg)](https://github.com/rsivth/EPG-Renderer/blob/main/examples/esi17_three_person_mixture_example.svg)
+
+A synthetic three-person mixture with a major, a minor and a trace contributor in the
+proportions 6:3:1; shared alleles carry the summed heights.
 
 ## Capabilities
 
