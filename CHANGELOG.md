@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- a missing native Cairo library now produces the same actionable raster message as
+  missing CairoSVG or Pillow (`0.14.0.dev16`); importing CairoSVG then raises OSError,
+  which the GUI used to show as "Could not create image" with a technical message
+
 - the GUI guide shows a screenshot of the main window after opening a synthetic
   GlobalFiler export (`0.14.0.dev15`); the image is stored without metadata or colour
   profile

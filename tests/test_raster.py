@@ -128,6 +128,34 @@ class RasterOutputTests(unittest.TestCase):
                 self.assertIn(phrase, message)
         self.assertNotIn("pip install", message)
 
+    def test_missing_native_cairo_library_has_the_actionable_error(self):
+        # Until 0.14.0.dev15 only ImportError was translated. With CairoSVG installed but
+        # the native Cairo library missing, importing CairoSVG raises OSError, which
+        # reached the GUI as "Could not create image" with a technical message.
+        original_import = builtins.__import__
+
+        def blocked_import(name, *args, **kwargs):
+            if name == "cairosvg":
+                raise OSError("no library called 'cairo-2' was found")
+            return original_import(name, *args, **kwargs)
+
+        with (
+            tempfile.TemporaryDirectory() as directory,
+            patch("builtins.__import__", side_effect=blocked_import),
+            self.assertRaises(RasterDependencyError) as caught,
+        ):
+            write_raster_image(self.svg, Path(directory) / "image.png")
+        message = str(caught.exception)
+        for phrase in (
+            "native Cairo library",
+            "SVG output",
+            "https://github.com/rsivth/EPG-Renderer/blob/main/docs/INSTALLATION.md"
+            "#png-and-jpg-output",
+        ):
+            with self.subTest(phrase=phrase):
+                self.assertIn(phrase, message)
+        self.assertNotIn("not installed", message)
+
     def test_invalid_raster_options_are_rejected(self):
         invalid = (
             RasterRenderOptions(scale=0),

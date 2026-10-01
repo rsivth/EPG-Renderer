@@ -178,16 +178,20 @@ def write_raster_image(
 
 
 def raster_output_available() -> bool:
-    """Return whether PNG and JPEG output can be created in this installation.
-
-    CairoSVG raises ``OSError`` on import when the native Cairo library is missing.
-    """
+    """Return whether PNG and JPEG output can be created in this installation."""
 
     try:
         _load_raster_dependencies()
-    except (RasterDependencyError, OSError):
+    except RasterDependencyError:
         return False
     return True
+
+
+_RASTER_INSTALLATION_HELP = (
+    "SVG output always works. Installation: "
+    "https://github.com/rsivth/EPG-Renderer/blob/main/docs/INSTALLATION.md"
+    "#png-and-jpg-output"
+)
 
 
 def _load_raster_dependencies() -> tuple[_CairoSvgModule, _ImageModule]:
@@ -197,9 +201,13 @@ def _load_raster_dependencies() -> tuple[_CairoSvgModule, _ImageModule]:
     except ImportError as exc:
         raise RasterDependencyError(
             "PNG/JPEG output requires CairoSVG and Pillow, which are not installed. "
-            "SVG output works without them. Installation: "
-            "https://github.com/rsivth/EPG-Renderer/blob/main/docs/INSTALLATION.md"
-            "#png-and-jpg-output"
+            + _RASTER_INSTALLATION_HELP
+        ) from exc
+    except OSError as exc:
+        # CairoSVG is installed, but its native Cairo library cannot be loaded.
+        raise RasterDependencyError(
+            "PNG/JPEG output requires the native Cairo library, which could not be "
+            "loaded. " + _RASTER_INSTALLATION_HELP
         ) from exc
     return cast(_CairoSvgModule, cairosvg), cast(_ImageModule, Image)
 
