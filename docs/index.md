@@ -12,6 +12,7 @@ guide that matches your task.
 |---|---|
 | Install or start EPG-Renderer | [Installation](INSTALLATION.md) |
 | Create a figure with the graphical interface | [Getting started and GUI manual](GETTING_STARTED.md) |
+| Understand what a figure shows | [Reading the figure](READING_THE_FIGURE.md) |
 | Render from a terminal or another application | [CLI and standalone binaries](CLI.md) |
 | Use EPG-Renderer from Python | [Python vignette](PYTHON.md) |
 | Check public functions and type ownership | [API reference](API.md) |

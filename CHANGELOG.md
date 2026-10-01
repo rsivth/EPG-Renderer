@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- added the documentation page "Reading the figure" with a synthetic NGM example that
+  shows how off-ladder calls with and without an exported size, an allele outside the
+  allelic ladder, microvariants and a homozygous marker appear in a figure
+
 ## 0.14.0 - 2026-10-01
 
 This is the first public release of EPG-Renderer. It creates schematic, kit-aware

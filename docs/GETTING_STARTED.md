@@ -22,6 +22,8 @@ writing code. To install and start the program, follow the
 The main window after opening a synthetic GlobalFiler export, shown on macOS; the
 Windows program has the same controls.
 
+[Reading the figure](READING_THE_FIGURE.md) explains what the image shows.
+
 The GUI does not guess when no compatible kit can be established. See the
 [GeneMapper input requirements](GENEMAPPER.md) when a file is rejected or kit
 selection remains unavailable.

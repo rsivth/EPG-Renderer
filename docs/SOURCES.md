@@ -54,7 +54,9 @@ Every bundled test fixture is synthetic. The GeneMapper table exports under
 `tests/fixtures/genemapper_exports/` and the `.tsv` fixtures beside them contain no
 laboratory data: sample names, sample files, sample identifiers, run names and peak
 heights are invented, and allele values are drawn from the allelic-ladder lists of the
-bundled kit definitions.
+bundled kit definitions. The exception is `ngm_showcase.tsv`: it deliberately adds
+off-ladder calls (`OL`, with and without a size) and an allele outside the ladder, to
+show in [Reading the figure](READING_THE_FIGURE.md) how such calls are drawn.
 
 They are deliberately shaped like real configurable exports rather than like minimal
 examples, because the parser contracts they protect concern exactly that shape: an

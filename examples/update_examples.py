@@ -43,6 +43,12 @@ EXAMPLE_SPECS: tuple[ExampleSpec, ...] = (
         target_path="examples/ngm_detect_five_person_mixture_example.svg",
         kit_name="NGM Detect",
     ),
+    ExampleSpec(
+        name="ngm-showcase",
+        fixture_path="tests/fixtures/ngm_showcase.tsv",
+        target_path="examples/ngm_showcase_example.svg",
+        kit_name="NGM",
+    ),
 )
 
 

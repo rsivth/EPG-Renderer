@@ -37,6 +37,8 @@ Start at the [documentation home](https://github.com/rsivth/EPG-Renderer/blob/ma
 - macOS and Linux: [start the GUI with Python](https://github.com/rsivth/EPG-Renderer/blob/main/docs/INSTALLATION.md#gui-with-python).
 - [GUI guide](https://github.com/rsivth/EPG-Renderer/blob/main/docs/GETTING_STARTED.md): from export or manual entry to the finished
   figure, and which format to choose.
+- [Reading the figure](https://github.com/rsivth/EPG-Renderer/blob/main/docs/READING_THE_FIGURE.md): what the peaks, labels and
+  annotations show.
 
 **Use EPG-Renderer in your software**
 

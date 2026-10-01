@@ -105,6 +105,8 @@ class CurrentSourceTreeTests(unittest.TestCase):
                 "INSTALLATION.md",
                 "KIT_FORMAT.md",
                 "PYTHON.md",
+                # Since 0.15.0.dev1: explanation of the showcase figure.
+                "READING_THE_FIGURE.md",
                 "SOURCES.md",
                 "index.md",
                 # Since 0.14.0.dev15: GUI screenshot for GETTING_STARTED.md.
@@ -119,6 +121,9 @@ class CurrentSourceTreeTests(unittest.TestCase):
                 "ngm_example.svg",
                 "esi17_two_person_mixture_example.svg",
                 "ngm_detect_five_person_mixture_example.svg",
+                # Since 0.15.0.dev1: showcase for docs/READING_THE_FIGURE.md.
+                "ngm_showcase_example.svg",
+                "render_ngm_showcase_example.py",
                 "render_globalfiler_example.py",
                 "render_ngm_example.py",
                 "render_esi17_two_person_mixture_example.py",

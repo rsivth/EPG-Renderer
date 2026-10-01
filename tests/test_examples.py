@@ -19,7 +19,14 @@ class ExampleArtifactTests(unittest.TestCase):
     def test_example_registry_matches_committed_svg_names(self) -> None:
         self.assertEqual(
             tuple(spec.name for spec in update_examples.list_example_specs()),
-            ("globalfiler", "ngm", "esi17-two-person-mixture", "ngm-detect-five-person-mixture"),
+            # Since 0.15.0.dev1 also the showcase for docs/READING_THE_FIGURE.md.
+            (
+                "globalfiler",
+                "ngm",
+                "esi17-two-person-mixture",
+                "ngm-detect-five-person-mixture",
+                "ngm-showcase",
+            ),
         )
         self.assertEqual(
             tuple(Path(spec.target_path).name for spec in update_examples.list_example_specs()),
@@ -28,6 +35,7 @@ class ExampleArtifactTests(unittest.TestCase):
                 "ngm_example.svg",
                 "esi17_two_person_mixture_example.svg",
                 "ngm_detect_five_person_mixture_example.svg",
+                "ngm_showcase_example.svg",
             ),
         )
 

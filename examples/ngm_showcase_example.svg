@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1184" viewBox="0 0 1600 1184" role="img" aria-labelledby="epg-title epg-description" data-epg-renderer-version="0.15.0.dev1" data-kit="NGM" data-coordinate-model-version="0.4-ngm1" data-coordinate-kind="range_centered_nominal" data-exact-bin-centres="false" data-peak-coordinate-provenance="mixed" data-profile-origin="genemapper" data-peak-height-mode="rfu">
+  <title id="epg-title">NGM_SHOWCASE</title>
+  <desc id="epg-description">Schematic electropherogram reconstructed from called allele identifiers and RFU heights. Horizontal called-peak positions mix measured fragment sizes exported by the source software, nominal kit display coordinates, and repeat-based estimated coordinates; each peak records its coordinate source.</desc>
+  <metadata>{"channel_label_lanes":{"FAM":1,"NED":2,"PET":1,"VIC":2},"coordinate_kind":"range_centered_nominal","coordinate_model_version":"0.4-ngm1","exact_bin_centres":false,"kit":"NGM","marker_annotation_messages":["Marker D2S441 contains unpositioned off-ladder allele(s) without size information."],"marker_annotations":{"D2S441":1},"omitted_unpositioned_peaks":0,"peak_coordinate_provenance":"mixed","peak_coordinate_source_counts":{"estimated":1,"measured":1,"nominal":29},"peak_height_mode":"rfu","profile_origin":"genemapper","renderer_version":"0.15.0.dev1","rfu_scale_mode":"per_channel","sample_display_name":"NGM_SHOWCASE","sample_id":"NGM_SHOWCASE","schema":"epg-renderer-svg-metadata-0.15.0.dev1","source_issue_count":2,"x_max_bp":"390","x_min_bp":"67","yellow_channel_mode":"yellow"}</metadata>
+  <rect x="0" y="0" width="1600" height="1184" fill="#FFFFFF" />
+  <style type="text/css">text { font-family: Arial, Helvetica, sans-serif; }
+.document-title { font-size: 20px; font-weight: 700; fill: #202124; }
+.document-subtitle { font-size: 11px; fill: #202124; }
+.panel-background { fill: #FFFFFF; stroke: #DADCE0; stroke-width: 0.9; }
+.channel-label { font-size: 13px; font-weight: 700; }
+.marker-label { font-size: 11.5px; font-weight: 700; }
+.marker-annotation-ribbon-text { font-weight: 700; }
+.legend-heading { font-size: 9.5px; font-weight: 700; fill: #5F6368; }
+.legend-text { font-size: 9.5px; fill: #5F6368; }
+.legend-ribbon-swatch { fill: #F28C00; stroke: #B85F00; stroke-width: 0.8; }
+.horizontal-grid { stroke: #E6E8EB; stroke-width: 0.7; }
+.vertical-grid { stroke: #ECEFF1; stroke-width: 0.7; }
+.tick-line { stroke: #DADCE0; stroke-width: 0.7; }
+.axis-line { stroke-width: 1.2; }
+.axis-label, .axis-unit, .rfu-label { font-size: 10px; fill: #5F6368; }
+.peak-label { font-size: 11.5px; font-weight: 600; }
+.height-label { font-size: 10px; font-weight: 400; }
+.empty-channel { font-size: 11px; font-style: italic; fill: #8A8D91; }
+.disclaimer { font-size: 9.5px; fill: #5F6368; }
+.warning { font-size: 9.5px; font-weight: 700; fill: #A15C00; }</style>
+  <text x="92" y="31" class="document-title">NGM_SHOWCASE</text>
+  <text x="92" y="53" class="document-subtitle">Kit: AmpFlSTR NGM PCR Amplification Kit (Applied Biosystems / Life Technologies) · nominal coordinate model 0.4-ngm1 · called peaks: 31</text>
+  <g class="channel-panel" data-dye="FAM" data-channel-label="6-FAM" data-peak-height-mode="rfu" data-signal-top="122" data-baseline-y="266" data-label-lanes="1" data-panel-height="250" data-display-color="#0067C5" transform="translate(0 0)" data-rfu-max="2500">
+    <rect x="34" y="76" width="1538" height="244" rx="4" class="panel-background" />
+    <text x="44" y="91" text-anchor="start" class="channel-label" fill="#0067C5">6-FAM</text>
+    <text x="1572" y="90" text-anchor="end" class="axis-unit">bp</text>
+    <g class="marker-band" data-marker="D10S1248" data-range-min-bp="72" data-range-max-bp="127" data-dye="FAM">
+      <rect x="114.91" y="96" width="252.012" height="18" fill="#F3F4F6" stroke="#000000" stroke-width="0.9" />
+      <text x="240.916" y="109" text-anchor="middle" class="marker-label" fill="#000000">D10S1248</text>
+    </g>
+    <g class="marker-band" data-marker="vWA" data-range-min-bp="149" data-range-max-bp="214.3" data-dye="FAM">
+      <rect x="467.728" y="96" width="299.207" height="18" fill="#F3F4F6" stroke="#000000" stroke-width="0.9" />
+      <text x="617.331" y="109" text-anchor="middle" class="marker-label" fill="#000000">vWA</text>
+    </g>
+    <g class="marker-band" data-marker="D16S539" data-range-min-bp="223.6" data-range-max-bp="277.6" data-dye="FAM">
+      <rect x="809.548" y="96" width="247.43" height="18" fill="#F3F4F6" stroke="#000000" stroke-width="0.9" />
+      <text x="933.263" y="109" text-anchor="middle" class="marker-label" fill="#000000">D16S539</text>
+    </g>
+    <g class="marker-band" data-marker="D2S1338" data-range-min-bp="281.6" data-range-max-bp="356" data-dye="FAM">
+      <rect x="1075.307" y="96" width="340.904" height="18" fill="#F3F4F6" stroke="#000000" stroke-width="0.9" />
+      <text x="1245.759" y="109" text-anchor="middle" class="marker-label" fill="#000000">D2S1338</text>
+    </g>
+    <line x1="92" x2="1572" y1="230" y2="230" class="horizontal-grid" />
+    <line x1="92" x2="1572" y1="194" y2="194" class="horizontal-grid" />
+    <line x1="92" x2="1572" y1="158" y2="158" class="horizontal-grid" />
+    <line x1="92" x2="1572" y1="122" y2="122" class="horizontal-grid" />
+    <line x1="243.207" x2="243.207" y1="122" y2="266" class="vertical-grid" />
+    <g class="axis-label-omission" data-tick="100" data-reason="connector-collision" />
+    <line x1="472.31" x2="472.31" y1="122" y2="266" class="vertical-grid" />
+    <text x="472.31" y="280" text-anchor="middle" class="axis-label">150</text>
+    <line x1="701.412" x2="701.412" y1="122" y2="266" class="vertical-grid" />
+    <text x="701.412" y="280" text-anchor="middle" class="axis-label">200</text>
+    <line x1="930.514" x2="930.514" y1="122" y2="266" class="vertical-grid" />
+    <text x="930.514" y="280" text-anchor="middle" class="axis-label">250</text>
+    <line x1="1159.616" x2="1159.616" y1="122" y2="266" class="vertical-grid" />
+    <text x="1159.616" y="280" text-anchor="middle" class="axis-label">300</text>
+    <line x1="1388.718" x2="1388.718" y1="122" y2="266" class="vertical-grid" />
+    <text x="1388.718" y="280" text-anchor="middle" class="axis-label">350</text>
+    <g class="segmented-baseline">
+      <line x1="92" x2="237.251" y1="266" y2="266" class="axis-line channel-baseline-segment" stroke="#0067C5" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="244.582" x2="273.907" y1="266" y2="266" class="axis-line channel-baseline-segment" stroke="#0067C5" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="281.238" x2="604.502" y1="266" y2="266" class="axis-line channel-baseline-segment" stroke="#0067C5" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="611.833" x2="751.127" y1="266" y2="266" class="axis-line channel-baseline-segment" stroke="#0067C5" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="758.458" x2="947.926" y1="266" y2="266" class="axis-line channel-baseline-segment" stroke="#0067C5" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="955.257" x2="1196.272" y1="266" y2="266" class="axis-line channel-baseline-segment" stroke="#0067C5" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="1203.604" x2="1287.913" y1="266" y2="266" class="axis-line channel-baseline-segment" stroke="#0067C5" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="1295.245" x2="1572" y1="266" y2="266" class="axis-line channel-baseline-segment" stroke="#0067C5" stroke-width="1.5" stroke-linecap="round" />
+    </g>
+    <text x="78" y="126" text-anchor="end" class="rfu-label" data-rfu-tick="2500">2500</text>
+    <text x="78" y="198" text-anchor="end" class="rfu-label" data-rfu-tick="1250">1250</text>
+    <text x="78" y="270" text-anchor="end" class="rfu-label" data-rfu-tick="0">0</text>
+    <g class="connector-layer">
+      <line x1="240.916" x2="240.916" y1="266" y2="284" stroke="#000000" stroke-width="0.8" class="allele-label-connector" data-peak-index="0" data-marker="D10S1248" data-allele="13" />
+      <line x1="277.573" x2="277.573" y1="266" y2="284" stroke="#000000" stroke-width="0.8" class="allele-label-connector" data-peak-index="1" data-marker="D10S1248" data-allele="15" />
+      <line x1="608.167" x2="608.167" y1="266" y2="284" stroke="#000000" stroke-width="0.8" class="allele-label-connector" data-peak-index="2" data-marker="vWA" data-allele="17" />
+      <line x1="754.793" x2="754.793" y1="266" y2="284" stroke="#000000" stroke-width="0.8" class="allele-label-connector" data-peak-index="3" data-marker="vWA" data-allele="25" />
+      <line x1="951.591" x2="951.591" y1="266" y2="284" stroke="#000000" stroke-width="0.8" class="allele-label-connector" data-peak-index="4" data-marker="D16S539" data-allele="11" />
+      <line x1="1199.938" x2="1199.938" y1="266" y2="284" stroke="#000000" stroke-width="0.8" class="allele-label-connector" data-peak-index="5" data-marker="D2S1338" data-allele="19" />
+      <line x1="1291.579" x2="1291.579" y1="266" y2="284" stroke="#000000" stroke-width="0.8" class="allele-label-connector" data-peak-index="6" data-marker="D2S1338" data-allele="24" />
+    </g>
+    <g class="peak-and-label-layer">
+      <g class="called-peak" data-peak-index="0" data-marker="D10S1248" data-allele="13" data-height-mode="rfu" data-coordinate-bp="99.5" data-coordinate-source="nominal" data-dye="FAM" data-label-lane="0" data-label-collision="false" data-x-px="240.916" data-y-px="198.032" data-label-box-x="225.716" data-label-box-y="284" data-label-box-width="30.4" data-label-box-height="29" data-nominal-bp="99.5" data-rfu="1180" data-source-dye="6-FAM">
+        <path d="M 237.251 266 L 239.633 240.172 L 240.916 198.032 L 242.199 240.172 L 244.582 266" fill="#FFFFFF" stroke="#0067C5" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="butt" class="allele-peak-shape" />
+        <rect x="225.716" y="284" width="30.4" height="29" rx="2" fill="#FFFFFF" stroke="#000000" stroke-width="0.9" class="allele-label-box" />
+        <text x="240.916" y="296" text-anchor="middle" class="peak-label" fill="#000000">
+          <tspan x="240.916" class="allele-label">13</tspan>
+          <tspan x="240.916" dy="11" class="height-label">1180</tspan>
+        </text>
+      </g>
+      <g class="called-peak" data-peak-index="1" data-marker="D10S1248" data-allele="15" data-height-mode="rfu" data-coordinate-bp="107.5" data-coordinate-source="nominal" data-dye="FAM" data-label-lane="0" data-label-collision="false" data-x-px="277.573" data-y-px="205.52" data-label-box-x="261.573" data-label-box-y="284" data-label-box-width="32" data-label-box-height="29" data-nominal-bp="107.5" data-rfu="1050" data-source-dye="6-FAM">
+        <path d="M 273.907 266 L 276.29 243.018 L 277.573 205.52 L 278.856 243.018 L 281.238 266" fill="#FFFFFF" stroke="#0067C5" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="butt" class="allele-peak-shape" />
+        <rect x="261.573" y="284" width="32" height="29" rx="2" fill="#FFFFFF" stroke="#000000" stroke-width="0.9" class="allele-label-box" />
+        <text x="277.573" y="296" text-anchor="middle" class="peak-label" fill="#000000">
+          <tspan x="277.573" class="allele-label">15</tspan>
+          <tspan x="277.573" dy="11" class="height-label">1050</tspan>
+        </text>
+      </g>
+      <g class="called-peak" data-peak-index="2" data-marker="vWA" data-allele="17" data-height-mode="rfu" data-coordinate-bp="179.65" data-coordinate-source="nominal" data-dye="FAM" data-label-lane="0" data-label-collision="false" data-x-px="608.167" data-y-px="208.976" data-label-box-x="594.067" data-label-box-y="284" data-label-box-width="28.2" data-label-box-height="29" data-nominal-bp="179.65" data-rfu="990" data-source-dye="6-FAM">
+        <path d="M 604.502 266 L 606.884 244.331 L 608.167 208.976 L 609.45 244.331 L 611.833 266" fill="#FFFFFF" stroke="#0067C5" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="butt" class="allele-peak-shape" />
+        <rect x="594.067" y="284" width="28.2" height="29" rx="2" fill="#FFFFFF" stroke="#000000" stroke-width="0.9" class="allele-label-box" />
+        <text x="608.167" y="296" text-anchor="middle" class="peak-label" fill="#000000">
+          <tspan x="608.167" class="allele-label">17</tspan>
+          <tspan x="608.167" dy="11" class="height-label">990</tspan>
+        </text>
+      </g>
+      <g class="called-peak" data-peak-index="3" data-marker="vWA" data-allele="25" data-height-mode="rfu" data-coordinate-bp="211.65" data-coordinate-source="estimated" data-dye="FAM" data-label-lane="0" data-label-collision="false" data-x-px="754.793" data-y-px="215.888" data-label-box-x="740.693" data-label-box-y="284" data-label-box-width="28.2" data-label-box-height="29" data-estimated-bp="211.65" data-rfu="870" data-source-dye="6-FAM">
+        <path d="M 751.127 266 L 753.51 246.957 L 754.793 215.888 L 756.076 246.957 L 758.458 266" fill="#FFFFFF" stroke="#0067C5" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="butt" class="allele-peak-shape" />
+        <rect x="740.693" y="284" width="28.2" height="29" rx="2" fill="#FFFFFF" stroke="#000000" stroke-width="0.9" class="allele-label-box" />
+        <text x="754.793" y="296" text-anchor="middle" class="peak-label" fill="#000000">
+          <tspan x="754.793" class="allele-label">25</tspan>
+          <tspan x="754.793" dy="11" class="height-label">870</tspan>
+        </text>
+      </g>
+      <g class="called-peak" data-peak-index="4" data-marker="D16S539" data-allele="11" data-height-mode="rfu" data-coordinate-bp="254.6" data-coordinate-source="nominal" data-dye="FAM" data-label-lane="0" data-label-collision="false" data-x-px="951.591" data-y-px="142.736" data-label-box-x="935.591" data-label-box-y="284" data-label-box-width="32" data-label-box-height="29" data-nominal-bp="254.6" data-rfu="2140" data-source-dye="6-FAM">
+        <path d="M 947.926 266 L 950.308 219.16 L 951.591 142.736 L 952.874 219.16 L 955.257 266" fill="#FFFFFF" stroke="#0067C5" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="butt" class="allele-peak-shape" />
+        <rect x="935.591" y="284" width="32" height="29" rx="2" fill="#FFFFFF" stroke="#000000" stroke-width="0.9" class="allele-label-box" />
+        <text x="951.591" y="296" text-anchor="middle" class="peak-label" fill="#000000">
+          <tspan x="951.591" class="allele-label">11</tspan>
+          <tspan x="951.591" dy="11" class="height-label">2140</tspan>
+        </text>
+      </g>
+      <g class="called-peak" data-peak-index="5" data-marker="D2S1338" data-allele="19" data-height-mode="rfu" data-coordinate-bp="308.8" data-coordinate-source="nominal" data-dye="FAM" data-label-lane="0" data-label-collision="false" data-x-px="1199.938" data-y-px="218.768" data-label-box-x="1185.838" data-label-box-y="284" data-label-box-width="28.2" data-label-box-height="29" data-nominal-bp="308.8" data-rfu="820" data-source-dye="6-FAM">
+        <path d="M 1196.272 266 L 1198.655 248.052 L 1199.938 218.768 L 1201.221 248.052 L 1203.604 266" fill="#FFFFFF" stroke="#0067C5" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="butt" class="allele-peak-shape" />
+        <rect x="1185.838" y="284" width="28.2" height="29" rx="2" fill="#FFFFFF" stroke="#000000" stroke-width="0.9" class="allele-label-box" />
+        <text x="1199.938" y="296" text-anchor="middle" class="peak-label" fill="#000000">
+          <tspan x="1199.938" class="allele-label">19</tspan>
+          <tspan x="1199.938" dy="11" class="height-label">820</tspan>
+        </text>
+      </g>
+      <g class="called-peak" data-peak-index="6" data-marker="D2S1338" data-allele="24" data-height-mode="rfu" data-coordinate-bp="328.8" data-coordinate-source="nominal" data-dye="FAM" data-label-lane="0" data-label-collision="false" data-x-px="1291.579" data-y-px="222.224" data-label-box-x="1277.479" data-label-box-y="284" data-label-box-width="28.2" data-label-box-height="29" data-nominal-bp="328.8" data-rfu="760" data-source-dye="6-FAM">
+        <path d="M 1287.913 266 L 1290.296 249.365 L 1291.579 222.224 L 1292.862 249.365 L 1295.245 266" fill="#FFFFFF" stroke="#0067C5" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="butt" class="allele-peak-shape" />
+        <rect x="1277.479" y="284" width="28.2" height="29" rx="2" fill="#FFFFFF" stroke="#000000" stroke-width="0.9" class="allele-label-box" />
+        <text x="1291.579" y="296" text-anchor="middle" class="peak-label" fill="#000000">
+          <tspan x="1291.579" class="allele-label">24</tspan>
+          <tspan x="1291.579" dy="11" class="height-label">760</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
+  <g class="channel-panel" data-dye="VIC" data-channel-label="VIC" data-peak-height-mode="rfu" data-signal-top="372" data-baseline-y="484" data-label-lanes="2" data-panel-height="250" data-display-color="#008B45" transform="translate(0 0)" data-rfu-max="1500">
+    <rect x="34" y="326" width="1538" height="244" rx="4" class="panel-background" />
+    <text x="44" y="341" text-anchor="start" class="channel-label" fill="#008B45">VIC</text>
+    <text x="1572" y="340" text-anchor="end" class="axis-unit">bp</text>
+    <g class="marker-band" data-marker="Amelogenin" data-range-min-bp="100" data-range-max-bp="108" data-dye="VIC">
+      <rect x="243.207" y="346" width="36.656" height="18" fill="#F3F4F6" stroke="#000000" stroke-width="0.9" />
+      <text x="261.536" y="359" text-anchor="middle" class="marker-label" fill="#000000" font-size="8.4">A...</text>
+    </g>
+    <g class="marker-band" data-marker="D8S1179" data-range-min-bp="117.9" data-range-max-bp="174.9" data-dye="VIC">
+      <rect x="325.226" y="346" width="261.176" height="18" fill="#F3F4F6" stroke="#000000" stroke-width="0.9" />
+      <text x="455.814" y="359" text-anchor="middle" class="marker-label" fill="#000000">D8S1179</text>
+    </g>
+    <g class="marker-band" data-marker="D21S11" data-range-min-bp="178.8" data-range-max-bp="249.8" data-dye="VIC">
+      <rect x="604.272" y="346" width="325.325" height="18" fill="#F3F4F6" stroke="#000000" stroke-width="0.9" />
+      <text x="766.935" y="359" text-anchor="middle" class="marker-label" fill="#000000">D21S11</text>
+    </g>
+    <g class="marker-band" data-marker="D18S51" data-range-min-bp="259.5" data-range-max-bp="347.5" data-dye="VIC">
+      <rect x="974.043" y="346" width="403.22" height="18" fill="#F3F4F6" stroke="#000000" stroke-width="0.9" />
+      <text x="1175.653" y="359" text-anchor="middle" class="marker-label" fill="#000000">D18S51</text>
+    </g>
+    <line x1="92" x2="1572" y1="456" y2="456" class="horizontal-grid" />
+    <line x1="92" x2="1572" y1="428" y2="428" class="horizontal-grid" />
+    <line x1="92" x2="1572" y1="400" y2="400" class="horizontal-grid" />
+    <line x1="92" x2="1572" y1="372" y2="372" class="horizontal-grid" />
+    <line x1="243.207" x2="243.207" y1="372" y2="484" class="vertical-grid" />
+    <g class="axis-label-omission" data-tick="100" data-reason="connector-collision" />
+    <line x1="472.31" x2="472.31" y1="372" y2="484" class="vertical-grid" />
+    <g class="axis-label-omission" data-tick="150" data-reason="connector-collision" />
+    <line x1="701.412" x2="701.412" y1="372" y2="484" class="vertical-grid" />
+    <text x="701.412" y="498" text-anchor="middle" class="axis-label">200</text>
+    <line x1="930.514" x2="930.514" y1="372" y2="484" class="vertical-grid" />
+    <text x="930.514" y="498" text-anchor="middle" class="axis-label">250</text>
+    <line x1="1159.616" x2="1159.616" y1="372" y2="484" class="vertical-grid" />
+    <text x="1159.616" y="498" text-anchor="middle" class="axis-label">300</text>
+    <line x1="1388.718" x2="1388.718" y1="372" y2="484" class="vertical-grid" />
+    <text x="1388.718" y="498" text-anchor="middle" class="axis-label">350</text>
+    <g class="segmented-baseline">
+      <line x1="92" x2="244.124" y1="484" y2="484" class="axis-line channel-baseline-segment" stroke="#008B45" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="251.455" x2="271.616" y1="484" y2="484" class="axis-line channel-baseline-segment" stroke="#008B45" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="278.947" x2="424.656" y1="484" y2="484" class="axis-line channel-baseline-segment" stroke="#008B45" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="431.988" x2="461.313" y1="484" y2="484" class="axis-line channel-baseline-segment" stroke="#008B45" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="468.644" x2="612.52" y1="484" y2="484" class="axis-line channel-baseline-segment" stroke="#008B45" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="619.851" x2="744.941" y1="484" y2="484" class="axis-line channel-baseline-segment" stroke="#008B45" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="752.272" x2="790.762" y1="484" y2="484" class="axis-line channel-baseline-segment" stroke="#008B45" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="798.093" x2="1098.675" y1="484" y2="484" class="axis-line channel-baseline-segment" stroke="#008B45" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="1106.006" x2="1171.988" y1="484" y2="484" class="axis-line channel-baseline-segment" stroke="#008B45" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="1179.319" x2="1572" y1="484" y2="484" class="axis-line channel-baseline-segment" stroke="#008B45" stroke-width="1.5" stroke-linecap="round" />
+    </g>
+    <text x="78" y="376" text-anchor="end" class="rfu-label" data-rfu-tick="1500">1500</text>
+    <text x="78" y="432" text-anchor="end" class="rfu-label" data-rfu-tick="750">750</text>
+    <text x="78" y="488" text-anchor="end" class="rfu-label" data-rfu-tick="0">0</text>
+    <g class="connector-layer">
+      <line x1="247.789" x2="247.789" y1="484" y2="502" stroke="#000000" stroke-width="0.8" class="allele-label-connector" data-peak-index="0" data-marker="Amelogenin" data-allele="X" />
+      <line x1="275.282" x2="275.282" y1="484" y2="534" stroke="#000000" stroke-width="0.8" class="allele-label-connector" data-peak-index="1" data-marker="Amelogenin" data-allele="Y" />
+      <line x1="428.322" x2="428.322" y1="484" y2="502" stroke="#000000" stroke-width="0.8" class="allele-label-connector" data-peak-index="2" data-marker="D8S1179" data-allele="12" />
+      <line x1="464.978" x2="464.978" y1="484" y2="502" stroke="#000000" stroke-width="0.8" class="allele-label-connector" data-peak-index="3" data-marker="D8S1179" data-allele="14" />
+      <line x1="616.186" x2="616.186" y1="484" y2="502" stroke="#000000" stroke-width="0.8" class="allele-label-connector" data-peak-index="4" data-marker="D21S11" data-allele="OL" />
+      <line x1="748.607" x2="748.607" y1="484" y2="502" stroke="#000000" stroke-width="0.8" class="allele-label-connector" data-peak-index="5" data-marker="D21S11" data-allele="30" />
+      <line x1="794.427" x2="794.427" y1="484" y2="502" stroke="#000000" stroke-width="0.8" class="allele-label-connector" data-peak-index="6" data-marker="D21S11" data-allele="32.2" />
+      <line x1="1102.341" x2="1102.341" y1="484" y2="502" stroke="#000000" stroke-width="0.8" class="allele-label-connector" data-peak-index="7" data-marker="D18S51" data-allele="13" />
+      <line x1="1175.653" x2="1175.653" y1="484" y2="502" stroke="#000000" stroke-width="0.8" class="allele-label-connector" data-peak-index="8" data-marker="D18S51" data-allele="17" />
+    </g>
+    <g class="peak-and-label-layer">
+      <g class="called-peak" data-peak-index="0" data-marker="Amelogenin" data-allele="X" data-height-mode="rfu" data-coordinate-bp="101" data-coordinate-source="nominal" data-dye="VIC" data-label-lane="0" data-label-collision="false" data-x-px="247.789" data-y-px="386.187" data-label-box-x="232.589" data-label-box-y="502" data-label-box-width="30.4" data-label-box-height="29" data-nominal-bp="101" data-rfu="1310" data-source-dye="VIC">
+        <path d="M 244.124 484 L 246.507 446.831 L 247.789 386.187 L 249.072 446.831 L 251.455 484" fill="#FFFFFF" stroke="#008B45" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="butt" class="allele-peak-shape" />
+        <rect x="232.589" y="502" width="30.4" height="29" rx="2" fill="#FFFFFF" stroke="#000000" stroke-width="0.9" class="allele-label-box" />
+        <text x="247.789" y="514" text-anchor="middle" class="peak-label" fill="#000000">
+          <tspan x="247.789" class="allele-label">X</tspan>
+          <tspan x="247.789" dy="11" class="height-label">1310</tspan>
+        </text>
+      </g>
+      <g class="called-peak" data-peak-index="1" data-marker="Amelogenin" data-allele="Y" data-height-mode="rfu" data-coordinate-bp="107" data-coordinate-source="nominal" data-dye="VIC" data-label-lane="1" data-label-collision="false" data-x-px="275.282" data-y-px="395.147" data-label-box-x="260.082" data-label-box-y="534" data-label-box-width="30.4" data-label-box-height="29" data-nominal-bp="107" data-rfu="1190" data-source-dye="VIC">
+        <path d="M 271.616 484 L 273.999 450.236 L 275.282 395.147 L 276.565 450.236 L 278.947 484" fill="#FFFFFF" stroke="#008B45" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="butt" class="allele-peak-shape" />
+        <rect x="260.082" y="534" width="30.4" height="29" rx="2" fill="#FFFFFF" stroke="#000000" stroke-width="0.9" class="allele-label-box" />
+        <text x="275.282" y="546" text-anchor="middle" class="peak-label" fill="#000000">
+          <tspan x="275.282" class="allele-label">Y</tspan>
+          <tspan x="275.282" dy="11" class="height-label">1190</tspan>
+        </text>
+      </g>
+      <g class="called-peak" data-peak-index="2" data-marker="D8S1179" data-allele="12" data-height-mode="rfu" data-coordinate-bp="140.4" data-coordinate-source="nominal" data-dye="VIC" data-label-lane="0" data-label-collision="false" data-x-px="428.322" data-y-px="400.373" data-label-box-x="413.122" data-label-box-y="502" data-label-box-width="30.4" data-label-box-height="29" data-nominal-bp="140.4" data-rfu="1120" data-source-dye="VIC">
+        <path d="M 424.656 484 L 427.039 452.222 L 428.322 400.373 L 429.605 452.222 L 431.988 484" fill="#FFFFFF" stroke="#008B45" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="butt" class="allele-peak-shape" />
+        <rect x="413.122" y="502" width="30.4" height="29" rx="2" fill="#FFFFFF" stroke="#000000" stroke-width="0.9" class="allele-label-box" />
+        <text x="428.322" y="514" text-anchor="middle" class="peak-label" fill="#000000">
+          <tspan x="428.322" class="allele-label">12</tspan>
+          <tspan x="428.322" dy="11" class="height-label">1120</tspan>
+        </text>
+      </g>
+      <g class="called-peak" data-peak-index="3" data-marker="D8S1179" data-allele="14" data-height-mode="rfu" data-coordinate-bp="148.4" data-coordinate-source="nominal" data-dye="VIC" data-label-lane="0" data-label-collision="false" data-x-px="464.978" data-y-px="406.347" data-label-box-x="448.978" data-label-box-y="502" data-label-box-width="32" data-label-box-height="29" data-nominal-bp="148.4" data-rfu="1040" data-source-dye="VIC">
+        <path d="M 461.313 484 L 463.695 454.492 L 464.978 406.347 L 466.261 454.492 L 468.644 484" fill="#FFFFFF" stroke="#008B45" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="butt" class="allele-peak-shape" />
+        <rect x="448.978" y="502" width="32" height="29" rx="2" fill="#FFFFFF" stroke="#000000" stroke-width="0.9" class="allele-label-box" />
+        <text x="464.978" y="514" text-anchor="middle" class="peak-label" fill="#000000">
+          <tspan x="464.978" class="allele-label">14</tspan>
+          <tspan x="464.978" dy="11" class="height-label">1040</tspan>
+        </text>
+      </g>
+      <g class="called-peak" data-peak-index="4" data-marker="D21S11" data-allele="OL" data-height-mode="rfu" data-coordinate-bp="181.4" data-coordinate-source="measured" data-dye="VIC" data-label-lane="0" data-label-collision="false" data-x-px="616.186" data-y-px="436.213" data-label-box-x="602.086" data-label-box-y="502" data-label-box-width="28.2" data-label-box-height="29" data-measured-bp="181.4" data-rfu="640" data-source-dye="VIC">
+        <path d="M 612.52 484 L 614.903 465.841 L 616.186 436.213 L 617.469 465.841 L 619.851 484" fill="#FFFFFF" stroke="#008B45" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="butt" class="allele-peak-shape" />
+        <rect x="602.086" y="502" width="28.2" height="29" rx="2" fill="#FFFFFF" stroke="#000000" stroke-width="0.9" class="allele-label-box" />
+        <text x="616.186" y="514" text-anchor="middle" class="peak-label" fill="#000000">
+          <tspan x="616.186" class="allele-label">OL</tspan>
+          <tspan x="616.186" dy="11" class="height-label">640</tspan>
+        </text>
+      </g>
+      <g class="called-peak" data-peak-index="5" data-marker="D21S11" data-allele="30" data-height-mode="rfu" data-coordinate-bp="210.3" data-coordinate-source="nominal" data-dye="VIC" data-label-lane="0" data-label-collision="false" data-x-px="748.607" data-y-px="414.56" data-label-box-x="734.507" data-label-box-y="502" data-label-box-width="28.2" data-label-box-height="29" data-nominal-bp="210.3" data-rfu="930" data-source-dye="VIC">
+        <path d="M 744.941 484 L 747.324 457.613 L 748.607 414.56 L 749.89 457.613 L 752.272 484" fill="#FFFFFF" stroke="#008B45" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="butt" class="allele-peak-shape" />
+        <rect x="734.507" y="502" width="28.2" height="29" rx="2" fill="#FFFFFF" stroke="#000000" stroke-width="0.9" class="allele-label-box" />
+        <text x="748.607" y="514" text-anchor="middle" class="peak-label" fill="#000000">
+          <tspan x="748.607" class="allele-label">30</tspan>
+          <tspan x="748.607" dy="11" class="height-label">930</tspan>
+        </text>
+      </g>
+      <g class="called-peak" data-peak-index="6" data-marker="D21S11" data-allele="32.2" data-height-mode="rfu" data-coordinate-bp="220.3" data-coordinate-source="nominal" data-dye="VIC" data-label-lane="0" data-label-collision="false" data-x-px="794.427" data-y-px="418.293" data-label-box-x="776.927" data-label-box-y="502" data-label-box-width="35" data-label-box-height="29" data-nominal-bp="220.3" data-rfu="880" data-source-dye="VIC">
+        <path d="M 790.762 484 L 793.144 459.031 L 794.427 418.293 L 795.71 459.031 L 798.093 484" fill="#FFFFFF" stroke="#008B45" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="butt" class="allele-peak-shape" />
+        <rect x="776.927" y="502" width="35" height="29" rx="2" fill="#FFFFFF" stroke="#000000" stroke-width="0.9" class="allele-label-box" />
+        <text x="794.427" y="514" text-anchor="middle" class="peak-label" fill="#000000">
+          <tspan x="794.427" class="allele-label">32.2</tspan>
+          <tspan x="794.427" dy="11" class="height-label">880</tspan>
+        </text>
+      </g>
+      <g class="called-peak" data-peak-index="7" data-marker="D18S51" data-allele="13" data-height-mode="rfu" data-coordinate-bp="287.5" data-coordinate-source="nominal" data-dye="VIC" data-label-lane="0" data-label-collision="false" data-x-px="1102.341" data-y-px="423.52" data-label-box-x="1089.041" data-label-box-y="502" data-label-box-width="26.6" data-label-box-height="29" data-nominal-bp="287.5" data-rfu="810" data-source-dye="VIC">
+        <path d="M 1098.675 484 L 1101.058 461.018 L 1102.341 423.52 L 1103.624 461.018 L 1106.006 484" fill="#FFFFFF" stroke="#008B45" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="butt" class="allele-peak-shape" />
+        <rect x="1089.041" y="502" width="26.6" height="29" rx="2" fill="#FFFFFF" stroke="#000000" stroke-width="0.9" class="allele-label-box" />
+        <text x="1102.341" y="514" text-anchor="middle" class="peak-label" fill="#000000">
+          <tspan x="1102.341" class="allele-label">13</tspan>
+          <tspan x="1102.341" dy="11" class="height-label">810</tspan>
+        </text>
+      </g>
+      <g class="called-peak" data-peak-index="8" data-marker="D18S51" data-allele="17" data-height-mode="rfu" data-coordinate-bp="303.5" data-coordinate-source="nominal" data-dye="VIC" data-label-lane="0" data-label-collision="false" data-x-px="1175.653" data-y-px="430.24" data-label-box-x="1161.553" data-label-box-y="502" data-label-box-width="28.2" data-label-box-height="29" data-nominal-bp="303.5" data-rfu="720" data-source-dye="VIC">
+        <path d="M 1171.988 484 L 1174.37 463.571 L 1175.653 430.24 L 1176.936 463.571 L 1179.319 484" fill="#FFFFFF" stroke="#008B45" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="butt" class="allele-peak-shape" />
+        <rect x="1161.553" y="502" width="28.2" height="29" rx="2" fill="#FFFFFF" stroke="#000000" stroke-width="0.9" class="allele-label-box" />
+        <text x="1175.653" y="514" text-anchor="middle" class="peak-label" fill="#000000">
+          <tspan x="1175.653" class="allele-label">17</tspan>
+          <tspan x="1175.653" dy="11" class="height-label">720</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
+  <g class="channel-panel" data-dye="NED" data-channel-label="NED" data-peak-height-mode="rfu" data-signal-top="622" data-baseline-y="734" data-label-lanes="2" data-panel-height="250" data-display-color="#D8A500" transform="translate(0 0)" data-rfu-max="1500">
+    <rect x="34" y="576" width="1538" height="244" rx="4" class="panel-background" />
+    <text x="44" y="591" text-anchor="start" class="channel-label" fill="#D8A500">NED</text>
+    <text x="1572" y="590" text-anchor="end" class="axis-unit">bp</text>
+    <g class="marker-band" data-marker="D22S1045" data-range-min-bp="76" data-range-max-bp="120" data-dye="NED">
+      <rect x="133.238" y="596" width="201.61" height="18" fill="#F3F4F6" stroke="#000000" stroke-width="0.9" />
+      <text x="234.043" y="609" text-anchor="middle" class="marker-label" fill="#000000">D22S1045</text>
+    </g>
+    <g class="marker-band" data-marker="D19S433" data-range-min-bp="122.3" data-range-max-bp="166.3" data-dye="NED">
+      <rect x="345.387" y="596" width="201.61" height="18" fill="#F3F4F6" stroke="#000000" stroke-width="0.9" />
+      <text x="446.192" y="609" text-anchor="middle" class="marker-label" fill="#000000">D19S433</text>
+    </g>
+    <g class="marker-band" data-marker="TH01" data-range-min-bp="176.4" data-range-max-bp="221.1" data-dye="NED">
+      <rect x="593.276" y="596" width="204.817" height="18" fill="#F3F4F6" stroke="#000000" stroke-width="0.9" />
+      <text x="695.684" y="609" text-anchor="middle" class="marker-label" fill="#000000">TH01</text>
+    </g>
+    <g class="marker-band" data-marker="FGA" data-range-min-bp="221.6" data-range-max-bp="372" data-dye="NED">
+      <rect x="800.384" y="596" width="689.139" height="18" fill="#F3F4F6" stroke="#000000" stroke-width="0.9" />
+      <text x="1144.954" y="609" text-anchor="middle" class="marker-label" fill="#000000">FGA</text>
+    </g>
+    <line x1="92" x2="1572" y1="706" y2="706" class="horizontal-grid" />
+    <line x1="92" x2="1572" y1="678" y2="678" class="horizontal-grid" />
+    <line x1="92" x2="1572" y1="650" y2="650" class="horizontal-grid" />
+    <line x1="92" x2="1572" y1="622" y2="622" class="horizontal-grid" />
+    <line x1="243.207" x2="243.207" y1="622" y2="734" class="vertical-grid" />
+    <g class="axis-label-omission" data-tick="100" data-reason="connector-collision" />
+    <line x1="472.31" x2="472.31" y1="622" y2="734" class="vertical-grid" />
+    <g class="axis-label-omission" data-tick="150" data-reason="connector-collision" />
+    <line x1="701.412" x2="701.412" y1="622" y2="734" class="vertical-grid" />
+    <g class="axis-label-omission" data-tick="200" data-reason="connector-collision" />
+    <line x1="930.514" x2="930.514" y1="622" y2="734" class="vertical-grid" />
+    <g class="axis-label-omission" data-tick="250" data-reason="connector-collision" />
+    <line x1="1159.616" x2="1159.616" y1="622" y2="734" class="vertical-grid" />
+    <text x="1159.616" y="748" text-anchor="middle" class="axis-label">300</text>
+    <line x1="1388.718" x2="1388.718" y1="622" y2="734" class="vertical-grid" />
+    <text x="1388.718" y="748" text-anchor="middle" class="axis-label">350</text>
+    <g class="segmented-baseline">
+      <line x1="92" x2="250.997" y1="734" y2="734" class="axis-line channel-baseline-segment" stroke="#D8A500" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="258.328" x2="264.743" y1="734" y2="734" class="axis-line channel-baseline-segment" stroke="#D8A500" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="272.074" x2="437.944" y1="734" y2="734" class="axis-line channel-baseline-segment" stroke="#D8A500" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="445.276" x2="465.437" y1="734" y2="734" class="axis-line channel-baseline-segment" stroke="#D8A500" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="472.768" x2="639.325" y1="734" y2="734" class="axis-line channel-baseline-segment" stroke="#D8A500" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="646.656" x2="708.056" y1="734" y2="734" class="axis-line channel-baseline-segment" stroke="#D8A500" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="715.387" x2="898.44" y1="734" y2="734" class="axis-line channel-baseline-segment" stroke="#D8A500" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="905.771" x2="916.768" y1="734" y2="734" class="axis-line channel-baseline-segment" stroke="#D8A500" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="924.099" x2="1572" y1="734" y2="734" class="axis-line channel-baseline-segment" stroke="#D8A500" stroke-width="1.5" stroke-linecap="round" />
+    </g>
+    <text x="78" y="626" text-anchor="end" class="rfu-label" data-rfu-tick="1500">1500</text>
+    <text x="78" y="682" text-anchor="end" class="rfu-label" data-rfu-tick="750">750</text>
+    <text x="78" y="738" text-anchor="end" class="rfu-label" data-rfu-tick="0">0</text>
+    <g class="connector-layer">
+      <line x1="254.663" x2="254.663" y1="734" y2="752" stroke="#000000" stroke-width="0.8" class="allele-label-connector" data-peak-index="0" data-marker="D22S1045" data-allele="15" />
+      <line x1="268.409" x2="268.409" y1="734" y2="784" stroke="#000000" stroke-width="0.8" class="allele-label-connector" data-peak-index="1" data-marker="D22S1045" data-allele="16" />
+      <line x1="441.61" x2="441.61" y1="734" y2="752" stroke="#000000" stroke-width="0.8" class="allele-label-connector" data-peak-index="2" data-marker="D19S433" data-allele="13" />
+      <line x1="469.102" x2="469.102" y1="734" y2="784" stroke="#000000" stroke-width="0.8" class="allele-label-connector" data-peak-index="3" data-marker="D19S433" data-allele="14.2" />
+      <line x1="642.991" x2="642.991" y1="734" y2="752" stroke="#000000" stroke-width="0.8" class="allele-label-connector" data-peak-index="4" data-marker="TH01" data-allele="6" />
+      <line x1="711.721" x2="711.721" y1="734" y2="752" stroke="#000000" stroke-width="0.8" class="allele-label-connector" data-peak-index="5" data-marker="TH01" data-allele="9.3" />
+      <line x1="902.105" x2="902.105" y1="734" y2="752" stroke="#000000" stroke-width="0.8" class="allele-label-connector" data-peak-index="6" data-marker="FGA" data-allele="21" />
+      <line x1="920.433" x2="920.433" y1="734" y2="784" stroke="#000000" stroke-width="0.8" class="allele-label-connector" data-peak-index="7" data-marker="FGA" data-allele="22" />
+    </g>
+    <g class="peak-and-label-layer">
+      <g class="called-peak" data-peak-index="0" data-marker="D22S1045" data-allele="15" data-height-mode="rfu" data-coordinate-bp="102.5" data-coordinate-source="nominal" data-dye="NED" data-label-lane="0" data-label-collision="false" data-x-px="254.663" data-y-px="640.667" data-label-box-x="238.663" data-label-box-y="752" data-label-box-width="32" data-label-box-height="29" data-nominal-bp="102.5" data-rfu="1250" data-source-dye="NED">
+        <path d="M 250.997 734 L 253.38 698.533 L 254.663 640.667 L 255.946 698.533 L 258.328 734" fill="#FFFFFF" stroke="#D8A500" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="butt" class="allele-peak-shape" />
+        <rect x="238.663" y="752" width="32" height="29" rx="2" fill="#FFFFFF" stroke="#000000" stroke-width="0.9" class="allele-label-box" />
+        <text x="254.663" y="764" text-anchor="middle" class="peak-label" fill="#000000">
+          <tspan x="254.663" class="allele-label">15</tspan>
+          <tspan x="254.663" dy="11" class="height-label">1250</tspan>
+        </text>
+      </g>
+      <g class="called-peak" data-peak-index="1" data-marker="D22S1045" data-allele="16" data-height-mode="rfu" data-coordinate-bp="105.5" data-coordinate-source="nominal" data-dye="NED" data-label-lane="1" data-label-collision="false" data-x-px="268.409" data-y-px="646.64" data-label-box-x="253.209" data-label-box-y="784" data-label-box-width="30.4" data-label-box-height="29" data-nominal-bp="105.5" data-rfu="1170" data-source-dye="NED">
+        <path d="M 264.743 734 L 267.126 700.803 L 268.409 646.64 L 269.692 700.803 L 272.074 734" fill="#FFFFFF" stroke="#D8A500" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="butt" class="allele-peak-shape" />
+        <rect x="253.209" y="784" width="30.4" height="29" rx="2" fill="#FFFFFF" stroke="#000000" stroke-width="0.9" class="allele-label-box" />
+        <text x="268.409" y="796" text-anchor="middle" class="peak-label" fill="#000000">
+          <tspan x="268.409" class="allele-label">16</tspan>
+          <tspan x="268.409" dy="11" class="height-label">1170</tspan>
+        </text>
+      </g>
+      <g class="called-peak" data-peak-index="2" data-marker="D19S433" data-allele="13" data-height-mode="rfu" data-coordinate-bp="143.3" data-coordinate-source="nominal" data-dye="NED" data-label-lane="0" data-label-collision="false" data-x-px="441.61" data-y-px="654.853" data-label-box-x="425.61" data-label-box-y="752" data-label-box-width="32" data-label-box-height="29" data-nominal-bp="143.3" data-rfu="1060" data-source-dye="NED">
+        <path d="M 437.944 734 L 440.327 703.924 L 441.61 654.853 L 442.893 703.924 L 445.276 734" fill="#FFFFFF" stroke="#D8A500" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="butt" class="allele-peak-shape" />
+        <rect x="425.61" y="752" width="32" height="29" rx="2" fill="#FFFFFF" stroke="#000000" stroke-width="0.9" class="allele-label-box" />
+        <text x="441.61" y="764" text-anchor="middle" class="peak-label" fill="#000000">
+          <tspan x="441.61" class="allele-label">13</tspan>
+          <tspan x="441.61" dy="11" class="height-label">1060</tspan>
+        </text>
+      </g>
+      <g class="called-peak" data-peak-index="3" data-marker="D19S433" data-allele="14.2" data-height-mode="rfu" data-coordinate-bp="149.3" data-coordinate-source="nominal" data-dye="NED" data-label-lane="1" data-label-collision="false" data-x-px="469.102" data-y-px="660.08" data-label-box-x="452.522" data-label-box-y="784" data-label-box-width="33.16" data-label-box-height="29" data-nominal-bp="149.3" data-rfu="990" data-source-dye="NED">
+        <path d="M 465.437 734 L 467.819 705.91 L 469.102 660.08 L 470.385 705.91 L 472.768 734" fill="#FFFFFF" stroke="#D8A500" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="butt" class="allele-peak-shape" />
+        <rect x="452.522" y="784" width="33.16" height="29" rx="2" fill="#FFFFFF" stroke="#000000" stroke-width="0.9" class="allele-label-box" />
+        <text x="469.102" y="796" text-anchor="middle" class="peak-label" fill="#000000">
+          <tspan x="469.102" class="allele-label">14.2</tspan>
+          <tspan x="469.102" dy="11" class="height-label">990</tspan>
+        </text>
+      </g>
+      <g class="called-peak" data-peak-index="4" data-marker="TH01" data-allele="6" data-height-mode="rfu" data-coordinate-bp="187.25" data-coordinate-source="nominal" data-dye="NED" data-label-lane="0" data-label-collision="false" data-x-px="642.991" data-y-px="643.653" data-label-box-x="627.791" data-label-box-y="752" data-label-box-width="30.4" data-label-box-height="29" data-nominal-bp="187.25" data-rfu="1210" data-source-dye="NED">
+        <path d="M 639.325 734 L 641.708 699.668 L 642.991 643.653 L 644.274 699.668 L 646.656 734" fill="#FFFFFF" stroke="#D8A500" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="butt" class="allele-peak-shape" />
+        <rect x="627.791" y="752" width="30.4" height="29" rx="2" fill="#FFFFFF" stroke="#000000" stroke-width="0.9" class="allele-label-box" />
+        <text x="642.991" y="764" text-anchor="middle" class="peak-label" fill="#000000">
+          <tspan x="642.991" class="allele-label">6</tspan>
+          <tspan x="642.991" dy="11" class="height-label">1210</tspan>
+        </text>
+      </g>
+      <g class="called-peak" data-peak-index="5" data-marker="TH01" data-allele="9.3" data-height-mode="rfu" data-coordinate-bp="202.25" data-coordinate-source="nominal" data-dye="NED" data-label-lane="0" data-label-collision="false" data-x-px="711.721" data-y-px="649.627" data-label-box-x="696.521" data-label-box-y="752" data-label-box-width="30.4" data-label-box-height="29" data-nominal-bp="202.25" data-rfu="1130" data-source-dye="NED">
+        <path d="M 708.056 734 L 710.438 701.938 L 711.721 649.627 L 713.004 701.938 L 715.387 734" fill="#FFFFFF" stroke="#D8A500" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="butt" class="allele-peak-shape" />
+        <rect x="696.521" y="752" width="30.4" height="29" rx="2" fill="#FFFFFF" stroke="#000000" stroke-width="0.9" class="allele-label-box" />
+        <text x="711.721" y="764" text-anchor="middle" class="peak-label" fill="#000000">
+          <tspan x="711.721" class="allele-label">9.3</tspan>
+          <tspan x="711.721" dy="11" class="height-label">1130</tspan>
+        </text>
+      </g>
+      <g class="called-peak" data-peak-index="6" data-marker="FGA" data-allele="21" data-height-mode="rfu" data-coordinate-bp="243.8" data-coordinate-source="nominal" data-dye="NED" data-label-lane="0" data-label-collision="false" data-x-px="902.105" data-y-px="678.747" data-label-box-x="888.005" data-label-box-y="752" data-label-box-width="28.2" data-label-box-height="29" data-nominal-bp="243.8" data-rfu="740" data-source-dye="NED">
+        <path d="M 898.44 734 L 900.822 713.004 L 902.105 678.747 L 903.388 713.004 L 905.771 734" fill="#FFFFFF" stroke="#D8A500" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="butt" class="allele-peak-shape" />
+        <rect x="888.005" y="752" width="28.2" height="29" rx="2" fill="#FFFFFF" stroke="#000000" stroke-width="0.9" class="allele-label-box" />
+        <text x="902.105" y="764" text-anchor="middle" class="peak-label" fill="#000000">
+          <tspan x="902.105" class="allele-label">21</tspan>
+          <tspan x="902.105" dy="11" class="height-label">740</tspan>
+        </text>
+      </g>
+      <g class="called-peak" data-peak-index="7" data-marker="FGA" data-allele="22" data-height-mode="rfu" data-coordinate-bp="247.8" data-coordinate-source="nominal" data-dye="NED" data-label-lane="1" data-label-collision="false" data-x-px="920.433" data-y-px="681.733" data-label-box-x="906.333" data-label-box-y="784" data-label-box-width="28.2" data-label-box-height="29" data-nominal-bp="247.8" data-rfu="700" data-source-dye="NED">
+        <path d="M 916.768 734 L 919.15 714.139 L 920.433 681.733 L 921.716 714.139 L 924.099 734" fill="#FFFFFF" stroke="#D8A500" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="butt" class="allele-peak-shape" />
+        <rect x="906.333" y="784" width="28.2" height="29" rx="2" fill="#FFFFFF" stroke="#000000" stroke-width="0.9" class="allele-label-box" />
+        <text x="920.433" y="796" text-anchor="middle" class="peak-label" fill="#000000">
+          <tspan x="920.433" class="allele-label">22</tspan>
+          <tspan x="920.433" dy="11" class="height-label">700</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
+  <g class="channel-panel" data-dye="PET" data-channel-label="PET" data-peak-height-mode="rfu" data-signal-top="872" data-baseline-y="1016" data-label-lanes="1" data-panel-height="250" data-display-color="#C62828" transform="translate(0 0)" data-rfu-max="1500">
+    <rect x="34" y="826" width="1538" height="244" rx="4" class="panel-background" />
+    <text x="44" y="841" text-anchor="start" class="channel-label" fill="#C62828">PET</text>
+    <text x="1572" y="840" text-anchor="end" class="axis-unit">bp</text>
+    <g class="marker-band" data-marker="D2S441" data-range-min-bp="74.5" data-range-max-bp="113.4" data-dye="PET">
+      <rect x="126.365" y="846" width="178.241" height="18" fill="#F3F4F6" stroke="#000000" stroke-width="0.9" />
+      <text x="215.486" y="859" text-anchor="middle" class="marker-label" fill="#000000">D2S441</text>
+      <g class="marker-annotation-ribbon" data-marker="D2S441" data-annotation="off-ladder-no-size" data-count="1" data-marker-end-x="304.607" data-ribbon-center-x="286.107" data-ribbon-angle="64.359">
+        <polygon points="274.107,846 289.467,846 298.107,864 282.747,864" fill="#F28C00" stroke="#B85F00" stroke-width="0.8" class="marker-annotation-ribbon-shape" />
+        <text x="286.107" y="855" text-anchor="middle" dominant-baseline="middle" font-size="7.2" fill="#FFFFFF" class="marker-annotation-ribbon-text" transform="rotate(64.359 286.107 855)">OL</text>
+      </g>
+    </g>
+    <g class="marker-band" data-marker="D3S1358" data-range-min-bp="114.4" data-range-max-bp="168.4" data-dye="PET">
+      <rect x="309.189" y="846" width="247.43" height="18" fill="#F3F4F6" stroke="#000000" stroke-width="0.9" />
+      <text x="432.904" y="859" text-anchor="middle" class="marker-label" fill="#000000">D3S1358</text>
+    </g>
+    <g class="marker-band" data-marker="D1S1656" data-range-min-bp="170" data-range-max-bp="224" data-dye="PET">
+      <rect x="563.95" y="846" width="247.43" height="18" fill="#F3F4F6" stroke="#000000" stroke-width="0.9" />
+      <text x="687.666" y="859" text-anchor="middle" class="marker-label" fill="#000000">D1S1656</text>
+    </g>
+    <g class="marker-band" data-marker="D12S391" data-range-min-bp="225" data-range-max-bp="287" data-dye="PET">
+      <rect x="815.963" y="846" width="284.087" height="18" fill="#F3F4F6" stroke="#000000" stroke-width="0.9" />
+      <text x="958.006" y="859" text-anchor="middle" class="marker-label" fill="#000000">D12S391</text>
+    </g>
+    <line x1="92" x2="1572" y1="980" y2="980" class="horizontal-grid" />
+    <line x1="92" x2="1572" y1="944" y2="944" class="horizontal-grid" />
+    <line x1="92" x2="1572" y1="908" y2="908" class="horizontal-grid" />
+    <line x1="92" x2="1572" y1="872" y2="872" class="horizontal-grid" />
+    <line x1="243.207" x2="243.207" y1="872" y2="1016" class="vertical-grid" />
+    <text x="243.207" y="1030" text-anchor="middle" class="axis-label">100</text>
+    <line x1="472.31" x2="472.31" y1="872" y2="1016" class="vertical-grid" />
+    <g class="axis-label-omission" data-tick="150" data-reason="connector-collision" />
+    <line x1="701.412" x2="701.412" y1="872" y2="1016" class="vertical-grid" />
+    <g class="axis-label-omission" data-tick="200" data-reason="connector-collision" />
+    <line x1="930.514" x2="930.514" y1="872" y2="1016" class="vertical-grid" />
+    <text x="930.514" y="1030" text-anchor="middle" class="axis-label">250</text>
+    <line x1="1159.616" x2="1159.616" y1="872" y2="1016" class="vertical-grid" />
+    <text x="1159.616" y="1030" text-anchor="middle" class="axis-label">300</text>
+    <line x1="1388.718" x2="1388.718" y1="872" y2="1016" class="vertical-grid" />
+    <text x="1388.718" y="1030" text-anchor="middle" class="axis-label">350</text>
+    <g class="segmented-baseline">
+      <line x1="92" x2="184.328" y1="1016" y2="1016" class="axis-line channel-baseline-segment" stroke="#C62828" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="191.659" x2="420.074" y1="1016" y2="1016" class="axis-line channel-baseline-segment" stroke="#C62828" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="427.406" x2="475.059" y1="1016" y2="1016" class="axis-line channel-baseline-segment" stroke="#C62828" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="482.39" x2="631.307" y1="1016" y2="1016" class="axis-line channel-baseline-segment" stroke="#C62828" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="638.638" x2="700.037" y1="1016" y2="1016" class="axis-line channel-baseline-segment" stroke="#C62828" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="707.368" x2="908.52" y1="1016" y2="1016" class="axis-line channel-baseline-segment" stroke="#C62828" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="915.851" x2="945.176" y1="1016" y2="1016" class="axis-line channel-baseline-segment" stroke="#C62828" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="952.508" x2="1572" y1="1016" y2="1016" class="axis-line channel-baseline-segment" stroke="#C62828" stroke-width="1.5" stroke-linecap="round" />
+    </g>
+    <text x="78" y="876" text-anchor="end" class="rfu-label" data-rfu-tick="1500">1500</text>
+    <text x="78" y="948" text-anchor="end" class="rfu-label" data-rfu-tick="750">750</text>
+    <text x="78" y="1020" text-anchor="end" class="rfu-label" data-rfu-tick="0">0</text>
+    <g class="connector-layer">
+      <line x1="187.994" x2="187.994" y1="1016" y2="1034" stroke="#000000" stroke-width="0.8" class="allele-label-connector" data-peak-index="0" data-marker="D2S441" data-allele="11" />
+      <line x1="423.74" x2="423.74" y1="1016" y2="1034" stroke="#000000" stroke-width="0.8" class="allele-label-connector" data-peak-index="1" data-marker="D3S1358" data-allele="15" />
+      <line x1="478.724" x2="478.724" y1="1016" y2="1034" stroke="#000000" stroke-width="0.8" class="allele-label-connector" data-peak-index="2" data-marker="D3S1358" data-allele="18" />
+      <line x1="634.972" x2="634.972" y1="1016" y2="1034" stroke="#000000" stroke-width="0.8" class="allele-label-connector" data-peak-index="3" data-marker="D1S1656" data-allele="12" />
+      <line x1="703.703" x2="703.703" y1="1016" y2="1034" stroke="#000000" stroke-width="0.8" class="allele-label-connector" data-peak-index="4" data-marker="D1S1656" data-allele="15.3" />
+      <line x1="912.186" x2="912.186" y1="1016" y2="1034" stroke="#000000" stroke-width="0.8" class="allele-label-connector" data-peak-index="5" data-marker="D12S391" data-allele="18" />
+      <line x1="948.842" x2="948.842" y1="1016" y2="1034" stroke="#000000" stroke-width="0.8" class="allele-label-connector" data-peak-index="6" data-marker="D12S391" data-allele="20" />
+    </g>
+    <g class="peak-and-label-layer">
+      <g class="called-peak" data-peak-index="0" data-marker="D2S441" data-allele="11" data-height-mode="rfu" data-coordinate-bp="87.95" data-coordinate-source="nominal" data-dye="PET" data-label-lane="0" data-label-collision="false" data-x-px="187.994" data-y-px="912.32" data-label-box-x="171.994" data-label-box-y="1034" data-label-box-width="32" data-label-box-height="29" data-nominal-bp="87.95" data-rfu="1080" data-source-dye="PET">
+        <path d="M 184.328 1016 L 186.711 976.602 L 187.994 912.32 L 189.277 976.602 L 191.659 1016" fill="#FFFFFF" stroke="#C62828" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="butt" class="allele-peak-shape" />
+        <rect x="171.994" y="1034" width="32" height="29" rx="2" fill="#FFFFFF" stroke="#000000" stroke-width="0.9" class="allele-label-box" />
+        <text x="187.994" y="1046" text-anchor="middle" class="peak-label" fill="#000000">
+          <tspan x="187.994" class="allele-label">11</tspan>
+          <tspan x="187.994" dy="11" class="height-label">1080</tspan>
+        </text>
+      </g>
+      <g class="called-peak" data-peak-index="1" data-marker="D3S1358" data-allele="15" data-height-mode="rfu" data-coordinate-bp="139.4" data-coordinate-source="nominal" data-dye="PET" data-label-lane="0" data-label-collision="false" data-x-px="423.74" data-y-px="905.6" data-label-box-x="408.54" data-label-box-y="1034" data-label-box-width="30.4" data-label-box-height="29" data-nominal-bp="139.4" data-rfu="1150" data-source-dye="PET">
+        <path d="M 420.074 1016 L 422.457 974.048 L 423.74 905.6 L 425.023 974.048 L 427.406 1016" fill="#FFFFFF" stroke="#C62828" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="butt" class="allele-peak-shape" />
+        <rect x="408.54" y="1034" width="30.4" height="29" rx="2" fill="#FFFFFF" stroke="#000000" stroke-width="0.9" class="allele-label-box" />
+        <text x="423.74" y="1046" text-anchor="middle" class="peak-label" fill="#000000">
+          <tspan x="423.74" class="allele-label">15</tspan>
+          <tspan x="423.74" dy="11" class="height-label">1150</tspan>
+        </text>
+      </g>
+      <g class="called-peak" data-peak-index="2" data-marker="D3S1358" data-allele="18" data-height-mode="rfu" data-coordinate-bp="151.4" data-coordinate-source="nominal" data-dye="PET" data-label-lane="0" data-label-collision="false" data-x-px="478.724" data-y-px="918.08" data-label-box-x="462.724" data-label-box-y="1034" data-label-box-width="32" data-label-box-height="29" data-nominal-bp="151.4" data-rfu="1020" data-source-dye="PET">
+        <path d="M 475.059 1016 L 477.441 978.79 L 478.724 918.08 L 480.007 978.79 L 482.39 1016" fill="#FFFFFF" stroke="#C62828" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="butt" class="allele-peak-shape" />
+        <rect x="462.724" y="1034" width="32" height="29" rx="2" fill="#FFFFFF" stroke="#000000" stroke-width="0.9" class="allele-label-box" />
+        <text x="478.724" y="1046" text-anchor="middle" class="peak-label" fill="#000000">
+          <tspan x="478.724" class="allele-label">18</tspan>
+          <tspan x="478.724" dy="11" class="height-label">1020</tspan>
+        </text>
+      </g>
+      <g class="called-peak" data-peak-index="3" data-marker="D1S1656" data-allele="12" data-height-mode="rfu" data-coordinate-bp="185.5" data-coordinate-source="nominal" data-dye="PET" data-label-lane="0" data-label-collision="false" data-x-px="634.972" data-y-px="923.84" data-label-box-x="620.872" data-label-box-y="1034" data-label-box-width="28.2" data-label-box-height="29" data-nominal-bp="185.5" data-rfu="960" data-source-dye="PET">
+        <path d="M 631.307 1016 L 633.689 980.979 L 634.972 923.84 L 636.255 980.979 L 638.638 1016" fill="#FFFFFF" stroke="#C62828" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="butt" class="allele-peak-shape" />
+        <rect x="620.872" y="1034" width="28.2" height="29" rx="2" fill="#FFFFFF" stroke="#000000" stroke-width="0.9" class="allele-label-box" />
+        <text x="634.972" y="1046" text-anchor="middle" class="peak-label" fill="#000000">
+          <tspan x="634.972" class="allele-label">12</tspan>
+          <tspan x="634.972" dy="11" class="height-label">960</tspan>
+        </text>
+      </g>
+      <g class="called-peak" data-peak-index="4" data-marker="D1S1656" data-allele="15.3" data-height-mode="rfu" data-coordinate-bp="200.5" data-coordinate-source="nominal" data-dye="PET" data-label-lane="0" data-label-collision="false" data-x-px="703.703" data-y-px="928.64" data-label-box-x="687.123" data-label-box-y="1034" data-label-box-width="33.16" data-label-box-height="29" data-nominal-bp="200.5" data-rfu="910" data-source-dye="PET">
+        <path d="M 700.037 1016 L 702.42 982.803 L 703.703 928.64 L 704.986 982.803 L 707.368 1016" fill="#FFFFFF" stroke="#C62828" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="butt" class="allele-peak-shape" />
+        <rect x="687.123" y="1034" width="33.16" height="29" rx="2" fill="#FFFFFF" stroke="#000000" stroke-width="0.9" class="allele-label-box" />
+        <text x="703.703" y="1046" text-anchor="middle" class="peak-label" fill="#000000">
+          <tspan x="703.703" class="allele-label">15.3</tspan>
+          <tspan x="703.703" dy="11" class="height-label">910</tspan>
+        </text>
+      </g>
+      <g class="called-peak" data-peak-index="5" data-marker="D12S391" data-allele="18" data-height-mode="rfu" data-coordinate-bp="246" data-coordinate-source="nominal" data-dye="PET" data-label-lane="0" data-label-collision="false" data-x-px="912.186" data-y-px="931.52" data-label-box-x="898.086" data-label-box-y="1034" data-label-box-width="28.2" data-label-box-height="29" data-nominal-bp="246" data-rfu="880" data-source-dye="PET">
+        <path d="M 908.52 1016 L 910.903 983.898 L 912.186 931.52 L 913.469 983.898 L 915.851 1016" fill="#FFFFFF" stroke="#C62828" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="butt" class="allele-peak-shape" />
+        <rect x="898.086" y="1034" width="28.2" height="29" rx="2" fill="#FFFFFF" stroke="#000000" stroke-width="0.9" class="allele-label-box" />
+        <text x="912.186" y="1046" text-anchor="middle" class="peak-label" fill="#000000">
+          <tspan x="912.186" class="allele-label">18</tspan>
+          <tspan x="912.186" dy="11" class="height-label">880</tspan>
+        </text>
+      </g>
+      <g class="called-peak" data-peak-index="6" data-marker="D12S391" data-allele="20" data-height-mode="rfu" data-coordinate-bp="254" data-coordinate-source="nominal" data-dye="PET" data-label-lane="0" data-label-collision="false" data-x-px="948.842" data-y-px="936.32" data-label-box-x="934.742" data-label-box-y="1034" data-label-box-width="28.2" data-label-box-height="29" data-nominal-bp="254" data-rfu="830" data-source-dye="PET">
+        <path d="M 945.176 1016 L 947.559 985.722 L 948.842 936.32 L 950.125 985.722 L 952.508 1016" fill="#FFFFFF" stroke="#C62828" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="butt" class="allele-peak-shape" />
+        <rect x="934.742" y="1034" width="28.2" height="29" rx="2" fill="#FFFFFF" stroke="#000000" stroke-width="0.9" class="allele-label-box" />
+        <text x="948.842" y="1046" text-anchor="middle" class="peak-label" fill="#000000">
+          <tspan x="948.842" class="allele-label">20</tspan>
+          <tspan x="948.842" dy="11" class="height-label">830</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
+  <text x="92" y="1098" class="disclaimer">Schematic reconstruction: only peaks called in the GeneMapper genotype export are shown. No baseline, uncalled artefacts or additional stutter peaks are generated.</text>
+  <text x="92" y="1115" class="disclaimer">Horizontal called-peak positions mix measured fragment sizes exported by the source software, nominal kit display coordinates, and repeat-based estimated coordinates; each peak records its coordinate source.</text>
+  <text x="92" y="1140" class="legend-heading">Marker annotations</text>
+  <g class="marker-annotation-legend-item" data-legend-index="0">
+    <rect x="92" y="1148" width="14" height="8" rx="1.5" transform="rotate(45 99 1152)" fill="#F28C00" stroke="#B85F00" stroke-width="0.8" class="legend-ribbon-swatch" />
+    <text x="116" y="1156" class="legend-text" data-legend-message="off-ladder-no-size">Marker D2S441 contains unpositioned off-ladder allele(s) without size information.</text>
+  </g>
+</svg>
