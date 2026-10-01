@@ -67,7 +67,8 @@ development version `X.Y.Z.devN` of the next release, for example `0.14.0.dev1`,
 `0.14.0.dev2`, and then `0.14.0`. `pip` never prefers a development version over a
 release. Keep `pyproject.toml` and `src/epg_renderer/version.py` identical, record
 changes under `## Unreleased` in `CHANGELOG.md`, and rename that section to the
-version when it is released.
+version when it is released. That section becomes the GitHub release text: write it
+for users and do not cite development versions; the Git history keeps them.
 
 Windows file-version metadata holds four numbers, so `X.Y.Z.devN` and `X.Y.ZrcN` map
 to `X.Y.Z.0`; the full version remains visible as the product version. The Windows
