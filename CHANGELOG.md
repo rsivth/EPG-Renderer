@@ -1,16 +1,27 @@
 # Changelog
 
-## Unreleased
+## 0.15.0 - 2026-10-01
 
-- the README example is now a synthetic three-person mixture with contributor
-  proportions 6:3:1 instead of a two-person mixture
-- manual profiles accept off-ladder calls as `OL@<allele>`: the peak is labelled `OL`
-  and drawn at the estimated position of a helper allele outside the ladder bins, for
-  example `OL@34.1` for D21S11; ladder alleles and positions outside the marker range
-  are rejected
-- added the documentation page "Reading the figure" with a synthetic NGM example that
-  shows how off-ladder calls with and without an exported size, an allele outside the
-  allelic ladder, microvariants and a homozygous marker appear in a figure
+This release adds teaching material and off-ladder calls in manual profiles.
+
+### New
+
+- **Reading the figure:** a new documentation page explains what a figure shows, with
+  a synthetic NGM example that contains off-ladder calls with and without an exported
+  size, an allele outside the allelic ladder, microvariants and a homozygous marker.
+- **Off-ladder calls in manual profiles:** enter `OL@<allele>`, for example `OL@34.1`
+  for D21S11. The peak is labelled `OL` and drawn at the estimated position of the
+  helper allele. Ladder alleles and positions outside the marker range are rejected;
+  the GUI guide describes the rules.
+- **New README example:** a synthetic three-person mixture with a major, a minor and a
+  trace contributor in the proportions 6:3:1.
+
+### Downloads
+
+The same files as in 0.14.0: the Windows GUI `EPG-Renderer_GUI_Windows_x64_v0.15.0.zip`
+with `EPG-Renderer-GUI.exe`, the standalone `epg-render.exe`, the source ZIP
+`EPG-Renderer_v0.15.0.zip`, the Python wheel and `SHA256SUMS.txt`. EPG-Renderer is not
+on PyPI; the installation guide describes every download.
 
 ## 0.14.0 - 2026-10-01
 
