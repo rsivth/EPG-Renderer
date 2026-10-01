@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.14.0 - 2026-10-01
 
 This is the first public release of EPG-Renderer. It creates schematic, kit-aware
 electropherogram-style figures from forensic STR profiles for publications, teaching

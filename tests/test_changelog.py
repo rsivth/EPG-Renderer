@@ -44,6 +44,20 @@ class ChangelogShapeTests(unittest.TestCase):
             with self.subTest(phrase=phrase):
                 self.assertIn(phrase, notes)
 
+    def test_top_section_matches_the_package_version(self) -> None:
+        # A final version needs its dated section before the tag is pushed; a
+        # development version collects changes under Unreleased.
+        version = re.search(
+            r'^__version__ = "([^"]+)"$',
+            (ROOT / "src" / "epg_renderer" / "version.py").read_text(encoding="utf-8"),
+            re.MULTILINE,
+        )
+        assert version is not None
+        if ".dev" in version[1]:
+            self.assertEqual(HEADINGS[0], "Unreleased")
+        else:
+            self.assertRegex(HEADINGS[0], rf"^{re.escape(version[1])} - \d{{4}}-\d{{2}}-\d{{2}}$")
+
 
 def _section(heading: str) -> str:
     section = CHANGELOG.split(f"## {heading}\n", 1)[1].split("\n## ", 1)[0]
