@@ -42,6 +42,13 @@ range it lies, and the figure shows exactly this assignment. Whether such a peak
 unusual D21S11 allele or a long D8S1179 allele cannot be decided from one kit; a second
 kit with different amplicon sizes can resolve it.
 
+## Off-ladder calls in a manual profile
+
+A manual profile cannot contain sizes. There, `OL@<allele>` draws an `OL` peak at the
+estimated position of a helper allele outside the ladder bins, for example `OL@23` for
+a peak near 182 bp in D21S11 of the NGM kit. The SVG data record the helper allele of such a peak. The
+[GUI guide](GETTING_STARTED.md#off-ladder-calls) describes the rules.
+
 ## Footer
 
 - The first line states that the figure is a schematic reconstruction of the called

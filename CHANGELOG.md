@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- manual profiles accept off-ladder calls as `OL@<allele>`: the peak is labelled `OL`
+  and drawn at the estimated position of a helper allele outside the ladder bins, for
+  example `OL@34.1` for D21S11; ladder alleles and positions outside the marker range
+  are rejected
 - added the documentation page "Reading the figure" with a synthetic NGM example that
   shows how off-ladder calls with and without an exported size, an allele outside the
   allelic ladder, microvariants and a homozygous marker appear in a figure

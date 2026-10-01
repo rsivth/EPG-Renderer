@@ -56,6 +56,10 @@ class UnknownAllelePositionError(PositionModelError):
     """Raised when a called allele has no validated nominal coordinate."""
 
 
+class EstimatedCoordinateOutsideRangeError(UnknownAllelePositionError):
+    """Raised when a repeat-based estimate lies outside the marker range."""
+
+
 class MeasuredSizeOutsideRangeError(PositionModelError):
     """Raised when an exported fragment size lies outside the kit's marker range."""
 
@@ -156,7 +160,7 @@ class MarkerCoordinateDefinition:
             ) from exc
         nominal = first.nominal_bp + candidate_code - first_code
         if not self.range_min_bp <= nominal <= self.range_max_bp:
-            raise UnknownAllelePositionError(
+            raise EstimatedCoordinateOutsideRangeError(
                 f"Estimated coordinate for allele {allele!r} at marker {self.marker!r} "
                 "lies outside the configured marker range."
             )
@@ -291,6 +295,7 @@ class PositionedPeak:
     marker_range_max_bp: Decimal
     coordinate_source: PeakCoordinateSource
     annotation_only: bool = False
+    position_allele: str | None = None
 
     def __post_init__(self) -> None:
         if not isinstance(self.coordinate_source, PeakCoordinateSource):
@@ -328,6 +333,12 @@ class PositionedPeak:
             raise ValueError("A positioned coordinate source requires coordinate_bp.")
         if self.annotation_only and self.coordinate_source is not PeakCoordinateSource.UNPOSITIONED:
             raise ValueError("An annotation-only peak must be unpositioned.")
+        position_allele = _optional_text(self.position_allele)
+        if (
+            position_allele is not None
+            and self.coordinate_source is not PeakCoordinateSource.ESTIMATED
+        ):
+            raise ValueError("A peak placed by a helper allele must use an estimated coordinate.")
 
         object.__setattr__(self, "marker", marker)
         object.__setattr__(self, "dye", dye)
@@ -336,6 +347,7 @@ class PositionedPeak:
         object.__setattr__(self, "coordinate_bp", coordinate)
         object.__setattr__(self, "marker_range_min_bp", range_min)
         object.__setattr__(self, "marker_range_max_bp", range_max)
+        object.__setattr__(self, "position_allele", position_allele)
 
 
 @dataclass(frozen=True, slots=True)
@@ -445,6 +457,7 @@ __all__ = [
     "CoordinateKind",
     "CoordinateQualityError",
     "DyeMismatchPositionError",
+    "EstimatedCoordinateOutsideRangeError",
     "KitCoordinateModel",
     "MarkerCoordinateDefinition",
     "MeasuredSizeOutsideRangeError",

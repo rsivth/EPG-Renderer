@@ -9,7 +9,12 @@ from dataclasses import dataclass
 from .domain import PeakHeightMode, ProfileOrigin
 from .kit_registry import get_kit_profile
 from .models import AlleleCall, MarkerCall, SampleCall
-from .positions import UnknownAllelePositionError, canonicalize_allele_label
+from .positions import (
+    EstimatedCoordinateOutsideRangeError,
+    MarkerCoordinateDefinition,
+    UnknownAllelePositionError,
+    canonicalize_allele_label,
+)
 from .rfu import validate_rfu
 
 _VALUE_SEPARATOR = re.compile(r"[\s,;]+")
@@ -21,7 +26,11 @@ class ManualProfileError(ValueError):
 
 @dataclass(frozen=True, slots=True)
 class ManualMarkerEntry:
-    """Validated manually entered alleles and optional RFU heights for one marker."""
+    """Validated manually entered alleles and optional RFU heights for one marker.
+
+    An off-ladder call is entered as ``OL@<allele>``: it is drawn as "OL" at the
+    estimated position of a helper allele that is not in the marker's allelic ladder.
+    """
 
     marker: str
     alleles: tuple[str, ...]
@@ -88,8 +97,9 @@ class ManualProfile:
             calls = tuple(
                 AlleleCall(
                     allele_index=index,
-                    allele=allele,
+                    allele=allele.partition("@")[0],
                     height=None if entry.heights is None else entry.heights[index - 1],
+                    position_allele=allele.partition("@")[2] or None,
                 )
                 for index, allele in enumerate(entry.alleles, start=1)
             )
@@ -194,17 +204,12 @@ def build_manual_profile(
                 f"Marker mapping key {marker!r} does not match entry {entry.marker!r}."
             )
         _validate_height_mode(entry, mode)
-        canonical_alleles = tuple(canonicalize_allele_label(value) for value in entry.alleles)
+        coordinates = profile.coordinate_model.marker(marker)
+        canonical_alleles = tuple(
+            _validated_manual_allele(marker, value, coordinates) for value in entry.alleles
+        )
         if len(set(canonical_alleles)) != len(canonical_alleles):
             raise ManualProfileError(f"Marker {marker}: duplicate allele entries are not allowed.")
-        coordinates = profile.coordinate_model.marker(marker)
-        for allele in canonical_alleles:
-            try:
-                coordinates.coordinate_or_estimate(allele)
-            except UnknownAllelePositionError as exc:
-                raise ManualProfileError(
-                    f"Marker {marker}: allele {allele!r} cannot be positioned for this kit."
-                ) from exc
         validated.append(ManualMarkerEntry(marker, canonical_alleles, entry.heights))
 
     if not validated:
@@ -235,6 +240,44 @@ def _validate_manual_rfu(marker: str, value: object) -> int:
         return validate_rfu(value, allow_zero=False)
     except ValueError as exc:
         raise ManualProfileError(f"Marker {marker}: {exc}") from exc
+
+
+def _validated_manual_allele(
+    marker: str, value: str, coordinates: MarkerCoordinateDefinition
+) -> str:
+    """Return the canonical allele, or ``OL@<helper>`` for a manual off-ladder call."""
+
+    label, has_helper, helper = value.strip().partition("@")
+    example = f"OL@{coordinates.coordinates[0].allele.partition('.')[0]}.1"
+    if label.strip().upper() == "OL" and not helper.strip():
+        raise ManualProfileError(
+            f"Marker {marker}: write an off-ladder call as OL@<allele> with an allele "
+            f"outside the ladder bins, for example {example}."
+        )
+    if has_helper and label.strip().upper() != "OL":
+        raise ManualProfileError(
+            f"Marker {marker}: {value!r}: Only OL calls can carry a helper allele after '@'."
+        )
+    allele = helper.strip() if has_helper else value
+    try:
+        canonical = canonicalize_allele_label(allele)
+        _, estimated = coordinates.coordinate_or_estimate(canonical)
+    except EstimatedCoordinateOutsideRangeError as exc:
+        raise ManualProfileError(
+            f"Marker {marker}: allele {allele!r} lies outside the {marker} range of this kit."
+        ) from exc
+    except UnknownAllelePositionError as exc:
+        raise ManualProfileError(
+            f"Marker {marker}: allele {allele!r} cannot be positioned for this kit."
+        ) from exc
+    if not has_helper:
+        return canonical
+    if not estimated:
+        raise ManualProfileError(
+            f"Marker {marker}: {canonical} is a ladder allele of {marker}; an OL lies outside "
+            f"the ladder bins. Use for example OL@{canonical.partition('.')[0]}.1."
+        )
+    return f"OL@{canonical}"
 
 
 def _split_values(value: str) -> tuple[str, ...]:

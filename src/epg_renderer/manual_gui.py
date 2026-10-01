@@ -23,6 +23,12 @@ MANUAL_NAME_WIDTH = 36
 MANUAL_KIT_WIDTH = 34
 MANUAL_ALLELE_WIDTH = 30
 MANUAL_RFU_WIDTH = 20
+MANUAL_ENTRY_HINT = (
+    "Technical kit controls are omitted. Numerical off-ladder alleles are accepted only when "
+    "the bundled coordinate model can position them safely. Enter an off-ladder call as "
+    "OL@<allele> with an allele outside the ladder bins, for example OL@34.1 for D21S11; "
+    "it is drawn as OL at that allele's estimated position."
+)
 
 _WindowParent = tk.Tk | tk.Toplevel
 
@@ -173,10 +179,7 @@ class ManualProfileDialog:
 
         ttk.Label(
             outer,
-            text=(
-                "Technical kit controls are omitted. Numerical off-ladder alleles are accepted "
-                "only when the bundled coordinate model can position them safely."
-            ),
+            text=MANUAL_ENTRY_HINT,
             style="DialogMuted.TLabel",
             wraplength=670,
             justify="left",

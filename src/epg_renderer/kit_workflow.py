@@ -7,13 +7,14 @@ from dataclasses import dataclass
 from decimal import Decimal
 from enum import Enum
 
-from .domain import PeakHeightMode
+from .domain import PeakHeightMode, ProfileOrigin
 from .kit_registry import KitProfile, available_kit_profiles, get_kit_profile
 from .kits import KitDefinition
-from .models import SampleCall
+from .models import AlleleCall, SampleCall
 from .positions import (
     DyeMismatchPositionError,
     KitCoordinateModel,
+    MarkerCoordinateDefinition,
     MeasuredSizeOutsideRangeError,
     PeakCoordinateSource,
     PositionedPeak,
@@ -148,6 +149,30 @@ def resolve_kit(
     return best
 
 
+def _manual_off_ladder_coordinate(
+    sample: SampleCall,
+    marker: str,
+    marker_coordinates: MarkerCoordinateDefinition,
+    allele_call: AlleleCall,
+) -> tuple[Decimal, str]:
+    """Return the estimated coordinate and label of a manual ``OL@<allele>`` call."""
+
+    if sample.origin is not ProfileOrigin.MANUAL:
+        raise PositionModelError(
+            f"Marker {marker!r}: helper alleles for off-ladder calls are allowed only in "
+            "manual profiles."
+        )
+    helper = allele_call.position_allele
+    assert helper is not None
+    coordinate, estimated = marker_coordinates.coordinate_or_estimate(helper)
+    if not estimated:
+        raise PositionModelError(
+            f"Marker {marker!r}: helper allele {helper!r} is a ladder allele; an off-ladder "
+            "call cannot lie in a ladder bin."
+        )
+    return coordinate.nominal_bp, canonicalize_allele_label(allele_call.allele)
+
+
 def position_sample(
     sample: SampleCall,
     *,
@@ -237,8 +262,24 @@ def position_sample(
                     "Uniform-height samples must not contain numerical RFU values."
                 )
             annotation_only = False
+            position_allele = allele_call.position_allele
             try:
-                if allele_call.size_bp is not None:
+                if position_allele is not None:
+                    coordinate_bp, allele_label = _manual_off_ladder_coordinate(
+                        sample, canonical, marker_coordinates, allele_call
+                    )
+                    coordinate_source = PeakCoordinateSource.ESTIMATED
+                    estimated = False
+                    issues.append(
+                        PositioningIssue(
+                            "manual_off_ladder_position",
+                            f"Marker {canonical!r} off-ladder call {allele_label!r} is drawn "
+                            f"at the estimated position of allele {position_allele!r}.",
+                            canonical,
+                            allele_label,
+                        )
+                    )
+                elif allele_call.size_bp is not None:
                     if not (
                         marker_coordinates.range_min_bp
                         <= allele_call.size_bp
@@ -321,6 +362,7 @@ def position_sample(
                     marker_range_max_bp=marker_coordinates.range_max_bp,
                     annotation_only=annotation_only,
                     coordinate_source=coordinate_source,
+                    position_allele=position_allele,
                 )
             )
     peaks.sort(

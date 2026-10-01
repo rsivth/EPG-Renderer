@@ -8,7 +8,7 @@ This document describes the current Python API. The package root intentionally e
 
 Read and validate one configurable GeneMapper genotype-table export. The parser discovers indexed `Allele n`, `Height n`, `Size n`, `Area n`, `Mutation n` and `Comment n` families by suffix. `Dye` is optional, harmless empty trailing export columns are normalized, and duplicate display names remain separate source injections. The returned project, samples, marker mappings and allele calls are immutable defensive copies.
 
-Imported RFU heights must be whole numbers from 0 through 32,767. Larger values raise `NumericConversionError` with the source line and column. Manually entered RFU heights use the stricter range 1 through 32,767 and raise `ManualProfileError`; the manual-profile GUI displays that error without accepting or closing the dialog. `epg_renderer.rfu.MAX_RFU` is the single package-wide upper-bound definition.
+Imported RFU heights must be whole numbers from 0 through 32,767. Larger values raise `NumericConversionError` with the source line and column. Manually entered RFU heights use the stricter range 1 through 32,767 and raise `ManualProfileError`; the manual-profile GUI displays that error without accepting or closing the dialog. A manual entry `OL@<allele>` becomes an `AlleleCall` with allele `OL` and `position_allele`; positioning accepts `position_allele` only for manual profiles. `epg_renderer.rfu.MAX_RFU` is the single package-wide upper-bound definition.
 
 ```python
 from epg_renderer import load_project

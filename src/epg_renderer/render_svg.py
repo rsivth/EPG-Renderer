@@ -578,6 +578,8 @@ def _render_peaks(
         }.get(peak.coordinate_source)
         if source_attribute is not None:
             attributes[source_attribute] = coordinate_text
+        if peak.position_allele is not None:
+            attributes["data-position-allele"] = peak.position_allele
         if peak.height is not None:
             attributes["data-rfu"] = str(peak.height)
         if peak.source_dye is not None:
@@ -932,6 +934,14 @@ def _validate_positioned_sample(positioned: PositionedSample, kit: KitDefinition
             raise SvgRenderError(
                 f"Peak {peak.marker} {peak.allele} has no coordinate but is marked "
                 f"{peak.coordinate_source.value!r}."
+            )
+        if (
+            peak.position_allele is not None
+            and peak.coordinate_source is not PeakCoordinateSource.ESTIMATED
+        ):
+            raise SvgRenderError(
+                f"Peak {peak.marker} {peak.allele} is placed by helper allele "
+                f"{peak.position_allele!r} but its coordinate is not estimated."
             )
 
 

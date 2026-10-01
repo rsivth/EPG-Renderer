@@ -33,7 +33,8 @@ selection remains unavailable.
 1. Select **Create manually…**.
 2. Choose the kit and enter a meaningful profile name.
 3. Enter one or more alleles for each required marker. Separate multiple values with
-   commas, semicolons, or spaces. Empty markers are permitted.
+   commas, semicolons, or spaces. Empty markers are permitted. For an off-ladder call,
+   see [off-ladder calls](#off-ladder-calls) below.
 4. Choose one peak-height mode:
 
    - **Uniform schematic heights** records no RFU measurements, omits the RFU axis,
@@ -42,6 +43,23 @@ selection remains unavailable.
      every entered allele.
 
 5. Select **Use profile**, review the output settings, and create the image.
+
+### Off-ladder calls
+
+Enter an off-ladder call as `OL@<allele>`, for example `30, 32.2, OL@34.1` for
+D21S11. The peak is labelled `OL` and drawn at the estimated position of the helper
+allele after the `@`, calculated from the marker's repeat length.
+
+- The helper allele must not be a ladder allele of the marker: a peak in a ladder bin
+  would be called as that allele, not as `OL`. Write `OL@34.1` instead of `OL@34`.
+- Its estimated position must lie inside the marker range of the kit.
+- Several `OL` calls in one marker need different helper alleles.
+- A plain `OL` without `@` is rejected, and markers without a repeat model, such as
+  Amelogenin, cannot take `OL` calls.
+
+EPG-Renderer reports each such peak as a message, and the SVG records the helper allele
+of every `OL` peak. [Reading the figure](READING_THE_FIGURE.md) shows how off-ladder
+calls from a GeneMapper export appear.
 
 Technical kit controls are excluded from manual entry. Numerical off-ladder alleles
 are accepted only when the selected coordinate model can position them safely.

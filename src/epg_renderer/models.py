@@ -42,6 +42,9 @@ class AlleleCall:
     area: int | None = None
     mutation: str | None = None
     comment: str | None = None
+    # Manual profiles only: an off-ladder call drawn at this helper allele's estimated
+    # position. GeneMapper exports never set it.
+    position_allele: str | None = None
 
     def __post_init__(self) -> None:
         if (
@@ -71,6 +74,7 @@ class AlleleCall:
         object.__setattr__(self, "size_bp", size)
         object.__setattr__(self, "mutation", _optional_text(self.mutation))
         object.__setattr__(self, "comment", _optional_text(self.comment))
+        object.__setattr__(self, "position_allele", _optional_text(self.position_allele))
 
 
 @dataclass(frozen=True, slots=True)
