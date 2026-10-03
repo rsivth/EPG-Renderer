@@ -38,6 +38,8 @@ from .workflow import (
 logger = logging.getLogger(__name__)
 
 DIAGNOSTICS_COLOR = "#C62828"
+DIAGNOSTICS_TAG = "diagnostics"
+STATUS_FIELD_LINES = 6
 MAIN_WINDOW_WIDTH = 760
 MAIN_MIN_WIDTH = 700
 MAIN_SELECTOR_WIDTH = 31
@@ -46,6 +48,19 @@ YELLOW_DYE_CHOICES = (
     ("Yellow", YellowChannelMode.YELLOW),
     ("Black (better contrast)", YellowChannelMode.BLACK),
 )
+
+
+def diagnostics_field_text(messages: Sequence[str]) -> str:
+    """Return the review hints for the status field, led by their number.
+
+    The field scrolls, so hints can lie below its visible lines. The number in the
+    first line tells the user how many there are.
+    """
+
+    if not messages:
+        return ""
+    noun = "review hint" if len(messages) == 1 else "review hints"
+    return f"{len(messages)} {noun}. {format_diagnostics(messages)}"
 
 
 def default_image_format() -> str:
@@ -76,6 +91,9 @@ class EpgRendererApp:
         )
         self._last_suggested_output: str | None = None
         self._build()
+        self.status_var.trace_add("write", self._refresh_status_field)
+        self.diagnostics_var.trace_add("write", self._refresh_status_field)
+        self._refresh_status_field()
 
     def _build(self) -> None:
         style = ttk.Style()
@@ -213,26 +231,31 @@ class EpgRendererApp:
             style="Section.TLabelframe",
             padding=(12, 8),
         )
-        status_group.grid(row=3, column=0, sticky="ew", pady=(14, 0))
+        status_group.grid(row=3, column=0, sticky="nsew", pady=(14, 0))
         status_group.columnconfigure(0, weight=1)
-        self.status_label = ttk.Label(
+        status_group.rowconfigure(0, weight=1)
+        outer.rowconfigure(3, weight=1)
+        # One read-only field of fixed height for the status and the review hints:
+        # no text can change the window layout; longer text is scrolled.
+        self.status_text = tk.Text(
             status_group,
-            textvariable=self.status_var,
-            justify="left",
-            anchor="w",
+            height=STATUS_FIELD_LINES,
+            width=1,
+            wrap="word",
+            font="TkDefaultFont",
+            state="disabled",
+            takefocus=False,
         )
-        self.status_label.grid(row=0, column=0, sticky="ew")
-        self.status_label.bind("<Configure>", self._resize_status_wrap)
-        self.diagnostics_label = tk.Label(
-            status_group,
-            textvariable=self.diagnostics_var,
-            justify="left",
-            anchor="w",
-            foreground=DIAGNOSTICS_COLOR,
+        self.status_text.tag_configure(DIAGNOSTICS_TAG, foreground=DIAGNOSTICS_COLOR)
+        self.status_text.grid(row=0, column=0, sticky="nsew")
+        self.status_scrollbar = ttk.Scrollbar(
+            status_group, orient="vertical", command=self.status_text.yview
         )
-        self.diagnostics_label.grid(row=1, column=0, sticky="ew", pady=(6, 0))
-        self.diagnostics_label.bind("<Configure>", self._resize_diagnostics_wrap)
-        self.diagnostics_label.grid_remove()
+        self.status_scrollbar.grid(row=0, column=1, sticky="ns")
+        self.status_text.configure(yscrollcommand=self.status_scrollbar.set)
+        # A disabled text field takes no focus by itself; with focus its text can be
+        # selected and copied.
+        self.status_text.bind("<Button-1>", lambda _event: self.status_text.focus_set())
 
         button_bar = ttk.Frame(outer)
         button_bar.grid(row=4, column=0, sticky="e", pady=(14, 0))
@@ -253,29 +276,28 @@ class EpgRendererApp:
         self.root.minsize(MAIN_MIN_WIDTH, preferred_height)
         self.root.geometry(f"{MAIN_WINDOW_WIDTH}x{preferred_height}")
 
-    def _resize_diagnostics_wrap(self, event: tk.Event[tk.Misc]) -> None:
-        """Keep diagnostic text readable when the main window is resized."""
-
-        self.diagnostics_label.configure(wraplength=max(280, event.width - 4))
-
     def _show_diagnostics(self, messages: Sequence[str]) -> None:
-        """Display every diagnostic prominently, or hide the area when there is none.
+        """Display every diagnostic in the status field, or none of them.
 
         The hints describe one rendered profile with one kit. Every change of the
         data or the kit therefore clears them; format, colour and output file do not.
         """
 
-        block = format_diagnostics(messages)
-        self.diagnostics_var.set(block)
-        if block:
-            self.diagnostics_label.grid()
-        else:
-            self.diagnostics_label.grid_remove()
+        self.diagnostics_var.set(diagnostics_field_text(messages))
 
-    def _resize_status_wrap(self, event: tk.Event[tk.Misc]) -> None:
-        """Keep status text readable when the main window is resized."""
+    def _refresh_status_field(self, *_trace: str) -> None:
+        """Write the status and the review hints into the field, shown from the top."""
 
-        self.status_label.configure(wraplength=max(280, event.width - 4))
+        field = self.status_text
+        field.configure(state="normal")
+        field.delete("1.0", "end")
+        field.insert("end", self.status_var.get())
+        hints = self.diagnostics_var.get()
+        if hints:
+            field.insert("end", "\n")
+            field.insert("end", hints, DIAGNOSTICS_TAG)
+        field.configure(state="disabled")
+        field.yview_moveto(0.0)
 
     def choose_input(self) -> None:
         """Select and inspect a GeneMapper input file."""

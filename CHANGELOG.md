@@ -4,6 +4,11 @@
 
 ### Fixed
 
+- **Buttons hidden after creating an image:** review hints or a long output path
+  enlarged the status area and pushed "Close" and "Create image" below the window
+  edge. Status and review hints now share one field of fixed height with a scrollbar;
+  the first hint line states how many hints there are, and the text can be selected
+  and copied.
 - **Review hints of a previous image:** the red review hints in the main window stayed
   visible after another file, sample, manual profile or kit was chosen, next to a
   profile they did not belong to. They are now cleared on every such change. Changing
@@ -32,6 +37,16 @@ The same files as in 0.14.0: the Windows GUI `EPG-Renderer_GUI_Windows_x64_v0.15
 with `EPG-Renderer-GUI.exe`, the standalone `epg-render.exe`, the source ZIP
 `EPG-Renderer_v0.15.0.zip`, the Python wheel and `SHA256SUMS.txt`. EPG-Renderer is not
 on PyPI; the installation guide describes every download.
+
+### Known issues (fixed in 0.15.1)
+
+- **Buttons hidden after creating an image:** when the status area shows review hints
+  or a long output path, "Close" and "Create image" can be pushed below the window
+  edge. Workaround: drag the window taller.
+- **Review hints of a previous image stay visible** after another file, sample, manual
+  profile or kit is chosen. They belong to the previously created image.
+
+The created images are not affected.
 
 ## 0.14.0 - 2026-10-01
 

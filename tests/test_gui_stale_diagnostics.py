@@ -6,6 +6,9 @@ a manual profile or choosing another kit, the hints of the previous profile stay
 next to the new one. Since 0.15.1.dev1 every change of the data or the kit clears
 them. The image format, the yellow-dye colour and the output file do not change what
 the hints say, so the hints stay when only those are changed.
+
+Since 0.15.1.dev2 the hints are part of the status field instead of a label of their
+own, so these tests check the hint text and no longer the visibility of a widget.
 """
 
 from __future__ import annotations
@@ -37,20 +40,13 @@ class _Variable:
 
 
 class _Widget:
-    """Stand-in for a Tk widget: records options and grid visibility."""
+    """Stand-in for a Tk widget: records options."""
 
     def __init__(self) -> None:
         self.options: dict[str, object] = {}
-        self.visible = False
 
     def configure(self, **options: object) -> None:
         self.options.update(options)
-
-    def grid(self) -> None:
-        self.visible = True
-
-    def grid_remove(self) -> None:
-        self.visible = False
 
     def update_idletasks(self) -> None:
         pass
@@ -75,7 +71,6 @@ def _app_with_stale_hints() -> gui.EpgRendererApp:
     app._last_suggested_output = None
     for name in ("sample_combo", "kit_combo", "render_button", "manual_button"):
         setattr(app, name, _Widget())
-    app.diagnostics_label = _Widget()  # type: ignore[assignment]
     app._show_diagnostics(STALE)
     return app
 
@@ -91,11 +86,9 @@ def _load(app: gui.EpgRendererApp, path: Path) -> None:
 class StaleDiagnosticsTests(unittest.TestCase):
     def assert_hints_cleared(self, app: gui.EpgRendererApp) -> None:
         self.assertEqual(app.diagnostics_var.get(), "")
-        self.assertFalse(app.diagnostics_label.visible)  # type: ignore[attr-defined]
 
     def assert_hints_kept(self, app: gui.EpgRendererApp) -> None:
         self.assertIn(STALE[0], app.diagnostics_var.get())
-        self.assertTrue(app.diagnostics_label.visible)  # type: ignore[attr-defined]
 
     def test_helper_starts_with_visible_hints(self) -> None:
         self.assert_hints_kept(_app_with_stale_hints())
