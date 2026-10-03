@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+
+- **Review hints of a previous image:** the red review hints in the main window stayed
+  visible after another file, sample, manual profile or kit was chosen, next to a
+  profile they did not belong to. They are now cleared on every such change. Changing
+  the image format, the yellow-dye colour or the output file keeps them, because the
+  hints do not depend on these settings.
+
 ## 0.15.0 - 2026-10-01
 
 This release adds teaching material and off-ladder calls in manual profiles.

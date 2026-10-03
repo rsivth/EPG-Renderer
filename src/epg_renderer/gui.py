@@ -156,6 +156,7 @@ class EpgRendererApp:
             width=MAIN_SELECTOR_WIDTH,
         )
         self.kit_combo.grid(row=3, column=1, sticky="w", pady=(8, 0))
+        self.kit_combo.bind("<<ComboboxSelected>>", self._on_kit_selected)
 
         output_group = ttk.LabelFrame(
             outer,
@@ -258,7 +259,11 @@ class EpgRendererApp:
         self.diagnostics_label.configure(wraplength=max(280, event.width - 4))
 
     def _show_diagnostics(self, messages: Sequence[str]) -> None:
-        """Display every diagnostic prominently, or hide the area when there is none."""
+        """Display every diagnostic prominently, or hide the area when there is none.
+
+        The hints describe one rendered profile with one kit. Every change of the
+        data or the kit therefore clears them; format, colour and output file do not.
+        """
 
         block = format_diagnostics(messages)
         self.diagnostics_var.set(block)
@@ -282,6 +287,7 @@ class EpgRendererApp:
         if not selected:
             return
         self.input_var.set(selected)
+        self._show_diagnostics(())
         self.status_var.set("Checking file…")
         self.root.update_idletasks()
         try:
@@ -310,6 +316,7 @@ class EpgRendererApp:
             return
         self.manual_profile = profile
         self.inspection = None
+        self._show_diagnostics(())
         self.input_var.set(f"Manual profile: {profile.name}")
         self.sample_var.set(profile.name)
         self.sample_combo.configure(values=(profile.name,), state="disabled")
@@ -331,6 +338,7 @@ class EpgRendererApp:
         self.sample_combo.configure(state="disabled", values=())
         self.kit_combo.configure(state="disabled")
         self.render_button.configure(state="disabled")
+        self._show_diagnostics(())
         self.status_var.set(f"The file is not usable: {message}")
         messagebox.showerror("Invalid GeneMapper file", message, parent=self.root)
 
@@ -360,8 +368,14 @@ class EpgRendererApp:
             self.render_button.configure(state="disabled")
 
     def _on_sample_selected(self, _event: object | None = None) -> None:
+        self._show_diagnostics(())
         self._update_kit_state()
         self._suggest_output()
+
+    def _on_kit_selected(self, _event: object | None = None) -> None:
+        """Drop the hints of the last image: they were computed for another kit."""
+
+        self._show_diagnostics(())
 
     def _suggest_output(self, *, force: bool = False) -> None:
         if self.manual_profile is not None:
