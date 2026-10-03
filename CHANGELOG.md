@@ -1,6 +1,9 @@
 # Changelog
 
-## Unreleased
+## 0.15.1 - 2026-10-03
+
+This release fixes two display errors in the main window of the GUI. Created images
+are not affected.
 
 ### Fixed
 
@@ -9,11 +12,18 @@
   edge. Status and review hints now share one field of fixed height with a scrollbar;
   the first hint line states how many hints there are, and the text can be selected
   and copied.
-- **Review hints of a previous image:** the red review hints in the main window stayed
-  visible after another file, sample, manual profile or kit was chosen, next to a
-  profile they did not belong to. They are now cleared on every such change. Changing
-  the image format, the yellow-dye colour or the output file keeps them, because the
-  hints do not depend on these settings.
+- **Review hints of a previous image:** the red review hints stayed visible after
+  another file, sample, manual profile or kit was chosen, next to a profile they did
+  not belong to. They are now cleared on every such change. Changing the image
+  format, the yellow-dye colour or the output file keeps them, because the hints do
+  not depend on these settings.
+
+### Downloads
+
+The same files as in 0.15.0: the Windows GUI `EPG-Renderer_GUI_Windows_x64_v0.15.1.zip`
+with `EPG-Renderer-GUI.exe`, the standalone `epg-render.exe`, the source ZIP
+`EPG-Renderer_v0.15.1.zip`, the Python wheel and `SHA256SUMS.txt`. EPG-Renderer is not
+on PyPI; the installation guide describes every download.
 
 ## 0.15.0 - 2026-10-01
 
