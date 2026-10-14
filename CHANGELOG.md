@@ -1,5 +1,47 @@
 # Changelog
 
+## 0.16.0 - 2026-10-14
+
+GeneMapper exports are now read by STRio, a separate package for forensic STR data
+that future statistics modules will share. EPG-Renderer carries its own copy, so
+nothing has to be installed in addition.
+
+### Unchanged
+
+- Exports are read by the same rules as in 0.15.1: the same samples, markers, alleles,
+  heights, sizes and warnings, and for a rejected file the same message and error
+  type. Images differ from 0.15.1 only in the version number they record.
+- The 32,767-RFU limit, the GUI, the command line, the Python API and the batch
+  manifest are unchanged.
+
+### Changed
+
+- **UTF-16 exports:** a file saved as UTF-16 with byte-order mark is now read. Before,
+  it was rejected with "Could not detect CSV delimiter".
+- **UTF-16 without byte-order mark:** the error message now names UTF-16 and the
+  `encoding` option instead of "Could not detect CSV delimiter".
+
+### For developers
+
+- `epg_renderer.parser` keeps its interface (`read_genotypes_table`, the five
+  exception classes, messages) and delegates reading to the bundled STRio 0.1.1 in
+  `epg_renderer._vendor.strio`. `src/epg_renderer/_vendor/VENDORED.json` records the
+  SHA-256 of every bundled file; `python -m tools.vendor_strio <strio checkout>`
+  replaces the copy and `--check` compares it with a checkout.
+- Tests: the unchanged 0.15.1 suite (684 tests) passes except
+  `test_refactoring_structure.test_parser_has_explicit_configuration_header_and_accumulator_types`,
+  which inspected the reader's former internal classes. It is replaced by
+  `test_parser_delegates_reading_to_the_bundled_strio_reader`. New:
+  `tests/test_strio_integration.py`.
+- `tools/run_all_tests.py` reports in English and lists skipped tests.
+
+### Downloads
+
+The same files as in 0.15.1: the Windows GUI `EPG-Renderer_GUI_Windows_x64_v0.16.0.zip`
+with `EPG-Renderer-GUI.exe`, the standalone `epg-render.exe`, the source ZIP
+`EPG-Renderer_v0.16.0.zip`, the Python wheel and `SHA256SUMS.txt`. EPG-Renderer is not
+on PyPI; the installation guide describes every download.
+
 ## 0.15.1 - 2026-10-03
 
 This release fixes two display errors in the main window of the GUI. Created images

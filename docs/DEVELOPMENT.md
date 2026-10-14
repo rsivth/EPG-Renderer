@@ -138,6 +138,27 @@ The source-tree inventory test must be updated deliberately when a canonical
 documentation page is added or removed. This prevents stale copies and accidental
 versioned duplicates from entering release archives.
 
+## Bundled STRio
+
+GeneMapper exports are read by [STRio](https://github.com/rsivth/strio). EPG-Renderer
+has no runtime dependencies and must run from an unpacked source ZIP and as a Windows
+program without network access, so it carries an exact copy of one STRio release in
+`src/epg_renderer/_vendor/strio/`. `src/epg_renderer/_vendor/VENDORED.json` records the
+version, the release tag and the SHA-256 of every bundled file, and
+`tests/test_strio_integration.py` fails on any difference. The copy is never edited by
+hand; ruff and coverage skip it because STRio checks it in its own project.
+
+To move to another STRio release:
+
+```bash
+git -C ../strio checkout vX.Y.Z
+python -m tools.vendor_strio ../strio
+python -m tools.run_all_tests
+```
+
+`python -m tools.vendor_strio ../strio --check` compares a checkout with the bundled
+copy without changing anything. Record the STRio version in the changelog.
+
 ## Updating examples
 
 Regenerate every committed example SVG with:

@@ -38,6 +38,13 @@ def discover_tests(
     return unittest.TestSuite(tests), test_ids
 
 
+def _base_id(test: object) -> str:
+    """Return the identifier of a test, or of the test that owns a sub-test."""
+
+    owner = getattr(test, "test_case", test)
+    return str(owner.id()) if hasattr(owner, "id") else str(owner)
+
+
 def main() -> int:
     """Discover and run every current test exactly once."""
 
@@ -53,14 +60,17 @@ def main() -> int:
 
     result = unittest.TextTestRunner(verbosity=2).run(suite)
     print()
-    print(f"Entdeckte und ausgeführte Tests: {len(test_ids)}")
-    print(f"Alle Tests bestanden: {'ja' if result.wasSuccessful() else 'nein'}")
-    if result.failures:
-        print(f"Fehlgeschlagen: {len(result.failures)}")
-    if result.errors:
-        print(f"Fehler: {len(result.errors)}")
-    if result.skipped:
-        print(f"Übersprungen: {len(result.skipped)}")
+    failed = {_base_id(test) for test, _ in result.failures}
+    errored = {_base_id(test) for test, _ in result.errors} - failed
+    skipped = {_base_id(test) for test, _ in result.skipped} - failed - errored
+    print(f"Tests run: {len(test_ids)}")
+    print(f"Passed: {len(test_ids) - len(failed | errored | skipped)}")
+    print(f"Failed: {len(failed)}")
+    print(f"Errors: {len(errored)}")
+    print(f"Skipped: {len(skipped)}")
+    for test, reason in result.skipped:
+        print(f"  skipped {test.id()}: {reason}")
+    print(f"Result: {'PASSED' if result.wasSuccessful() else 'FAILED'}")
     return 0 if result.wasSuccessful() else 1
 
 

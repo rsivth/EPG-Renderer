@@ -45,12 +45,16 @@ The GUI uses the standard `Sample Name` contract.
 
 ## Supported file encoding and delimiters
 
-Automatic decoding tries, in order:
+A file that starts with a UTF-16 byte-order mark is read as UTF-16. Otherwise automatic
+decoding tries, in order:
 
 1. UTF-8 with optional byte-order mark
 2. UTF-8
 3. Windows-1252
 4. Latin-1
+
+A UTF-16 file without byte-order mark is rejected with a message that names UTF-16;
+the Python API and the CLI accept the encoding explicitly.
 
 Supported delimiters are tab, semicolon, and comma. Automatic detection scores the
 header for GeneMapper semantics instead of choosing solely by punctuation frequency.

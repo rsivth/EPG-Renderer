@@ -64,6 +64,7 @@ _ALLOWED_TOOL_FILES = {
     "run_coverage_checks.py",
     "run_quality_checks.py",
     "run_release_checks.py",
+    "vendor_strio.py",
 }
 _ALLOWED_PACKAGING_FILES = {
     "packaging/windows/cli_entry.py",

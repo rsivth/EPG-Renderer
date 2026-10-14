@@ -47,18 +47,19 @@ class RefactoringBoundaryTests(unittest.TestCase):
                     limit,
                 )
 
-    def test_parser_has_explicit_configuration_header_and_accumulator_types(self) -> None:
-        for model in (
-            parser_module._ParserConfig,
-            parser_module._HeaderLayout,
-            parser_module._SampleAccumulator,
-        ):
-            with self.subTest(model=model.__name__):
-                self.assertTrue(dataclasses.is_dataclass(model))
-        self.assertEqual(
-            tuple(inspect.signature(parser_module._parse_marker_row).parameters),
-            ("raw", "line_number", "layout", "require_height"),
-        )
+    def test_parser_delegates_reading_to_the_bundled_strio_reader(self) -> None:
+        # Until 0.15.1 parser.py held the reader itself (_ParserConfig, _HeaderLayout,
+        # _SampleAccumulator, _parse_marker_row). Since 0.16.0 that structure lives in
+        # the bundled STRio package and parser.py only adapts its result.
+        source = inspect.getsource(parser_module.read_genotypes_table)
+        self.assertIn("strio.read_genemapper", source)
+        self.assertIn("max_height=MAX_RFU", source)
+        for helper in ("_renderer_error", "_project", "_sample"):
+            with self.subTest(helper=helper):
+                self.assertTrue(callable(getattr(parser_module, helper)))
+        for removed in ("_ParserConfig", "_HeaderLayout", "_SampleAccumulator"):
+            with self.subTest(removed=removed):
+                self.assertFalse(hasattr(parser_module, removed))
 
     def test_batch_state_is_owned_by_one_runner(self) -> None:
         self.assertTrue(dataclasses.is_dataclass(batch_module._BatchRequest))

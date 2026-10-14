@@ -1,2 +1,3 @@
 *.py text eol=lf
 tests/fixtures/genemapper_exports/*.txt -text
+src/epg_renderer/_vendor/strio/** -text

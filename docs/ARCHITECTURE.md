@@ -5,7 +5,8 @@ EPG-Renderer separates public orchestration, immutable domain state, data ingest
 - `api.py` defines the nine canonical package operations.
 - `domain.py` contains typed enums and immutable kit/batch metadata.
 - `models.py` contains immutable project, sample, marker and allele structures shared by parsed and manual inputs.
-- `parser.py` separates source decoding, CSV syntax validation, table-shape normalization, semantic header-family interpretation, source-injection identity and row accumulation before publishing immutable models.
+- `parser.py` is the renderer's side of GeneMapper import: it validates `export_mode`, has the bundled STRio reader decode and validate the export (CSV syntax, table shape, header families, source-injection identity, row accumulation) with the 32,767-RFU ceiling, converts the result into the immutable models and maps reader errors to the renderer's exception classes.
+- `_vendor/strio/` is an exact copy of one STRio release (see [Development](DEVELOPMENT.md#bundled-strio)); EPG-Renderer code imports it only through `parser.py`.
 - `kit_schema.py` validates declarative kit profiles and constructs typed immutable metadata.
 - `kit_registry.py` loads and caches bundled profiles.
 - `kit_workflow.py` detects kits, resolves one profile and coordinates positioning. `resolve_and_position` is the single resolve-then-position step of the rendering workflows; the batch runner keeps the two steps separate because it checks for one common kit between them.
