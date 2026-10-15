@@ -34,7 +34,9 @@ class Diagnostic:
     def __post_init__(self) -> None:
         if not isinstance(self.code, DiagnosticCode):
             raise TypeError("code must be a DiagnosticCode value.")
-        message = str(self.message).strip()
+        if not isinstance(self.message, str):
+            raise TypeError(f"message must be a str, not {type(self.message).__name__}.")
+        message = self.message.strip()
         if not message:
             raise ValueError("message must not be empty.")
         lines = tuple(self.lines)

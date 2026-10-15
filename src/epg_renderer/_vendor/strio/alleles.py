@@ -14,7 +14,7 @@ from dataclasses import dataclass
 from decimal import Decimal
 from enum import Enum
 
-_NUMERIC_RE = re.compile(r"(?P<full>\d+)(?:\.(?P<partial>\d))?")
+_NUMERIC_RE = re.compile(r"(?P<full>[0-9]+)(?:\.(?P<partial>[0-9]))?")
 
 
 class AlleleKind(str, Enum):
@@ -92,13 +92,16 @@ def parse_allele_label(label: str) -> AlleleValue:
 
     Rules, applied to the label after surrounding whitespace is removed:
 
-    * digits, optionally followed by a point and exactly one digit -> ``NUMERIC``;
+    * ASCII digits, optionally followed by a point and exactly one digit -> ``NUMERIC``;
     * ``X`` / ``Y`` (any case) -> ``X`` / ``Y``;
     * ``OL`` (any case) -> ``OFF_LADDER``;
-    * everything else, including a decimal comma such as ``9,3`` -> ``OTHER``.
+    * everything else, including a decimal comma such as ``9,3`` and digits of other
+      scripts such as ``٩.٣`` -> ``OTHER``.
     """
 
-    text = str(label).strip()
+    if not isinstance(label, str):
+        raise TypeError(f"Allele label must be a str, not {type(label).__name__}.")
+    text = label.strip()
     match = _NUMERIC_RE.fullmatch(text)
     if match is not None:
         return AlleleValue(AlleleKind.NUMERIC, Decimal(text))

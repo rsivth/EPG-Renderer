@@ -95,11 +95,12 @@ def _project(dataset: strio.Dataset, export_mode: str) -> GeneMapperProject:
     """Convert a reader dataset into the renderer's immutable project model."""
 
     samples = {sample_id: _sample(sample) for sample_id, sample in dataset.samples.items()}
+    table = dataset.source.require_table()
     return GeneMapperProject(
         samples=samples,
-        header=dataset.source.header,
-        delimiter=dataset.source.delimiter,
-        sample_id_column=dataset.source.sample_id_column,
+        header=table.header,
+        delimiter=table.delimiter,
+        sample_id_column=table.sample_id_column,
         source_path=dataset.source.path,
         encoding=dataset.source.encoding,
         warnings=dataset.messages,

@@ -25,7 +25,7 @@ from .errors import (
 )
 from .formats.genemapper import parse_genemapper, read_genemapper
 from .markers import MARKER_SYNONYMS, marker_key
-from .model import Allele, Dataset, Locus, Sample, SourceInfo
+from .model import Allele, Dataset, Locus, Sample, SourceInfo, TableLayout
 from .version import __version__
 
 __all__ = [
@@ -46,6 +46,7 @@ __all__ = [
     "Sample",
     "SourceInfo",
     "StrioError",
+    "TableLayout",
     "__version__",
     "marker_key",
     "parse_allele_label",

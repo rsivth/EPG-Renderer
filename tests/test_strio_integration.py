@@ -56,7 +56,7 @@ class BundledCopyTests(unittest.TestCase):
 
     def test_bundled_version_is_at_least_the_reader_used_for_0_16_0(self) -> None:
         version = tuple(int(part) for part in strio.__version__.split("."))
-        self.assertGreaterEqual(version, (0, 1, 1))
+        self.assertGreaterEqual(version, (0, 2, 0))
 
     def test_edited_extra_or_missing_files_are_detected(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -167,6 +167,43 @@ class ReaderImprovementTests(unittest.TestCase):
         path = _write(self, (HEADER + "S\tvWA\tB\t14\t100\n").encode("utf-16-le"))
         with self.assertRaisesRegex(GeneMapperParserError, "UTF-16"):
             load_project(path)
+
+
+class BundledReaderFixTests(unittest.TestCase):
+    """Fixes that arrive with STRio 0.2.0, as the renderer's user sees them."""
+
+    def test_very_long_numbers_are_parser_errors_again(self) -> None:
+        # 0.15.1 raised NumericConversionError; the first 0.16.0 candidate let a plain
+        # ValueError escape for values beyond 4,300 digits.
+        huge = "9" * 5000
+        cases = (
+            (HEADER.replace("Height 1", "Height 1\tArea 1"), f"S\tvWA\tB\t14\t1\t{huge}\n"),
+            (HEADER, f"S\tvWA\tB\t14\t{huge}\n"),
+        )
+        for header, row in cases:
+            path = _write(self, (header + row).encode("utf-8"))
+            with self.subTest(header=header), self.assertRaises(NumericConversionError) as caught:
+                read_genotypes_table(path)
+            self.assertLess(len(str(caught.exception)), 200)
+
+    def test_columns_equal_except_spacing_are_rejected(self) -> None:
+        text = "Sample Name\tSample  Name\tMarker\tAllele 1\tHeight 1\nA\tB\tvWA\t14\t1\n"
+        with self.assertRaisesRegex(DuplicateHeaderError, "differ only in spacing"):
+            read_genotypes_table(_write(self, text.encode("utf-8")))
+
+    def test_digits_of_other_scripts_are_rejected(self) -> None:
+        path = _write(self, (HEADER + "S\tvWA\tB\t14\t\u0661\u0662\u0663\n").encode("utf-8"))
+        with self.assertRaises(NumericConversionError):
+            read_genotypes_table(path)
+
+    def test_messages_name_the_exported_column(self) -> None:
+        text = "Sample Name\tMarker\tAllele 1\tHeight 1\tPeak Area 1\nS\tvWA\t14\t1\tx\n"
+        with self.assertRaisesRegex(NumericConversionError, "'Peak Area 1'"):
+            read_genotypes_table(_write(self, text.encode("utf-8")))
+
+    def test_bundled_reader_describes_its_table_separately(self) -> None:
+        dataset = strio.read_genemapper(ROOT / "tests" / "fixtures" / "ngm_minimal.tsv")
+        self.assertEqual(dataset.source.require_table().delimiter, "\t")
 
 
 class DistributionTests(unittest.TestCase):

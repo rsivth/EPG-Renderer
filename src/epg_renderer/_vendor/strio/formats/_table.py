@@ -18,15 +18,18 @@ from pathlib import Path
 
 from ..errors import DuplicateColumnError, ParseError
 
-DEFAULT_ENCODINGS = ("utf-8-sig", "utf-8", "cp1252", "latin-1")
+DEFAULT_ENCODINGS = ("utf-8-sig", "cp1252", "latin-1")
 """Encodings tried in order when the caller does not name one.
+
+``utf-8-sig`` reads UTF-8 with and without byte-order mark.
 
 ``latin-1`` decodes every byte sequence, so the list always yields text; a file in an
 unexpected encoding then fails later with a precise header or value error instead.
 """
 
 _UTF16_BOMS = (codecs.BOM_UTF16_LE, codecs.BOM_UTF16_BE)
-_INDEXED_RE = re.compile(r"^(?P<base>.+?)\s+(?P<index>[1-9]\d*)$", re.IGNORECASE)
+_INDEXED_RE = re.compile(r"^(?P<base>.+?)\s+(?P<index>[1-9][0-9]*)$", re.IGNORECASE)
+_MAX_INDEX_DIGITS = 6
 
 Row = tuple[int, list[str]]
 """One parsed table row: its first physical source line and its fields."""
@@ -258,6 +261,24 @@ def validate_header_names(header: tuple[str, ...]) -> None:
         raise DuplicateColumnError(f"Duplicate column names: {duplicates}")
 
 
+def reject_spacing_duplicates(header: tuple[str, ...]) -> None:
+    """Reject two column names that are equal ignoring letter case and runs of whitespace.
+
+    :func:`find_column` compares names this way, so ``Sample Name`` and ``Sample  Name``
+    would otherwise both match one requested column and the second would be ignored.
+    """
+
+    seen: dict[str, str] = {}
+    for value in header:
+        key = normalize_header_key(value)
+        previous = seen.get(key)
+        if previous is not None:
+            raise DuplicateColumnError(
+                f"Duplicate column names {previous!r} and {value!r} differ only in spacing."
+            )
+        seen[key] = value
+
+
 def find_column(header: tuple[str, ...], requested: str) -> str | None:
     """Return the header column matching ``requested`` case-/space-insensitively."""
 
@@ -281,6 +302,10 @@ def indexed_columns(header: tuple[str, ...]) -> dict[str, dict[int, str]]:
         if not match:
             continue
         base = normalize_header_key(match.group("base"))
+        if len(match.group("index")) > _MAX_INDEX_DIGITS:
+            raise ParseError(
+                f"Column {column!r} has a number with more than {_MAX_INDEX_DIGITS} digits."
+            )
         index = int(match.group("index"))
         family = result.setdefault(base, {})
         previous = family.get(index)

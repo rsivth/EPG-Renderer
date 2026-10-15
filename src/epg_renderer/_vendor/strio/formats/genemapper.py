@@ -10,6 +10,8 @@ schema. The reader therefore identifies columns by name, never by position:
   case- and space-insensitively;
 * every other column is kept verbatim per row in :attr:`strio.Locus.extra`.
 
+:attr:`strio.SourceInfo.table` of the result describes the header and delimiter.
+
 The reader is strict: malformed input raises a :class:`strio.ParseError` subclass that
 names the line and column. It never repairs or guesses values.
 """
@@ -31,7 +33,7 @@ from ..errors import (
     NumericValueError,
     ParseError,
 )
-from ..model import Allele, Dataset, Locus, Sample, SourceInfo, row_key
+from ..model import Allele, Dataset, Locus, Sample, SourceInfo, TableLayout, row_key
 from . import _table
 
 FORMAT_NAME = "genemapper-table"
@@ -52,7 +54,13 @@ _PEAK_FAMILIES: dict[str, tuple[str, ...]] = {
     "comment": ("comment",),
 }
 _OVERFLOW_COLUMNS = ("Allele Display Overflow", "ADO")
-_INTEGER_RE = re.compile(r"[+-]?\d+")
+_INTEGER_RE = re.compile(r"[+-]?[0-9]+")
+_DECIMAL_RE = re.compile(r"[+-]?(?:[0-9]+(?:[.,][0-9]*)?|[.,][0-9]+)")
+_SHOWN_VALUE_LENGTH = 40
+
+MAX_INTEGER_DIGITS = 18
+"""Most digits (without sign and leading zeros) accepted in a height, an area or the
+whole-number part of a size. Larger values cannot come from an instrument export."""
 
 
 @dataclass(frozen=True, slots=True)
@@ -233,9 +241,16 @@ def parse_genemapper(
     encoding is detected. ``source`` names the text in error messages.
     """
 
+    if not isinstance(text, str):
+        raise TypeError(
+            f"text must be a str, not {type(text).__name__}; decode bytes first or use "
+            "read_genemapper()."
+        )
+    if not isinstance(source, str):
+        raise TypeError(f"source must be a str, not {type(source).__name__}.")
     _check_max_height(max_height)
     options = _Options(
-        str(source),
+        source,
         None,
         sample_id_column,
         marker_column,
@@ -244,7 +259,7 @@ def parse_genemapper(
         require_height,
         max_height,
     )
-    return _read(str(text), None, options)
+    return _read(text, None, options)
 
 
 def _check_max_height(max_height: int | None) -> None:
@@ -277,12 +292,14 @@ def _read(text: str, encoding: str | None, options: _Options) -> Dataset:
         samples,
         SourceInfo(
             FORMAT_NAME,
-            layout.columns,
-            delimiter,
-            layout.sample_id_column,
             path=options.path,
             encoding=encoding,
-            extra_columns=layout.extra_columns,
+            table=TableLayout(
+                layout.columns,
+                delimiter,
+                layout.sample_id_column,
+                extra_columns=layout.extra_columns,
+            ),
         ),
         tuple(diagnostics),
     )
@@ -298,7 +315,7 @@ def _detect_delimiter(text: str) -> str:
         normalized = tuple(_table.normalize_header_key(value) for value in header)
         semantic = 0
         semantic += 4 if "marker" in normalized else 0
-        has_allele = any(re.fullmatch(r"allele\s+[1-9]\d*", value) for value in normalized)
+        has_allele = any(re.fullmatch(r"allele\s+[1-9][0-9]*", value) for value in normalized)
         semantic += 4 if has_allele else 0
         semantic += (
             2
@@ -329,6 +346,7 @@ def _parse_header(raw_header: list[str], options: _Options) -> _Layout:
         None,
     )
     numbered = _table.indexed_columns(header)
+    _table.reject_spacing_duplicates(header)
     peaks = _peak_families(numbered)
     if not peaks.get("allele"):
         raise MissingColumnError("No columns such as 'Allele 1' were found.")
@@ -536,13 +554,17 @@ def _parse_allele(
     height = (
         None
         if not raw_height
-        else _parse_height(raw_height, line_number, f"Height {index}", options.max_height)
+        else _parse_height(
+            raw_height, line_number, layout.family("height")[index], options.max_height
+        )
     )
-    size = None if not raw_size else _parse_size(raw_size, line_number, f"Size {index}")
+    size = (
+        None if not raw_size else _parse_size(raw_size, line_number, layout.family("size")[index])
+    )
     area = (
         None
         if not raw_area
-        else _parse_nonnegative_integer(raw_area, line_number, f"Area {index}", "area")
+        else _parse_nonnegative_integer(raw_area, line_number, layout.family("area")[index], "area")
     )
     return Allele(index, label, height, size, area, mutation, comment)
 
@@ -552,12 +574,31 @@ def _indexed_value(row: dict[str, str], family: dict[int, str], index: int) -> s
     return row.get(column, "").strip() if column else ""
 
 
+def _shown(value: str) -> str:
+    """Quote a value for an error message, shortening very long values."""
+
+    if len(value) <= _SHOWN_VALUE_LENGTH:
+        return repr(value)
+    return f"{value[:_SHOWN_VALUE_LENGTH]!r}... ({len(value)} characters)"
+
+
+def _check_digit_count(digits: str, value: str, line_number: int, column: str, what: str) -> None:
+    if len(digits.lstrip("0")) > MAX_INTEGER_DIGITS:
+        raise NumericValueError(
+            f"{what} {_shown(value)} at line {line_number}, column {column!r} has more than "
+            f"{MAX_INTEGER_DIGITS} digits."
+        )
+
+
 def _parse_nonnegative_integer(value: str, line_number: int, column: str, description: str) -> int:
     if not _INTEGER_RE.fullmatch(value):
         raise NumericValueError(
-            f"Invalid integer {description} value {value!r} at line {line_number}, "
+            f"Invalid integer {description} value {_shown(value)} at line {line_number}, "
             f"column {column!r}."
         )
+    _check_digit_count(
+        value.lstrip("+-"), value, line_number, column, f"Integer {description} value"
+    )
     parsed = int(value)
     if parsed < 0:
         raise NumericValueError(
@@ -585,16 +626,19 @@ def _height_limit_message(line_number: int, column: str, maximum: int) -> str:
 
 
 def _parse_size(value: str, line_number: int, column: str) -> Decimal:
+    message = (
+        f"Invalid decimal size value {_shown(value)} at line {line_number}, column {column!r}."
+    )
+    if not _DECIMAL_RE.fullmatch(value):
+        raise NumericValueError(message)
+    whole_part = re.split(r"[.,]", value.lstrip("+-"))[0]
+    _check_digit_count(whole_part, value, line_number, column, "Size value")
     try:
         parsed = Decimal(value.replace(",", "."))
     except InvalidOperation as exc:
-        raise NumericValueError(
-            f"Invalid decimal size value {value!r} at line {line_number}, column {column!r}."
-        ) from exc
-    if not parsed.is_finite() or parsed < 0:
-        raise NumericValueError(
-            f"Invalid decimal size value {value!r} at line {line_number}, column {column!r}."
-        )
+        raise NumericValueError(message) from exc
+    if parsed < 0:
+        raise NumericValueError(message)
     return parsed
 
 

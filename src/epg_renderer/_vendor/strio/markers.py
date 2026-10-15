@@ -31,7 +31,9 @@ def marker_key(name: str) -> str:
     (:data:`MARKER_SYNONYMS`). An empty or blank name is rejected.
     """
 
-    text = unicodedata.normalize("NFC", str(name))
+    if not isinstance(name, str):
+        raise TypeError(f"Marker name must be a str, not {type(name).__name__}.")
+    text = unicodedata.normalize("NFC", name)
     key = "".join(text.split()).upper()
     if not key:
         raise ValueError("Marker name must not be empty.")
