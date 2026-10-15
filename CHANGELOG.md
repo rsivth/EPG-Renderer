@@ -4,7 +4,7 @@
 
 GeneMapper exports are now read by STRio, a separate package for forensic STR data
 that future statistics modules will share. EPG-Renderer carries its own copy (STRio
-0.2.0), so nothing has to be installed in addition.
+0.2.1), so nothing has to be installed in addition.
 
 ### Unchanged
 
@@ -25,14 +25,16 @@ that future statistics modules will share. EPG-Renderer carries its own copy (ST
     are rejected; before, the second was ignored;
   - areas and the whole-number part of sizes have at most 18 digits;
   - digits of other scripts (`١٢٣`) are no longer read as numbers, and sizes in
-    exponent notation (`1e2`) are rejected.
+    exponent notation (`1e2`) or with more than 6 decimal places are rejected.
 - **Error messages** name a numeric column as it is spelled in the export (`'Peak Area
   1'` instead of `'Area 1'`) and shorten very long values.
+- **Faster reading:** exports without quote characters, the usual tab-separated case,
+  are read about 45 % faster.
 
 ### For developers
 
 - `epg_renderer.parser` keeps its interface (`read_genotypes_table`, the five
-  exception classes) and delegates reading to the bundled STRio 0.2.0 in
+  exception classes) and delegates reading to the bundled STRio 0.2.1 in
   `epg_renderer._vendor.strio`. `src/epg_renderer/_vendor/VENDORED.json` records the
   SHA-256 of every bundled file; `python -m tools.vendor_strio <strio checkout>`
   replaces the copy and `--check` compares it with a checkout.

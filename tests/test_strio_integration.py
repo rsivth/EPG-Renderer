@@ -170,7 +170,7 @@ class ReaderImprovementTests(unittest.TestCase):
 
 
 class BundledReaderFixTests(unittest.TestCase):
-    """Fixes that arrive with STRio 0.2.0, as the renderer's user sees them."""
+    """Fixes that arrive with STRio 0.2.x, as the renderer's user sees them."""
 
     def test_very_long_numbers_are_parser_errors_again(self) -> None:
         # 0.15.1 raised NumericConversionError; the first 0.16.0 candidate let a plain
@@ -195,6 +195,11 @@ class BundledReaderFixTests(unittest.TestCase):
         path = _write(self, (HEADER + "S\tvWA\tB\t14\t\u0661\u0662\u0663\n").encode("utf-8"))
         with self.assertRaises(NumericConversionError):
             read_genotypes_table(path)
+
+    def test_sizes_with_more_than_six_decimal_places_are_rejected(self) -> None:
+        text = "Sample Name\tMarker\tAllele 1\tHeight 1\tSize 1\nS\tvWA\t14\t1\t160.1234567\n"
+        with self.assertRaisesRegex(NumericConversionError, "more than 6 decimal places"):
+            read_genotypes_table(_write(self, text.encode("utf-8")))
 
     def test_messages_name_the_exported_column(self) -> None:
         text = "Sample Name\tMarker\tAllele 1\tHeight 1\tPeak Area 1\nS\tvWA\t14\t1\tx\n"

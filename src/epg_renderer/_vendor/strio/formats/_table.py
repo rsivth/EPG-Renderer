@@ -175,9 +175,14 @@ def _newline_length(text: str, index: int) -> int:
 
 
 def parse_rows(text: str, delimiter: str, source: str) -> list[Row]:
-    """Parse CSV rows without destroying quoted physical line breaks."""
+    """Parse CSV rows without destroying quoted physical line breaks.
 
-    _CsvQuoteScanner(delimiter, source).validate(text)
+    The character-level quote validation runs only if the text contains a quote
+    character; without one there is nothing it could reject.
+    """
+
+    if '"' in text:
+        _CsvQuoteScanner(delimiter, source).validate(text)
     reader = csv.reader(io.StringIO(text, newline=""), delimiter=delimiter, strict=True)
     rows: list[Row] = []
     start_line = 1
@@ -240,8 +245,39 @@ def normalize_header_key(value: str) -> str:
     return " ".join(str(value).replace("﻿", "").split()).casefold()
 
 
+def duplicate_names(header: tuple[str, ...]) -> tuple[list[str], tuple[str, str] | None]:
+    """Find duplicate column names in one pass, compared as :func:`find_column` does.
+
+    Returns the names that repeat an earlier name except for letter case, and the first
+    pair of names that are equal only after runs of whitespace are collapsed
+    (``Sample Name``, ``Sample  Name``). Two numbered columns of one family
+    (``Allele 1``, ``Allele  1``) are left to :func:`indexed_columns`, whose message
+    names the family.
+    """
+
+    casefolded: set[str] = set()
+    seen: dict[str, str] = {}
+    case_duplicates: list[str] = []
+    spacing_pair: tuple[str, str] | None = None
+    for value in header:
+        folded = value.casefold()
+        if folded in casefolded:
+            case_duplicates.append(value)
+            continue
+        casefolded.add(folded)
+        key = normalize_header_key(value)
+        previous = seen.get(key)
+        if previous is None:
+            seen[key] = value
+        elif spacing_pair is None and not (
+            _INDEXED_RE.match(previous) and _INDEXED_RE.match(value)
+        ):
+            spacing_pair = (previous, value)
+    return case_duplicates, spacing_pair
+
+
 def validate_header_names(header: tuple[str, ...]) -> None:
-    """Reject an empty header, blank interior names and case-only duplicates."""
+    """Reject an empty header, blank interior names and names repeated except for case."""
 
     if not any(header):
         raise ParseError("Header row is empty.")
@@ -249,34 +285,24 @@ def validate_header_names(header: tuple[str, ...]) -> None:
         raise ParseError(
             "Blank column names are not allowed except for empty trailing export columns."
         )
-    normalized: dict[str, str] = {}
-    duplicates: list[str] = []
-    for value in header:
-        key = value.casefold()
-        if key in normalized:
-            duplicates.append(value)
-        else:
-            normalized[key] = value
-    if duplicates:
-        raise DuplicateColumnError(f"Duplicate column names: {duplicates}")
+    case_duplicates, _ = duplicate_names(header)
+    if case_duplicates:
+        raise DuplicateColumnError(f"Duplicate column names: {case_duplicates}")
 
 
 def reject_spacing_duplicates(header: tuple[str, ...]) -> None:
-    """Reject two column names that are equal ignoring letter case and runs of whitespace.
+    """Reject two column names that differ only in spacing (see :func:`duplicate_names`).
 
-    :func:`find_column` compares names this way, so ``Sample Name`` and ``Sample  Name``
-    would otherwise both match one requested column and the second would be ignored.
+    Readers call it after :func:`indexed_columns`, so that numbered families are reported
+    with their own message first.
     """
 
-    seen: dict[str, str] = {}
-    for value in header:
-        key = normalize_header_key(value)
-        previous = seen.get(key)
-        if previous is not None:
-            raise DuplicateColumnError(
-                f"Duplicate column names {previous!r} and {value!r} differ only in spacing."
-            )
-        seen[key] = value
+    _, spacing_pair = duplicate_names(header)
+    if spacing_pair is not None:
+        previous, value = spacing_pair
+        raise DuplicateColumnError(
+            f"Duplicate column names {previous!r} and {value!r} differ only in spacing."
+        )
 
 
 def find_column(header: tuple[str, ...], requested: str) -> str | None:

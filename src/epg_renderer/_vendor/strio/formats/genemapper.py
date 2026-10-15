@@ -8,7 +8,8 @@ schema. The reader therefore identifies columns by name, never by position:
   order (``Allele 1, Allele 2, Height 1, Height 2`` or ``Allele 1, Height 1, ...``);
 * the sample-identifier column, ``Marker`` and the optional ``Dye`` column are found
   case- and space-insensitively;
-* every other column is kept verbatim per row in :attr:`strio.Locus.extra`.
+* every other column is kept per row in :attr:`strio.Locus.extra`, as text with
+  surrounding whitespace removed like every other value.
 
 :attr:`strio.SourceInfo.table` of the result describes the header and delimiter.
 
@@ -61,6 +62,10 @@ _SHOWN_VALUE_LENGTH = 40
 MAX_INTEGER_DIGITS = 18
 """Most digits (without sign and leading zeros) accepted in a height, an area or the
 whole-number part of a size. Larger values cannot come from an instrument export."""
+
+MAX_SIZE_DECIMALS = 6
+"""Most digits accepted after the decimal separator of a size, as written (GeneMapper
+exports two)."""
 
 
 @dataclass(frozen=True, slots=True)
@@ -631,8 +636,13 @@ def _parse_size(value: str, line_number: int, column: str) -> Decimal:
     )
     if not _DECIMAL_RE.fullmatch(value):
         raise NumericValueError(message)
-    whole_part = re.split(r"[.,]", value.lstrip("+-"))[0]
+    whole_part, _, fraction = value.lstrip("+-").replace(",", ".").partition(".")
     _check_digit_count(whole_part, value, line_number, column, "Size value")
+    if len(fraction) > MAX_SIZE_DECIMALS:
+        raise NumericValueError(
+            f"Size value {_shown(value)} at line {line_number}, column {column!r} has more "
+            f"than {MAX_SIZE_DECIMALS} decimal places."
+        )
     try:
         parsed = Decimal(value.replace(",", "."))
     except InvalidOperation as exc:

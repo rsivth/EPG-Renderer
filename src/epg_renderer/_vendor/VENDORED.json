@@ -1,9 +1,9 @@
 {
   "name": "strio",
   "distribution": "strio-forensic",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "source": "https://github.com/rsivth/strio",
-  "tag": "v0.2.0",
+  "tag": "v0.2.1",
   "license": "BSD-3-Clause",
   "files": {
     "LICENSE": "91ec7c1b73783364e40c236405892898c5108cad135e123647a5772901a8fb03",
@@ -12,11 +12,11 @@
     "diagnostics.py": "a46edcb0727357923f1cddb8324f12dc710842e3e891285f48fbc49b522b097e",
     "errors.py": "ee366586cc11ad6101b72e9e39cd72a13dbc3ed795f1eaa725c33bae10b7b005",
     "formats/__init__.py": "cd0722e32771cb00677ba2c1873953e903909c498f56a4ffdd908546b90521d2",
-    "formats/_table.py": "c42d874a703d9cab76392a4461b3ed783de3ac55e648208e7c956dfc7437b3df",
-    "formats/genemapper.py": "d7122715efd07b424a6968a2e0849c1eb7c311d19109f5e7052523175af7db1e",
+    "formats/_table.py": "5954120c9f0bfaa07856992c4ec910252a803212d4cdbb5c4c3addd1529337b5",
+    "formats/genemapper.py": "af963903168e83616f4a1dab88fa5ec95c2646c1f84d75e57fafd5a1f78c1264",
     "markers.py": "4b8e2c4ce25c5ca606c15f6c5b1614b5fc968fccd68e5e264d36d68ba827b680",
-    "model.py": "c46f63cd0bac87f778b1123bfa9fed46e8b0c6054e69216db7909344cd134e54",
+    "model.py": "42a08263945f9f42112dc3a0635fb922342ea14e5969b548d1bc4ee916413a63",
     "py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "version.py": "78a9264398ad6b2f9e84b79a93be6953c3fe8d2068bb909ad9aff6a0f573aeeb"
+    "version.py": "e315d86a18fc92373ce4cda99a111eaf2c70a117c13fa129e0e499da62b42c6f"
   }
 }

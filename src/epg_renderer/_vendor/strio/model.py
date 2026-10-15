@@ -8,7 +8,8 @@ Every object is a frozen dataclass whose constructor validates its invariants an
 copies mutable inputs, so a model that exists is always internally consistent. Text
 fields accept only ``str`` (``TypeError`` otherwise); nothing is converted silently.
 Measurements that a file does not contain are ``None``; they are never replaced by
-zero. Columns a reader does not interpret are kept verbatim in ``extra`` mappings.
+zero. Columns a reader does not interpret are kept in ``extra`` mappings as text, with
+surrounding whitespace removed like every other value.
 """
 
 from __future__ import annotations
