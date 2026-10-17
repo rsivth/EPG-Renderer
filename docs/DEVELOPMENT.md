@@ -16,14 +16,32 @@ the same intended interpreter consistently for installation and checks.
 
 ## Canonical checks
 
+Before every push, run what CI checks, in one command:
+
+```bash
+python -m tools.run_release_checks --skip-build
+```
+
+It runs the quality checks and then the complete test suite under coverage, stops at
+the first failing stage, and always ends with one summary of all stages, including
+the test counts and `Result: PASSED` or `Result: FAILED`. That last block is the
+answer; the output above it belongs to the individual stages.
+
+Every check tool prints the same kind of short report: a framed block that ends with
+`Result: PASSED` or `Result: FAILED`. Output of a failing tool appears above its
+block, failing and skipped tests below it, and nothing else is printed when a check
+passes. The tools can also be run one by one.
+
 Run the complete functional test suite:
 
 ```bash
-python -m tools.run_all_tests
+python -m tools.run_all_tests        # short report
+python -m tools.run_all_tests -v     # every test as it runs
 ```
 
 Run it from the repository root with `-m`; starting `tools/run_all_tests.py` by path
-cannot import the `tools` package. Tests that need Tkinter belong in `test_gui*.py`
+cannot import the `tools` package. What a test prints is held back and appears only in
+the report of a failing test. Tests that need Tkinter belong in `test_gui*.py`
 modules; every other test module must import without Tkinter.
 
 Run linting, formatting verification, strict MyPy, and compilation:
@@ -35,7 +53,8 @@ python -m tools.run_quality_checks
 Run tests with enforced line and branch coverage:
 
 ```bash
-python -m tools.run_coverage_checks
+python -m tools.run_coverage_checks      # coverage table only if a threshold is missed
+python -m tools.run_coverage_checks -v   # always the full coverage table
 ```
 
 Before tagging a release, run the aggregate release gate:

@@ -198,13 +198,18 @@ def parse_rows(text: str, delimiter: str, source: str) -> list[Row]:
 
 
 def first_record_fields(text: str, delimiter: str) -> list[str] | None:
-    """Split the first physical line with ``delimiter``; ``None`` if that fails."""
+    """Split the first CSV record with ``delimiter``; ``None`` if that fails.
 
-    lines = text.splitlines()
-    first_record = lines[0] if lines else ""
+    The record is read exactly as :func:`parse_rows` reads it, so a quoted field may
+    contain line breaks and the record may span several physical lines. Delimiter
+    detection therefore accepts every header that reading with an explicit delimiter
+    accepts. Text without any record yields an empty list.
+    """
+
+    reader = csv.reader(io.StringIO(text, newline=""), delimiter=delimiter, strict=True)
     try:
-        return next(csv.reader([first_record], delimiter=delimiter, strict=True))
-    except (csv.Error, StopIteration):
+        return next(reader, [])
+    except csv.Error:
         return None
 
 

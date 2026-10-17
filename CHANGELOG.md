@@ -1,5 +1,38 @@
 # Changelog
 
+## 0.16.1 - 2026-10-17
+
+This release reads one more kind of edited export and shortens the output of the
+check tools. Images, projects and batch output are unchanged.
+
+### Fixed
+
+- **Column names with a line break:** an export whose header holds a quoted column
+  name with a line break (as a spreadsheet program writes it after a line break was
+  typed into a header cell) was rejected with "Could not detect CSV delimiter",
+  in 0.15.1 as well. It is now read; the column name keeps its line break. All other
+  exports are read exactly as by 0.16.0.
+
+### For developers
+
+- Bundles STRio 0.2.2, which detects the delimiter from the first CSV record instead
+  of the first physical line.
+- The check tools print a short report that ends with a framed block and
+  `Result: PASSED` or `Result: FAILED`:
+  - `tools.run_all_tests` holds back what passing tests print and lists only
+    failures, errors and skipped tests; `-v` shows every test as before;
+  - `tools.run_quality_checks` shows a tool's output only when its check fails;
+  - `tools.run_coverage_checks` shows the coverage table only when a threshold is
+    missed; `-v` always shows it.
+- `python -m tools.run_release_checks --skip-build` runs the quality checks and the
+  tests under coverage (the checks of CI's test job) and ends with one summary of all
+  stages, including the test counts. Without the flag it also builds and verifies the
+  release, as before.
+
+### Downloads
+
+The same files as in 0.16.0, with the version 0.16.1 in their names.
+
 ## 0.16.0 - 2026-10-15
 
 GeneMapper exports are now read by STRio, a separate package for forensic STR data

@@ -57,6 +57,7 @@ _ALLOWED_TOOL_FILES = {
     "__init__.py",
     "build_release.py",
     "build_windows_binaries.py",
+    "console_report.py",
     "coverage_policy.py",
     "github_release.py",
     "release_tools.py",

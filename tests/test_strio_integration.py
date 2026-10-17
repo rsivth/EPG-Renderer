@@ -206,6 +206,14 @@ class BundledReaderFixTests(unittest.TestCase):
         with self.assertRaisesRegex(NumericConversionError, "'Peak Area 1'"):
             read_genotypes_table(_write(self, text.encode("utf-8")))
 
+    def test_column_names_with_a_line_break_are_read(self) -> None:
+        # 0.15.1 and 0.16.0 rejected this with "Could not detect CSV delimiter".
+        text = 'Sample Name,Marker,Allele 1,Height 1,"Long\nNote"\nS,vWA,14,100,ok\n'
+        project = read_genotypes_table(_write(self, text.encode("utf-8")))
+        self.assertEqual(project.delimiter, ",")
+        self.assertEqual(project.header[-1], "Long\nNote")
+        self.assertEqual(project.samples["S"].markers["vWA"].alleles[0].allele, "14")
+
     def test_bundled_reader_describes_its_table_separately(self) -> None:
         dataset = strio.read_genemapper(ROOT / "tests" / "fixtures" / "ngm_minimal.tsv")
         self.assertEqual(dataset.source.require_table().delimiter, "\t")

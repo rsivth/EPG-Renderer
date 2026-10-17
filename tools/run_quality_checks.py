@@ -1,4 +1,8 @@
-"""Run the static quality gates used for EPG-Renderer releases."""
+"""Run the static quality gates used for EPG-Renderer releases.
+
+The output of a tool is shown only if its check fails, above the summary block, so the
+block with ``Result: PASSED`` or ``Result: FAILED`` is always the end of the output.
+"""
 
 from __future__ import annotations
 
@@ -7,16 +11,27 @@ import subprocess
 import sys
 from pathlib import Path
 
+from tools.console_report import block, package_version, row
+
 _REQUIRED_MODULES = ("build", "coverage", "ruff", "mypy")
 
 
-def _run(root: Path, *arguments: str) -> bool:
+def _run(root: Path, *arguments: str) -> tuple[bool, str]:
     result = subprocess.run(
         [sys.executable, *arguments],
         cwd=root,
         check=False,
+        capture_output=True,
+        text=True,
     )
-    return result.returncode == 0
+    return result.returncode == 0, (result.stdout + result.stderr).strip()
+
+
+def format_report(version: str, statuses: list[tuple[str, str]], succeeded: bool) -> str:
+    """Return the summary block of the quality checks."""
+
+    rows = [row(label, status) for label, status in statuses]
+    return block(f"EPG-Renderer {version} · quality checks", rows, succeeded)
 
 
 def main() -> int:
@@ -31,6 +46,8 @@ def main() -> int:
             + '. Install them with: python -m pip install -e ".[dev]"',
             file=sys.stderr,
         )
+        statuses = [(name, "NOT INSTALLED") for name in missing]
+        print(format_report(package_version(root), statuses, succeeded=False))
         return 2
 
     lint_targets = ("src", "tests", "examples", "tools", "packaging", "launch_gui.py")
@@ -41,12 +58,14 @@ def main() -> int:
         ("MyPy strict", ("-m", "mypy")),
         ("Compileall", ("-m", "compileall", "-q", *compile_targets)),
     )
-    succeeded = True
+    statuses: list[tuple[str, str]] = []
     for label, arguments in checks:
-        ok = _run(root, *arguments)
-        print(f"{label}: {'passed' if ok else 'failed'}")
-        succeeded = succeeded and ok
-    print(f"All quality checks passed: {'yes' if succeeded else 'no'}")
+        ok, output = _run(root, *arguments)
+        statuses.append((label, "passed" if ok else "FAILED"))
+        if not ok:
+            print(f"--- {label} ---\n{output}\n", flush=True)
+    succeeded = all(status == "passed" for _, status in statuses)
+    print(format_report(package_version(root), statuses, succeeded))
     return 0 if succeeded else 1
 
 
